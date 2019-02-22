@@ -12,8 +12,8 @@ export default class Header extends React.Component {
 
     return (
       <span>
-        Hello {userData.name},&nbsp;
-        <button className="btn btn-link btn-sm" onClick={logout}>Logout</button>
+        {userData.name}&nbsp;
+        <button className="btn btn-outline-light btn-sm" onClick={logout}>Logout</button>
       </span>
     );
   }
