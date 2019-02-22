@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Switch} from "react-router";
+import {Route, Switch, Redirect} from "react-router";
 import LoginForm from "./Forms/LoginForm";
 import PlayersListContainer from "./Containers/PlayersListContainer";
 import Header from "./Components/Header";
@@ -58,7 +58,7 @@ class App extends React.Component {
             <Route path="/blog-post/:id" component={BlogPostContainer}/>
             <Route path="/register" component={RegistrationContainer}/>
             <Route path="/players/:page?" component={PlayersListContainer}/>
-            <Route path="/" component={PlayersListContainer}/>
+            <Redirect from="/" to="/players/:page?"/>
           </Switch>
         </div>
       </div>
