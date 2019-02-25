@@ -16,14 +16,15 @@ const mapDispatchToProps = {
 
 class ClubPlayersListContainer extends React.Component {
   componentDidMount() {
-    this.props.commentListFetch(this.getQueryParamPage('id'), this.getQueryParamPage('page'));
+    const {params} = this.props;
+    this.props.commentListFetch(Number(params.id), Number(params.page));
   }
 
   componentDidUpdate(prevProps) {
-    const {currentPage, commentListFetch, playerListSetPage} = this.props;
+    const {currentPage, commentListFetch, playerListSetPage, params} = this.props;
 
-    if (prevProps.params.page !== this.getQueryParamPage('page')) {
-      playerListSetPage(this.getQueryParamPage('page'));
+    if (prevProps.params.page !== Number(params.page)) {
+      playerListSetPage(Number(params.page));
     }
 
     if (prevProps.currentPage !== currentPage) {
@@ -31,22 +32,11 @@ class ClubPlayersListContainer extends React.Component {
     }
   }
 
-  getQueryParamPage(p) {
-    const {params} = this.props;
-
-    if(p === 'id')
-    {
-      return Number(params.id);
-    }
-
-    return Number(params.page);
-  }
 
   changePage(page) {
-    const {history, playerListSetPage} = this.props;
-    const id = this.getQueryParamPage('id');
+    const {history, playerListSetPage, params} = this.props;
     playerListSetPage(page);
-    history.push(`/club/${id}/${page}`);
+    history.push(`/club/${params.id}/${page}`);
   }
 
   render() {
