@@ -1,31 +1,31 @@
-import {BLOG_POST_ERROR, BLOG_POST_RECEIVED, BLOG_POST_REQUEST, BLOG_POST_UNLOAD} from "../Actions/constants";
+import {CLUB_ERROR, CLUB_RECEIVED, CLUB_REQUEST, CLUB_UNLOAD} from "../Actions/constants";
 
 export default (state = {
-  post: null,
+  club: null,
   isFetching: false
 }, action) => {
   switch (action.type) {
-    case BLOG_POST_REQUEST:
+    case CLUB_REQUEST:
       return {
         ...state,
         isFetching: true
       };
-    case BLOG_POST_RECEIVED:
+    case CLUB_RECEIVED:
       return {
         ...state,
-        post: action.data,
+        club: action.data,
         isFetching: false
       };
-    case BLOG_POST_ERROR:
+    case CLUB_ERROR:
       return {
         ...state,
         isFetching: false
       };
-    case BLOG_POST_UNLOAD:
+    case CLUB_UNLOAD:
       return {
         ...state,
         isFetching: false,
-        post: null
+        club: null
       };
     default:
       return state;

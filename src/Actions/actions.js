@@ -1,14 +1,14 @@
 import {requests} from "../agent";
 import {
-  BLOG_POST_ERROR,
   BLOG_POST_FORM_UNLOAD,
   PLAYERS_LIST_ERROR,
   PLAYERS_LIST_RECEIVED,
   PLAYERS_LIST_REQUEST,
   PLAYERS_LIST_SET_PAGE,
-  BLOG_POST_RECEIVED,
-  BLOG_POST_REQUEST,
-  BLOG_POST_UNLOAD,
+  CLUB_ERROR,
+  CLUB_RECEIVED,
+  CLUB_REQUEST,
+  CLUB_UNLOAD,
   COMMENT_ADDED,
   COMMENT_LIST_ERROR,
   COMMENT_LIST_RECEIVED,
@@ -51,7 +51,7 @@ export const playerListSetPage = (page) => ({
   page
 });
 
-export const PlayerListFetch = (page = 1) => {
+export const playerListFetch = (page = 1) => {
   return (dispatch) => {
     dispatch(playerListRequest());
     return requests.get(`/players?_page=${page}`)
@@ -60,30 +60,30 @@ export const PlayerListFetch = (page = 1) => {
   }
 };
 
-export const blogPostRequest = () => ({
-  type: BLOG_POST_REQUEST,
+export const clubRequest = () => ({
+  type: CLUB_REQUEST,
 });
 
-export const blogPostError = (error) => ({
-  type: BLOG_POST_ERROR,
+export const clubError = (error) => ({
+  type: CLUB_ERROR,
   error
 });
 
-export const blogPostReceived = (data) => ({
-  type: BLOG_POST_RECEIVED,
+export const clubReceived = (data) => ({
+  type: CLUB_RECEIVED,
   data
 });
 
-export const blogPostUnload = () => ({
-  type: BLOG_POST_UNLOAD,
+export const clubUnload = () => ({
+  type: CLUB_UNLOAD,
 });
 
-export const blogPostFetch = (id) => {
+export const clubFetch = (id) => {
   return (dispatch) => {
-    dispatch(blogPostRequest());
-    return requests.get(`/blog_posts/${id}`)
-      .then(response => dispatch(blogPostReceived(response)))
-      .catch(error => dispatch(blogPostError(error)));
+    dispatch(clubRequest());
+    return requests.get(`/clubs/${id}`)
+      .then(response => dispatch(clubReceived(response)))
+      .catch(error => dispatch(clubError(error)));
   }
 };
 
@@ -135,7 +135,7 @@ export const commentListUnload = () => ({
 export const commentListFetch = (id, page = 1) => {
   return (dispatch) => {
     dispatch(commentListRequest());
-    return requests.get(`/blog_posts/${id}/comments?_page=${page}`)
+    return requests.get(`/clubs/${id}/players?_page=${page}`)
       .then(response => dispatch(commentListReceived(response)))
       .catch(error => dispatch(commentListError(error)));
   }

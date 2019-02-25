@@ -3,7 +3,7 @@ import {Route, Switch, Redirect} from "react-router";
 import LoginForm from "./Forms/LoginForm";
 import PlayersListContainer from "./Containers/PlayersListContainer";
 import Header from "./Components/Header";
-import BlogPostContainer from "./Containers/BlogPostContainer";
+import ClubContainer from "./Containers/ClubContainer";
 import {requests} from "./agent";
 import {connect} from "react-redux";
 import {userLogout, userProfileFetch, userSetId} from "./Actions/actions";
@@ -55,7 +55,7 @@ class App extends React.Component {
           <Switch>
             <Route path="/login" component={LoginForm}/>
             <Route path="/blog-post-form" component={BlogPostForm}/>
-            <Route path="/blog-post/:id" component={BlogPostContainer}/>
+            <Route path="/club/:id/:page?" component={ClubContainer}/>
             <Route path="/register" component={RegistrationContainer}/>
             <Route path="/players/:page?" component={PlayersListContainer}/>
             <Redirect from="/" to="/players/:page?"/>

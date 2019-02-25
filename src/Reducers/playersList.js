@@ -7,7 +7,7 @@ import {
 import {hydraPageCount} from "../apiUtils";
 
 export default(state = {
-  posts: null,
+  players: null,
   isFetching: false,
   currentPage: 1,
   pageCount: null
@@ -22,7 +22,7 @@ export default(state = {
     case PLAYERS_LIST_RECEIVED:
       state = {
         ...state,
-        posts: action.data['hydra:member'],
+        players: action.data['hydra:member'],
         pageCount: hydraPageCount(action.data),
         isFetching: false
       };
@@ -31,12 +31,12 @@ export default(state = {
       return {
         ...state,
         isFetching: false,
-        posts: null
+        players: null
       };
     case BLOG_POST_LIST_ADD:
       state = {
         ...state,
-        posts: state.posts ? state.posts.concat(action.data) : state.posts
+        players: state.players ? state.players.concat(action.data) : state.players
       };
       return state;
     case PLAYERS_LIST_SET_PAGE:

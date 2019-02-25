@@ -1,32 +1,33 @@
 import React from 'react';
 import PlayersList from "../Components/Lists/PlayersList";
-import {PlayerListFetch, playerListSetPage} from "../Actions/actions";
+import {playerListFetch, playerListSetPage} from "../Actions/actions";
 import {connect} from "react-redux";
 import {Spinner} from "../Components/Commons/Spinner";
 import {Paginator} from "../Components/Commons/Paginator";
 
 const mapStateToProps = state => ({
-  ...state.blogPostList
+  ...state.playersList
 });
 
 const mapDispatchToProps = {
-  blogPostListFetch: PlayerListFetch, blogPostListSetPage: playerListSetPage
+  playerListFetch: playerListFetch,
+  playerListSetPage: playerListSetPage
 };
 
 class PlayersListContainer extends React.Component {
   componentDidMount() {
-    this.props.blogPostListFetch(this.getQueryParamPage());
+    this.props.playerListFetch(this.getQueryParamPage());
   }
 
   componentDidUpdate(prevProps) {
-    const {currentPage, blogPostListFetch, blogPostListSetPage} = this.props;
+    const {currentPage, playerListFetch, playerListSetPage} = this.props;
 
     if (prevProps.match.params.page !== this.getQueryParamPage()) {
-      blogPostListSetPage(this.getQueryParamPage());
+      playerListSetPage(this.getQueryParamPage());
     }
 
     if (prevProps.currentPage !== currentPage) {
-      blogPostListFetch(currentPage);
+      playerListFetch(currentPage);
     }
   }
 
@@ -35,37 +36,21 @@ class PlayersListContainer extends React.Component {
   }
 
   changePage(page) {
-    const {history, blogPostListSetPage} = this.props;
-    blogPostListSetPage(page);
+    const {history, playerListSetPage} = this.props;
+    playerListSetPage(page);
     history.push(`/players/${page}`);
   }
 
-  onNextPageClick(e) {
-    const {currentPage, pageCount} = this.props;
-    const newPage = Math.min(currentPage + 1, pageCount);
-    this.changePage(newPage);
-  }
-
-  onPrevPageClick(e) {
-    const {currentPage} = this.props;
-    const newPage = Math.max(currentPage - 1, 1);
-    this.changePage(newPage);
-  }
-
   render() {
-    const {posts, isFetching, currentPage, pageCount} = this.props;
+    const {players, isFetching, currentPage, pageCount} = this.props;
 
     if (isFetching) {
       return (<Spinner/>);
     }
-
     return (
       <div>
-        <PlayersList posts={posts}/>
-        <Paginator currentPage={currentPage} pageCount={pageCount}
-                   setPage={this.changePage.bind(this)}
-                   nextPage={this.onNextPageClick.bind(this)}
-                   prevPage={this.onPrevPageClick.bind(this)}/>
+        <PlayersList players={players}/>
+        <Paginator pageCount={pageCount} currentPage={currentPage} changePage={this.changePage.bind(this)}/>
       </div>
     )
   }

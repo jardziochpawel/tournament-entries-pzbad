@@ -1,6 +1,6 @@
 import {combineReducers} from "redux";
-import blogPostList from "./Reducers/playersList";
-import blogPost from "./Reducers/blogPost";
+import playersList from "./Reducers/playersList";
+import club from "./Reducers/club";
 import commentList from "./Reducers/commentList";
 import {reducer as formReducer} from 'redux-form';
 import auth from "./Reducers/auth";
@@ -9,8 +9,8 @@ import registration from "./Reducers/registration";
 import blogPostForm from "./Reducers/blogPostForm";
 
 export default combineReducers({
-  blogPostList,
-  blogPost,
+  playersList,
+  club,
   commentList,
   auth,
   registration,

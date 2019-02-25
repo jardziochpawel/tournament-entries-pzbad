@@ -1,21 +1,25 @@
 import React from 'react';
-import timeago from 'timeago.js';
 import {Link} from "react-router-dom";
 import {Message} from "../Commons/Message";
 
 class PlayersList extends React.Component {
 
-  clubId(club){
-    return club.match(/(\d+)/)[1]
-  }
+
 
   render() {
-    const {posts} = this.props;
+    const {players} = this.props;
 
-    if (null === posts || 0 === posts.length) {
+    const clubName = (club) => {
+      let id = club['@id'].match(/(\d+)/)[1];
+
+      return (
+          <Link to={`/club/${id}`}>{club.name}</Link>
+      )
+    };
+
+    if (null === players || 0 === players.length) {
       return (<Message message="No blog posts"/>);
     }
-    console.log(posts);
     return (
       <table className="table table-striped ">
           <thead>
@@ -24,19 +28,17 @@ class PlayersList extends React.Component {
               <th scope="col">PZBAD ID</th>
               <th scope="col">Imię</th>
               <th scope="col">Nazwisko</th>
-              <th scope="col">Płeć</th>
               <th scope="col">Klub</th>
             </tr>
           </thead>
           <tbody>
-              {posts && posts.map(post => (
-                    <tr key={post.id}>
-                      <th scope="row">{post.id}</th>
-                      <td>{post.pzbadId}</td>
-                      <td>{post.firstName}</td>
-                      <td>{post.lastName}</td>
-                      <td>{post.gender === 0 && 'M'}{post.gender !== 0 && 'K'}</td>
-                      <td><Link to={'/club/'+this.clubId(post.club)}>{post.club.match(/(\d+)/)[1]}</Link></td>
+              {players && players.map(player => (
+                    <tr key={player.id}>
+                      <th scope="row">{player.id}</th>
+                      <td>{player.pzbadId}</td>
+                      <td>{player.firstName}</td>
+                      <td>{player.lastName}</td>
+                      <td>{clubName(player.club)}</td>
                     </tr>
               ))}
           </tbody>
