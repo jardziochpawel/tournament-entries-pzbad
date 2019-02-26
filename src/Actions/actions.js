@@ -10,10 +10,14 @@ import {
   CLUB_REQUEST,
   CLUB_UNLOAD,
   COMMENT_ADDED,
-  COMMENT_LIST_ERROR,
-  COMMENT_LIST_RECEIVED,
-  COMMENT_LIST_REQUEST,
-  COMMENT_LIST_UNLOAD,
+  CLUB_PLAYERS_LIST_ERROR,
+  CLUB_PLAYERS_LIST_RECEIVED,
+  CLUB_PLAYERS_LIST_REQUEST,
+  CLUB_PLAYERS_LIST_SET_PAGE,
+  CLUB_LIST_ERROR,
+  CLUB_LIST_RECEIVED,
+  CLUB_LIST_REQUEST,
+  CLUB_LIST_SET_PAGE,
   IMAGE_DELETE_REQUEST,
   IMAGE_DELETED,
   IMAGE_UPLOAD_ERROR,
@@ -87,6 +91,34 @@ export const clubFetch = (id) => {
   }
 };
 
+export const clubListRequest = () => ({
+  type: CLUB_LIST_REQUEST,
+});
+
+export const clubListError = (error) => ({
+  type: CLUB_LIST_ERROR,
+  error
+});
+
+export const clubListReceived = (data) => ({
+  type: CLUB_LIST_RECEIVED,
+  data
+});
+
+export const clubListSetPage = (page) => ({
+  type: CLUB_LIST_SET_PAGE,
+  page
+});
+
+export const clubListFetch = (page) => {
+  return (dispatch) => {
+    dispatch(clubListRequest());
+    return requests.get('/clubs?_page='+page)
+      .then(response => dispatch(clubListReceived(response)))
+      .catch(error => dispatch(clubListError(error)));
+  }
+};
+
 export const blogPostAdd = (title, content, images = []) => {
   return (dispatch) => {
     return requests.post(
@@ -114,30 +146,31 @@ export const blogPostFormUnload = () => ({
   type: BLOG_POST_FORM_UNLOAD
 });
 
-export const commentListRequest = () => ({
-  type: COMMENT_LIST_REQUEST,
+export const clubPlayersListRequest = () => ({
+  type: CLUB_PLAYERS_LIST_REQUEST,
 });
 
-export const commentListError = (error) => ({
-  type: COMMENT_LIST_ERROR,
+export const clubPlayersListError = (error) => ({
+  type: CLUB_PLAYERS_LIST_ERROR,
   error
 });
 
-export const commentListReceived = (data) => ({
-  type: COMMENT_LIST_RECEIVED,
+export const clubPlayersListReceived = (data) => ({
+  type: CLUB_PLAYERS_LIST_RECEIVED,
   data
 });
 
-export const commentListUnload = () => ({
-  type: COMMENT_LIST_UNLOAD,
+export const clubPlayerListSetPage = (page) => ({
+  type: CLUB_PLAYERS_LIST_SET_PAGE,
+  page
 });
 
-export const commentListFetch = (id, page = 1) => {
+export const clubPlayersListFetch = (id, page = 1) => {
   return (dispatch) => {
-    dispatch(commentListRequest());
-    return requests.get(`/clubs/${id}/players?_page=${page}`)
-      .then(response => dispatch(commentListReceived(response)))
-      .catch(error => dispatch(commentListError(error)));
+    dispatch(clubPlayersListRequest());
+    return requests.get('/clubs/'+id+'/players?_page='+page)
+      .then(response => dispatch(clubPlayersListReceived(response)))
+      .catch(error => dispatch(clubPlayersListError(error)));
   }
 };
 

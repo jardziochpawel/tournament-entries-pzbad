@@ -5,10 +5,10 @@ import "./CommentList.css";
 
 export class ClubPlayersList extends React.Component {
   render() {
-    const {commentList} = this.props;
+    const {clubPlayersList} = this.props;
 
-    if (null === commentList || 0 === commentList.length) {
-      return (<Message message="No comments yet"/>);
+    if (null === clubPlayersList || 0 === clubPlayersList.length) {
+      return (<Message message="Jeszcze nie ma zawodników"/>);
     }
 
     return (
@@ -23,12 +23,12 @@ export class ClubPlayersList extends React.Component {
             </tr>
             </thead>
             <tbody>
-            {commentList && commentList.map(post => (
-                <tr key={post.id}>
-                  <th scope="row">{post.id}</th>
-                  <td>{post.pzbadId}</td>
-                  <td>{post.firstName}</td>
-                  <td>{post.lastName}</td>
+            {clubPlayersList && clubPlayersList.map(player => (
+                <tr key={player.id}>
+                  <th scope="row">{player.id}</th>
+                  <td>{player.pzbadId}</td>
+                  <td>{player.firstName}</td>
+                  <td>{player.lastName}</td>
                 </tr>
             ))}
             </tbody>

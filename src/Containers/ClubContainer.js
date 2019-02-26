@@ -33,7 +33,7 @@ class ClubContainer extends React.Component {
     return (
       <div>
       <Club club={club}/>
-        {club && <ClubPlayersListContainer params={this.props.match.params} history={history} pageCount={club.players.length}/>}
+        {club && <ClubPlayersListContainer params={this.props.match.params} history={history}/>}
       </div>
     )
   }

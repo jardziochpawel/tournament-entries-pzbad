@@ -28,24 +28,24 @@ export default class Header extends React.Component {
         </Link>
 
         <ul className="navbar-nav mr-auto">
-          {
-            !isAuthenticated &&
-            (
-              <li className="nav-item">
-                <Link to="/register" className="nav-link">Register</Link>
-              </li>
-            )
-          }
-          {
-            isAuthenticated &&
-            (
-              <li className="nav-item">
-                <Link to="/players" className="nav-link">
-                  Zawodnicy
-                </Link>
-              </li>
-            )
-          }
+          {/*{*/}
+            {/*isAuthenticated &&*/}
+            {/*(*/}
+              {/*<li className="nav-item">*/}
+                {/*<Link to="/register" className="nav-link">Register</Link>*/}
+              {/*</li>*/}
+            {/*)*/}
+          {/*}*/}
+          <li className="nav-item">
+            <Link to="/players" className="nav-link">
+              Zawodnicy
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/clubs" className="nav-link">
+              Kluby
+            </Link>
+          </li>
         </ul>
 
         <span className="navbar-text">
