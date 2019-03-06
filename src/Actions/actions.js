@@ -31,7 +31,11 @@ import {
   USER_PROFILE_REQUEST,
   USER_REGISTER_COMPLETE,
   USER_REGISTER_SUCCESS,
-  USER_SET_ID
+  USER_SET_ID,
+  TOURNAMENTS_LIST_REQUEST,
+  TOURNAMENTS_LIST_ERROR,
+  TOURNAMENTS_LIST_RECEIVED,
+  TOURNAMENTS_LIST_SET_PAGE
 } from "./constants";
 import {SubmissionError} from "redux-form";
 import {parseApiErrors} from "../apiUtils";
@@ -61,6 +65,34 @@ export const playerListFetch = (page = 1) => {
     return requests.get(`/players?_page=${page}`)
       .then(response => dispatch(playerListReceived(response)))
       .catch(error => dispatch(playerListError(error)));
+  }
+};
+
+export const tournamentsListRequest = () => ({
+  type: TOURNAMENTS_LIST_REQUEST,
+});
+
+export const tournamentsListError = (error) => ({
+  type: TOURNAMENTS_LIST_ERROR,
+  error
+});
+
+export const tournamentsListReceived = (data) => ({
+  type: TOURNAMENTS_LIST_RECEIVED,
+  data
+});
+
+export const tournamentsListSetPage = (page) => ({
+  type: TOURNAMENTS_LIST_SET_PAGE,
+  page
+});
+
+export const tournamentsListFetch = (page = 1) => {
+  return (dispatch) => {
+    dispatch(tournamentsListRequest());
+    return requests.get('/tournaments?_page='+page)
+        .then(response => dispatch(tournamentsListReceived(response)))
+        .catch(error => dispatch(tournamentsListError(error)));
   }
 };
 

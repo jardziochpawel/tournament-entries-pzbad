@@ -8,8 +8,10 @@ import {requests} from "./agent";
 import {connect} from "react-redux";
 import {userLogout, userProfileFetch, userSetId} from "./Actions/actions";
 import RegistrationContainer from "./Containers/RegistrationContainer";
+import RegistrationTournamentContainer from "./Containers/RegistrationTournamentContainer";
 import BlogPostForm from "./Forms/BlogPostForm";
 import ClubsListContainer from "./Containers/ClubsListContainer";
+import TournamentsListContainer from "./Containers/TournamentsListContainer";
 
 const mapStateToProps = state => ({
   ...state.auth
@@ -59,7 +61,9 @@ class App extends React.Component {
             <Route path="/clubs/:page?" component={ClubsListContainer}/>
             <Route path="/club/:id/:page?" component={ClubContainer}/>
             <Route path="/register" component={RegistrationContainer}/>
+            <Route path="/register-tournament" component={RegistrationTournamentContainer}/>
             <Route path="/players/:page?" component={PlayersListContainer}/>
+            <Route path="/tournaments/:page?" component={TournamentsListContainer}/>
             <Redirect from="/" to="/players/:page?"/>
           </Switch>
         </div>

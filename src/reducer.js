@@ -8,6 +8,7 @@ import clubsList from "./Reducers/clubsList"
 import {routerReducer} from "react-router-redux";
 import registration from "./Reducers/registration";
 import blogPostForm from "./Reducers/blogPostForm";
+import tournamentsList from "./Reducers/tournamentsList";
 
 export default combineReducers({
   playersList,
@@ -17,6 +18,7 @@ export default combineReducers({
   registration,
   blogPostForm,
   clubsList,
+  tournamentsList,
   router: routerReducer,
   form: formReducer
 });

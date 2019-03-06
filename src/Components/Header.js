@@ -28,14 +28,7 @@ export default class Header extends React.Component {
         </Link>
 
         <ul className="navbar-nav mr-auto">
-          {/*{*/}
-            {/*isAuthenticated &&*/}
-            {/*(*/}
-              {/*<li className="nav-item">*/}
-                {/*<Link to="/register" className="nav-link">Register</Link>*/}
-              {/*</li>*/}
-            {/*)*/}
-          {/*}*/}
+
           <li className="nav-item">
             <Link to="/players" className="nav-link">
               Zawodnicy
@@ -46,6 +39,19 @@ export default class Header extends React.Component {
               Kluby
             </Link>
           </li>
+          <li className="nav-item">
+            <Link to="/tournaments" className="nav-link">
+              Turnieje
+            </Link>
+          </li>
+            {
+                isAuthenticated &&
+                (
+                    <li className="nav-item">
+                        <Link to="/register-tournament" className="nav-link">Dodaj turniej</Link>
+                    </li>
+                )
+            }
         </ul>
 
         <span className="navbar-text">

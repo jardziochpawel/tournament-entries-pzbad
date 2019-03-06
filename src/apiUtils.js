@@ -18,7 +18,7 @@ export const hydraPageCount = (collection) => {
   );
 };
 
-const canWriteBlogPostRoles = ['ROLE_WRITER', 'ROLE_ADMIN', 'ROLE_SUPERADMIN'];
+const canWriteBlogPostRoles = ['ROLE_WRITER', 'ROLE_ADMIN', "ROLE_SUPERADMIN"];
 
 export const canWriteBlogPost = (userData) => {
   return null !== userData
