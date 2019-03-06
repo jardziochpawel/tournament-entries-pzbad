@@ -72,7 +72,7 @@ class RegisterForm extends React.Component {
                 dateFormatCalendar="dddd"
                 fixedHeight
                 showMonthDropdown
-                placeholder='Wybierz datę'
+                placeholder='  Wybierz datę'
                 showYearDropdown
                 dropdownMode="select"
                 normalize={value => (value ? moment(value).format('YYYY-MM-DD') : null)}
