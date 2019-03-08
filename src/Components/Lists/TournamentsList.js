@@ -52,8 +52,8 @@ class TournamentsList extends React.Component {
                                         if(i === tournament.playerCategory.length){
                                             i = 1;
                                             return(
-                                                <Link to={'/tournament-result/'+tournament.id+'/'+category.pzbadId}>
-                                                    <li className="list-inline-item" key={category['@id']}>
+                                                <Link to={'/tournament-result/'+tournament.id+'/'+category.pzbadId} key={category['@id']}>
+                                                    <li className="list-inline-item">
                                                     {category.pzbadId}
                                                 </li></Link>
 
@@ -61,8 +61,8 @@ class TournamentsList extends React.Component {
                                         }
                                         i++;
                                         return(
-                                            <Link to={'/tournament-result/'+tournament.id+'/'+category.pzbadId}>
-                                                <li className="list-inline-item" key={category['@id']}>
+                                            <Link to={'/tournament-result/'+tournament.id+'/'+category.pzbadId} key={category['@id']}>
+                                                <li className="list-inline-item">
                                                     {category.pzbadId},&nbsp;
                                                 </li>
                                             </Link>
@@ -77,7 +77,6 @@ class TournamentsList extends React.Component {
                                             <i className='fa fa-pencil'/>
                                 </Link>
                             </td>
-
                         }
                     </tr>
                 );
