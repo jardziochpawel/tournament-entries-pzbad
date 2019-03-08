@@ -1,39 +1,32 @@
 import React from 'react';
-import {clubFetch, clubUnload} from "../Actions/actions";
+import {classificationListFetch} from "../Actions/actions";
 import {connect} from "react-redux";
-import {Club} from "../Components/Club";
 import {Spinner} from "../Components/Commons/Spinner";
-import ClubPlayersListContainer from "./ClubPlayersListContainer";
+import ClassificationList from "../Components/Lists/ClassificationList";
 
 const mapStateToProps = state => ({
-  ...state.club
+  ...state.classificationList
 });
 
 const mapDispatchToProps = {
-  clubFetch: clubFetch,
-  clubUnload: clubUnload
+  classificationListFetch: classificationListFetch,
 };
 
 class ClubContainer extends React.Component {
   componentDidMount() {
-    this.props.clubFetch(this.props.match.params.id);
-  }
-
-  componentWillUnmount() {
-    this.props.clubUnload();
+    this.props.classificationListFetch(this.props.match.params.id, this.props.match.params.typeOfGame);
   }
 
   render() {
-    const {isFetching, club, history} = this.props;
+    const {isFetching, classification} = this.props;
 
     if (isFetching) {
       return (<Spinner/>);
     }
 
     return (
-      <div>
-      <Club club={club}/>
-        {club && <ClubPlayersListContainer params={this.props.match.params} history={history}/>}
+      <div className='w-100'>
+      <ClassificationList classification={classification} params={this.props.match.params}/>
       </div>
     )
   }

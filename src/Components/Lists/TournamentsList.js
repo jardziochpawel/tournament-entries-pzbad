@@ -69,7 +69,8 @@ class TournamentsList extends React.Component {
                                         );
                                     }
                                 )}
-                            </ul></td>
+                            </ul>
+                        </td>
                         {
                             canWriteBlogPost(userData) &&
                             <td>

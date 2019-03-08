@@ -2,7 +2,7 @@ import {
   CLASSIFICATION_LIST_REQUEST,
   CLASSIFICATION_LIST_RECEIVED,
   CLASSIFICATION_LIST_ERROR,
-  CLASSIFICATION_LIST_SET_PAGE,
+  CLASSIFICATION_LIST_SET_TYPE_OF_GAME,
   CLASSIFICATION_LIST_SET_CATEGORY
 } from "../Actions/constants";
 import {hydraPageCount} from "../apiUtils";
@@ -24,7 +24,7 @@ export default(state = {
     case CLASSIFICATION_LIST_RECEIVED:
       state = {
         ...state,
-        classification: action.data['hydra:member'],
+        classification: action.data,
         pageCount: hydraPageCount(action.data),
         isFetching: false
       };
@@ -35,7 +35,7 @@ export default(state = {
         isFetching: false,
         classification: null
       };
-    case CLASSIFICATION_LIST_SET_PAGE:
+    case CLASSIFICATION_LIST_SET_TYPE_OF_GAME:
       return {
         ...state,
         currentPage: action.page

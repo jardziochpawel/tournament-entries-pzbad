@@ -48,7 +48,7 @@ import {
   CLASSIFICATION_LIST_REQUEST,
   CLASSIFICATION_LIST_ERROR,
   CLASSIFICATION_LIST_RECEIVED,
-  CLASSIFICATION_LIST_SET_PAGE,
+  CLASSIFICATION_LIST_SET_TYPE_OF_GAME,
   CLASSIFICATION_LIST_SET_CATEGORY
 } from "./constants";
 import {SubmissionError} from "redux-form";
@@ -158,8 +158,8 @@ export const classificationListReceived = (data) => ({
   data
 });
 
-export const classificationListSetPage = (page) => ({
-  type: CLASSIFICATION_LIST_SET_PAGE,
+export const classificationListSetTypeOfGame = (page) => ({
+  type: CLASSIFICATION_LIST_SET_TYPE_OF_GAME,
   page
 });
 
@@ -168,10 +168,10 @@ export const classificationListSetCategory = (category) => ({
   category
 });
 
-export const classificationListFetch = (id, typeOfGame = 'SM', category = 'JM') => {
+export const classificationListFetch = (id, typeOfGame = 'SM') => {
   return (dispatch) => {
     dispatch(classificationListRequest());
-    return requests.get('/tournaments/'+id+'/results?itemsPerPage=100&typeOfGame='+typeOfGame+'&playerCategory.pzbadId='+category)
+    return requests.get('/classification/'+id+'/'+typeOfGame)
         .then(response => dispatch(classificationListReceived(response)))
         .catch(error => dispatch(classificationListError(error)));
   }

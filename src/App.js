@@ -14,6 +14,7 @@ import ClubsListContainer from "./Containers/ClubsListContainer";
 import TournamentsListContainer from "./Containers/TournamentsListContainer";
 import TournamentResultContainer from "./Containers/TournamentResultContainer";
 import TournamentResultForm from "./Forms/TournamentResultForm";
+import ClassificationListContainer from "./Containers/ClassificationListContainer";
 
 const mapStateToProps = state => ({
   ...state.auth
@@ -56,7 +57,7 @@ class App extends React.Component {
     return (
       <div>
         <Header isAuthenticated={isAuthenticated} userData={userData} logout={userLogout}/>
-        <div style={{marginTop: 100+'px'}}>
+        <div className='w-100' style={{marginTop: 100+'px'}}>
           <Switch>
             <Route path="/login" component={LoginForm}/>
             <Route path="/blog-post-form" component={BlogPostForm}/>
@@ -65,6 +66,7 @@ class App extends React.Component {
             <Route path="/register" component={RegistrationContainer}/>
             <Route path="/register-tournament" component={RegistrationTournamentContainer}/>
             <Route path="/players/:page?" component={PlayersListContainer}/>
+            <Route path="/classification/:id/:typeOfGame" component={ClassificationListContainer}/>
             <Route path="/tournaments/:page?" component={TournamentsListContainer}/>
             <Route path="/tournament-result/:id/:category?" component={TournamentResultContainer}/>
             <Route path="/tournament-result-form/:id" component={TournamentResultForm}/>
