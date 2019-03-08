@@ -9,6 +9,10 @@ import {
   CLUB_RECEIVED,
   CLUB_REQUEST,
   CLUB_UNLOAD,
+  TOURNAMENT_ERROR,
+  TOURNAMENT_RECEIVED,
+  TOURNAMENT_REQUEST,
+  TOURNAMENT_UNLOAD,
   COMMENT_ADDED,
   CLUB_PLAYERS_LIST_ERROR,
   CLUB_PLAYERS_LIST_RECEIVED,
@@ -35,7 +39,17 @@ import {
   TOURNAMENTS_LIST_REQUEST,
   TOURNAMENTS_LIST_ERROR,
   TOURNAMENTS_LIST_RECEIVED,
-  TOURNAMENTS_LIST_SET_PAGE
+  TOURNAMENTS_LIST_SET_PAGE,
+  TOURNAMENTS_RESULT_REQUEST,
+  TOURNAMENTS_RESULT_ERROR,
+  TOURNAMENTS_RESULT_RECEIVED,
+  TOURNAMENTS_RESULT_SET_PAGE,
+  TOURNAMENTS_RESULT_SET_CATEGORY,
+  CLASSIFICATION_LIST_REQUEST,
+  CLASSIFICATION_LIST_ERROR,
+  CLASSIFICATION_LIST_RECEIVED,
+  CLASSIFICATION_LIST_SET_PAGE,
+  CLASSIFICATION_LIST_SET_CATEGORY
 } from "./constants";
 import {SubmissionError} from "redux-form";
 import {parseApiErrors} from "../apiUtils";
@@ -96,6 +110,73 @@ export const tournamentsListFetch = (page = 1) => {
   }
 };
 
+export const tournamentsResultRequest = () => ({
+  type: TOURNAMENTS_RESULT_REQUEST,
+});
+
+export const tournamentsResultError = (error) => ({
+  type: TOURNAMENTS_RESULT_ERROR,
+  error
+});
+
+export const tournamentsResultReceived = (data) => ({
+  type: TOURNAMENTS_RESULT_RECEIVED,
+  data
+});
+
+export const tournamentsResultSetPage = (page) => ({
+  type: TOURNAMENTS_RESULT_SET_PAGE,
+  page
+});
+
+export const tournamentsResultSetCategory = (category) => ({
+  type: TOURNAMENTS_RESULT_SET_CATEGORY,
+  category
+});
+
+export const tournamentsResultFetch = (id, typeOfGame = 'SM', category = 'JM') => {
+  return (dispatch) => {
+    dispatch(tournamentsResultRequest());
+    return requests.get('/tournaments/'+id+'/results?itemsPerPage=100&typeOfGame='+typeOfGame+'&playerCategory.pzbadId='+category)
+        .then(response => dispatch(tournamentsResultReceived(response)))
+        .catch(error => dispatch(tournamentsResultError(error)));
+  }
+};
+
+
+export const classificationListRequest = () => ({
+  type: CLASSIFICATION_LIST_REQUEST,
+});
+
+export const classificationListError = (error) => ({
+  type: CLASSIFICATION_LIST_ERROR,
+  error
+});
+
+export const classificationListReceived = (data) => ({
+  type: CLASSIFICATION_LIST_RECEIVED,
+  data
+});
+
+export const classificationListSetPage = (page) => ({
+  type: CLASSIFICATION_LIST_SET_PAGE,
+  page
+});
+
+export const classificationListSetCategory = (category) => ({
+  type: CLASSIFICATION_LIST_SET_CATEGORY,
+  category
+});
+
+export const classificationListFetch = (id, typeOfGame = 'SM', category = 'JM') => {
+  return (dispatch) => {
+    dispatch(classificationListRequest());
+    return requests.get('/tournaments/'+id+'/results?itemsPerPage=100&typeOfGame='+typeOfGame+'&playerCategory.pzbadId='+category)
+        .then(response => dispatch(classificationListReceived(response)))
+        .catch(error => dispatch(classificationListError(error)));
+  }
+};
+
 export const clubRequest = () => ({
   type: CLUB_REQUEST,
 });
@@ -120,6 +201,29 @@ export const clubFetch = (id) => {
     return requests.get(`/clubs/${id}`)
       .then(response => dispatch(clubReceived(response)))
       .catch(error => dispatch(clubError(error)));
+  }
+};
+
+export const tournamentRequest = () => ({
+  type: TOURNAMENT_REQUEST,
+});
+
+export const tournamentError = (error) => ({
+  type: TOURNAMENT_ERROR,
+  error
+});
+
+export const tournamentReceived = (data) => ({
+  type: TOURNAMENT_RECEIVED,
+  data
+});
+
+export const tournamentFetch = (id) => {
+  return (dispatch) => {
+    dispatch(tournamentRequest());
+    return requests.get(`/tournaments/${id}`)
+      .then(response => dispatch(tournamentReceived(response)))
+      .catch(error => dispatch(tournamentError(error)));
   }
 };
 

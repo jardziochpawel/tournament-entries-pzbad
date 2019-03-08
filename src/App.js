@@ -12,6 +12,8 @@ import RegistrationTournamentContainer from "./Containers/RegistrationTournament
 import BlogPostForm from "./Forms/BlogPostForm";
 import ClubsListContainer from "./Containers/ClubsListContainer";
 import TournamentsListContainer from "./Containers/TournamentsListContainer";
+import TournamentResultContainer from "./Containers/TournamentResultContainer";
+import TournamentResultForm from "./Forms/TournamentResultForm";
 
 const mapStateToProps = state => ({
   ...state.auth
@@ -64,6 +66,8 @@ class App extends React.Component {
             <Route path="/register-tournament" component={RegistrationTournamentContainer}/>
             <Route path="/players/:page?" component={PlayersListContainer}/>
             <Route path="/tournaments/:page?" component={TournamentsListContainer}/>
+            <Route path="/tournament-result/:id/:category?" component={TournamentResultContainer}/>
+            <Route path="/tournament-result-form/:id" component={TournamentResultForm}/>
             <Redirect from="/" to="/players/:page?"/>
           </Switch>
         </div>

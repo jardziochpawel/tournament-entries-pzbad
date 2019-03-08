@@ -19,6 +19,14 @@ export const renderField = ({input, label, type, meta: {error}}) => {
     </div>
   );
 };
+export const renderHiddenField = ({input, label, type, id}) => {
+
+  return (
+    <div className="form-group">
+        <input {...input} value={id} type={type} hidden={true}/>
+    </div>
+  );
+};
 
 export const renderChoicesField = (props) =>{
   const { children, input, options, isMulti, isSearchable, closeMenuOnSelect, meta: {error}} = props;

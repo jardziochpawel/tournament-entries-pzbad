@@ -6,6 +6,7 @@ import {Paginator} from "../Components/Commons/Paginator";
 import TournamentsList from "../Components/Lists/TournamentsList";
 
 const mapStateToProps = state => ({
+  userData: state.auth.userData,
   ...state.tournamentsList
 });
 
@@ -48,9 +49,10 @@ class TournamentsListContainer extends React.Component {
     if (isFetching) {
       return (<Spinner/>);
     }
+
     return (
         <div>
-          <TournamentsList tournaments={tournaments}/>
+          <TournamentsList tournaments={tournaments} userData={this.props.userData}/>
           <Paginator pageCount={pageCount} currentPage={currentPage} changePage={this.changePage.bind(this)}/>
         </div>
     )

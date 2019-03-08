@@ -3,11 +3,12 @@ import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {canWriteBlogPost} from "../apiUtils";
 import {Redirect} from "react-router";
-import {renderField} from "../Components/Commons/form";
 import {blogPostAdd, blogPostFormUnload, imageDelete} from "../Actions/actions";
 import ImageUpload from "../Components/ImageUpload";
 import {ImageBrowser} from "../Components/ImageBrowser";
 import {Spinner} from "../Components/Commons/Spinner";
+import TournamentResultList from "../Components/Lists/TournamentResultList";
+import {renderHiddenField} from "../Components/Commons/form";
 
 const mapDispatchToProps = {
   blogPostAdd,
@@ -36,24 +37,26 @@ class BlogPostForm extends React.Component {
   }
 
   render() {
+
+
+    if (!this.props.userData && !canWriteBlogPost(this.props.userData)) {
+      return <Redirect to="/tournaments"/>
+    }
+
     if(!this.props.userData){
       return(<Spinner/>);
     }
 
-    if (!canWriteBlogPost(this.props.userData)) {
-      return <Redirect to="/login"/>
-    }
-
     const {submitting, handleSubmit, error, images, imageReqInProgress, imageDelete} = this.props;
-
+    let results = [];
     return (
       <div className="card mt-3 mb-6 shadow-sm">
         <div className="card-body">
           {error && <div className="alert alert-danger">{error}</div>}
-          <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-            <Field name="title" label="Title:" type="text" component={renderField}/>
-            <Field name="content" label="Content:" type="textarea" component={renderField}/>
+          <TournamentResultList results={results}/>
 
+          <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+            <Field name="title" label="id:" type="text" component={renderHiddenField} id={this.props.match.id}/>
             <ImageUpload />
             <ImageBrowser images={images}
                           deleteHandler={imageDelete}
