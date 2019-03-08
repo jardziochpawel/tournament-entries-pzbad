@@ -49,8 +49,8 @@ class TournamentsList extends React.Component {
                             <ul className="list-inline">
                                 {tournament.playerCategory.map(
                                     category => {
-
                                         if(i === tournament.playerCategory.length){
+                                            i = 1;
                                             return(
                                                 <Link to={'/tournament-result/'+tournament.id+'/'+category.pzbadId}>
                                                     <li className="list-inline-item" key={category['@id']}>
