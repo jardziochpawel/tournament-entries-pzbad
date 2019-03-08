@@ -23,7 +23,7 @@ class TournamentsList extends React.Component {
               <th scope="col">ID</th>
               <th scope="col">Nazwa</th>
               <th scope="col">Organizator</th>
-              <th scope="col">Miasto</th>
+              <th scope="col">Miejsce zawodów</th>
               <th scope="col">Data rozpoczęcia</th>
               <th scope="col">Data zakończenia</th>
                 <th scope="col">Wyniki</th>
