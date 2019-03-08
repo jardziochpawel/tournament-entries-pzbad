@@ -44,6 +44,11 @@ export default class Header extends React.Component {
               Turnieje
             </Link>
           </li>
+          <li className="nav-item">
+            <Link to="/classification/1/SM" className="nav-link">
+              Listy klasyfikacyjne
+            </Link>
+          </li>
             {
                 isAuthenticated &&
                 (

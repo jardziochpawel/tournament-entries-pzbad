@@ -45,7 +45,9 @@ import {
   TOURNAMENTS_RESULT_RECEIVED,
   TOURNAMENTS_RESULT_SET_PAGE,
   TOURNAMENTS_RESULT_SET_CATEGORY,
+  TOURNAMENTS_RESULT_CHANGE_PAGE,
   CLASSIFICATION_LIST_REQUEST,
+  CLASSIFICATION_LIST_CLEAR,
   CLASSIFICATION_LIST_ERROR,
   CLASSIFICATION_LIST_RECEIVED,
   CLASSIFICATION_LIST_SET_TYPE_OF_GAME,
@@ -129,6 +131,10 @@ export const tournamentsResultSetPage = (page) => ({
   page
 });
 
+export const tournamentsResultChangePage = () => ({
+  type: TOURNAMENTS_RESULT_CHANGE_PAGE,
+});
+
 export const tournamentsResultSetCategory = (category) => ({
   type: TOURNAMENTS_RESULT_SET_CATEGORY,
   category
@@ -146,6 +152,10 @@ export const tournamentsResultFetch = (id, typeOfGame = 'SM', category = 'JM') =
 
 export const classificationListRequest = () => ({
   type: CLASSIFICATION_LIST_REQUEST,
+});
+
+export const classificationListClear = () => ({
+  type: CLASSIFICATION_LIST_CLEAR,
 });
 
 export const classificationListError = (error) => ({

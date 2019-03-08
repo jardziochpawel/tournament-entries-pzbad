@@ -1,6 +1,7 @@
 import {
   CLASSIFICATION_LIST_REQUEST,
   CLASSIFICATION_LIST_RECEIVED,
+  CLASSIFICATION_LIST_CLEAR,
   CLASSIFICATION_LIST_ERROR,
   CLASSIFICATION_LIST_SET_TYPE_OF_GAME,
   CLASSIFICATION_LIST_SET_CATEGORY
@@ -10,7 +11,7 @@ import {hydraPageCount} from "../apiUtils";
 export default(state = {
   classification: null,
   isFetching: false,
-  currentPage: 'SM',
+  currentTypeOfGame: 'SM',
   currentCategory: 'JM',
   pageCount: null
 }, action) => {
@@ -19,6 +20,13 @@ export default(state = {
       state = {
         ...state,
         isFetching: true,
+      };
+      return state;
+    case CLASSIFICATION_LIST_CLEAR:
+      state = {
+        ...state,
+          isFetching: true,
+        classification: null,
       };
       return state;
     case CLASSIFICATION_LIST_RECEIVED:
@@ -38,7 +46,7 @@ export default(state = {
     case CLASSIFICATION_LIST_SET_TYPE_OF_GAME:
       return {
         ...state,
-        currentPage: action.page
+        currentTypeOfGame: action.page
       };
     case CLASSIFICATION_LIST_SET_CATEGORY:
       return {

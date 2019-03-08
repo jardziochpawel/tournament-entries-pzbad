@@ -1,11 +1,9 @@
 import React from 'react';
-import {tournamentsResultFetch, tournamentsResultSetPage, tournamentFetch, tournamentsResultSetCategory} from "../Actions/actions";
+import {tournamentsResultFetch, tournamentsResultSetPage, tournamentFetch, tournamentsResultSetCategory,tournamentsResultChangePage} from "../Actions/actions";
 import {connect} from "react-redux";
 import {Spinner} from "../Components/Commons/Spinner";
-import {Paginator} from "../Components/Commons/Paginator";
 import TournamentResultList from "../Components/Lists/TournamentResultList";
 import moment from "moment";
-import classNames from "classnames";
 
 const mapStateToProps = state => ({
   ...state.tournamentResultList,
@@ -16,12 +14,13 @@ const mapDispatchToProps = {
   tournamentsResultFetch: tournamentsResultFetch,
   tournamentsResultSetPage: tournamentsResultSetPage,
   tournamentsResultSetCategory: tournamentsResultSetCategory,
-  tournamentFetch: tournamentFetch
+  tournamentFetch: tournamentFetch,
+  tournamentsResultChangePage:tournamentsResultChangePage
 };
 
 class TournamentsResultContainer extends React.Component {
   componentDidMount() {
-    this.props.tournamentsResultFetch(this.getQueryParamPage(), 'SM', this.props.match.params.category );
+    this.props.tournamentsResultFetch(this.getQueryParamPage(), this.props.match.params.typeOfGame, this.props.match.params.category );
     this.props.tournamentFetch(this.getQueryParamPage());
   }
 
@@ -33,11 +32,11 @@ class TournamentsResultContainer extends React.Component {
     }
 
     if (prevProps.currentPage !== currentPage) {
-      tournamentsResultFetch(this.props.match.params.id, currentPage,  this.props.match.params.category);
+      tournamentsResultFetch(this.props.match.params.id, currentPage,  currentCategory);
     }
 
     if (prevProps.currentCategory !== currentCategory) {
-      tournamentsResultFetch(this.props.match.params.id, currentPage,  this.props.match.params.category);
+      tournamentsResultFetch(this.props.match.params.id, currentPage,  currentCategory);
     }
 
 
@@ -49,25 +48,26 @@ class TournamentsResultContainer extends React.Component {
 
 
   changePage(page) {
-    const {tournamentsResultSetPage} = this.props;
-    console.log(page);
+    const {tournamentsResultSetPage, history, match,tournamentsResultChangePage} = this.props;
+    tournamentsResultChangePage();
     tournamentsResultSetPage(page);
+    history.push('/tournament-result/'+match.params.id+'/'+match.params.category+'/'+page);
   }
 
-  changeCategory(category, id) {
-    const {tournamentsResultSetCategory, history} = this.props;
-    console.log(category);
-    tournamentsResultSetCategory(category);
-    history.push('/tournament-result/'+id+'/'+category);
+  changeCategory(id, typeOfGame) {
+    const {tournamentsResultSetCategory, history,tournamentsResultChangePage, currentPage} = this.props;
+      tournamentsResultChangePage();
+      tournamentsResultSetCategory(typeOfGame);
+    history.push('/tournament-result/'+id+'/'+typeOfGame+'/'+currentPage);
   }
 
   render() {
-    const {results, isFetching, currentPage, tournament} = this.props;
+    const {results, isFetching, currentPage, tournament, match} = this.props;
 
     if (isFetching) {
       return (<Spinner/>);
     }
-    console.log(tournament);
+
     return (
         <div>
           <div className="card">
@@ -80,16 +80,22 @@ class TournamentsResultContainer extends React.Component {
                 </p>
                 <div className="btn-group" role="group" aria-label="Basic example">
                   {tournament && tournament.playerCategory.map(tc => {
+                    if(this.props.match.params.category === tc.pzbadId ){
+                        return(
+                            <button type="button" className={"btn btn-secondary active" }
+                                    key={tc['@id']} onClick={()=>this.changeCategory(tournament.id, tc.pzbadId)}>{tc.pzbadId}</button>
+                        );
+                    }
                     return(
-                        <button type="button" className={this.props.match.params.category === tc.pzbadId ? 'btn btn-secondary active' : "btn btn-secondary" }
-                                key={tc['@id']} onClick={()=>this.changeCategory(tc.pzbadId, tournament.id)}>{tc.pzbadId}</button>
+                        <button type="button" className={"btn btn-secondary" }
+                                key={tc['@id']} onClick={()=>this.changeCategory(tournament.id, tc.pzbadId)}>{tc.pzbadId}</button>
                     );
                   })}
                 </div>
               </div>
 
           </div>
-          <TournamentResultList results={results} userData={this.props.userData} changePage={this.changePage.bind(this)} currentPage={currentPage}/>
+          <TournamentResultList results={results} userData={this.props.userData} changePage={this.changePage.bind(this)} currentPage={currentPage} params={match.params}/>
         </div>
     )
   }
