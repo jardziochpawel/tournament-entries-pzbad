@@ -8,7 +8,7 @@ export class ClubPlayersList extends React.Component {
     const {clubPlayersList} = this.props;
 
     if (null === clubPlayersList || 0 === clubPlayersList.length) {
-      return (<Message message="Jeszcze nie ma zawodników"/>);
+      return (<Message message="No players yet"/>);
     }
 
     return (

@@ -18,7 +18,7 @@ class PlayersList extends React.Component {
     };
 
     if (null === players || 0 === players.length) {
-      return (<Message message="No blog posts"/>);
+      return (<Message message="No players yet"/>);
     }
     return (
       <table className="table table-striped ">
