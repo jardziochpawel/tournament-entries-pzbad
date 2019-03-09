@@ -12,7 +12,7 @@ export default(state = {
   classification: null,
   isFetching: false,
   currentTypeOfGame: 'SM',
-  currentCategory: 'JM',
+  currentCategory: 1,
   pageCount: null
 }, action) => {
   switch (action.type) {

@@ -17,11 +17,14 @@ const mapDispatchToProps = {
 class ClubContainer extends React.Component {
   componentDidMount() {
     this.props.classificationListFetch(this.props.match.params.id, this.props.match.params.typeOfGame);
+    this.props.classificationListSetCategory(this.props.match.params.id);
+    this.props.classificationListSetTypeOfGame(this.props.match.params.typeOfGame);
   }
 
   componentDidUpdate(prevProps) {
       const {currentCategory, currentTypeOfGame, classificationListFetch} = this.props;
-
+      console.log(currentCategory);
+      console.log(currentTypeOfGame);
       if (prevProps.currentTypeOfGame !== currentTypeOfGame) {
           classificationListFetch(currentCategory, currentTypeOfGame);
       }
