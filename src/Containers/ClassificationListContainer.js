@@ -23,8 +23,7 @@ class ClubContainer extends React.Component {
 
   componentDidUpdate(prevProps) {
       const {currentCategory, currentTypeOfGame, classificationListFetch} = this.props;
-      console.log(currentCategory);
-      console.log(currentTypeOfGame);
+
       if (prevProps.currentTypeOfGame !== currentTypeOfGame) {
           classificationListFetch(currentCategory, currentTypeOfGame);
       }
