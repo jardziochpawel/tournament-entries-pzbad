@@ -40,7 +40,7 @@ class TournamentsList extends React.Component {
                         <td>{tournament.id}</td>
                         <td>{tournament.pzbadId}</td>
                         <td>{tournament.name}</td>
-                        <td>{tournament.oragnizer.name}</td>
+                        <td>{tournament.organizer.name}</td>
                         <td>{tournament.place}</td>
                         <td>{moment(tournament.startDate).format('YYYY-MM-DD')}</td>
                         <td>{moment(tournament.endDate).format('YYYY-MM-DD')}</td>
