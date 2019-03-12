@@ -1,5 +1,6 @@
 import React from 'react';
 import {Message} from "../Commons/Message";
+import moment from "moment";
 
 import "./CommentList.css";
 
@@ -16,19 +17,23 @@ export class ClubPlayersList extends React.Component {
           <table className="table table-striped ">
             <thead>
             <tr>
-              <th scope="col">#</th>
               <th scope="col">PZBAD ID</th>
               <th scope="col">Imię</th>
               <th scope="col">Nazwisko</th>
+              <th scope="col">Licencja&nbsp;Klubowa</th>
+              <th scope="col">Licencja&nbsp;Drużynowa</th>
+              <th scope="col">Licencja&nbsp;ważna&nbsp;do</th>
             </tr>
             </thead>
             <tbody>
             {clubPlayersList && clubPlayersList.map(player => (
                 <tr key={player.id}>
-                  <th scope="row">{player.id}</th>
                   <td>{player.pzbadId}</td>
                   <td>{player.firstName}</td>
                   <td>{player.lastName}</td>
+                  <td>{player.typeClub}</td>
+                  <td>{player.typeTeam}</td>
+                  <td>{moment(player.expiredAt).format('YYYY-MM-DD')}</td>
                 </tr>
             ))}
             </tbody>

@@ -16,7 +16,7 @@ const mapDispatchToProps = {
   clubListSetPage: clubListSetPage
 };
 
-class RegisterForm extends React.Component {
+class RegisterTournamentForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,7 +38,7 @@ class RegisterForm extends React.Component {
   }
 
   render() {
-    const {handleSubmit, clubs, isFetching, currentPage, pageCount} = this.props;
+    const {handleSubmit, club} = this.props;
 
     const options = [
       { value: 'E', label: 'Elita' },
@@ -49,10 +49,6 @@ class RegisterForm extends React.Component {
       { value: 'Ż', label: 'Żak' },
       { value: 'ŻM', label: 'Żak Młodszy' },
     ];
-
-    if (isFetching) {
-      return (<Spinner/>);
-    }
 
     return (
       <div className="card mt-3 mb-6 shadow-sm">
@@ -65,21 +61,39 @@ class RegisterForm extends React.Component {
                    isSearchable={true} isMulti={false} closeMenuOnSelect={true}>
               Organizator:
             </Field>
-            <Field
-                name="expirationDate"
-                inputValueFormat="YYYY-MM-DD"
-                dateFormat="YYYY-MM-dd"
-                dateFormatCalendar="dddd"
-                fixedHeight
-                showMonthDropdown
-                placeholder='  Wybierz datę'
-                showYearDropdown
-                dropdownMode="select"
-                normalize={value => (value ? moment(value).format('YYYY-MM-DD') : null)}
-                component={renderDatePicker}
-            >
-              Data turnieju:
-            </Field>
+            <div className='row'>
+              <div className='col-3'>              <Field
+                  name="expirationDateOf"
+                  inputValueFormat="YYYY-MM-DD"
+                  dateFormat="YYYY-MM-dd"
+                  dateFormatCalendar="dddd"
+                  fixedHeight
+                  showMonthDropdown
+                  placeholder='Wybierz datę'
+                  showYearDropdown
+                  dropdownMode="select"
+                  normalize={value => (value ? moment(value).format('YYYY-MM-DD') : null)}
+                  component={renderDatePicker}
+              >
+                Data turnieju od:
+              </Field></div>
+              <div className='col-9'>
+                <Field
+                    name="expirationDateTo"
+                    inputValueFormat="YYYY-MM-DD"
+                    dateFormat="YYYY-MM-dd"
+                    dateFormatCalendar="dddd"
+                    fixedHeight
+                    showMonthDropdown
+                    placeholder='Wybierz datę'
+                    showYearDropdown
+                    dropdownMode="select"
+                    normalize={value => (value ? moment(value).format('YYYY-MM-DD') : null)}
+                    component={renderDatePicker}
+                >
+                  Data turnieju do:
+                </Field></div>
+            </div>
             <Field name="playersCategories" className="" component={renderChoicesField} options={options}
                    isSearchable={false} isMulti={true} closeMenuOnSelect={false}>
               Kategorie:
@@ -97,4 +111,4 @@ class RegisterForm extends React.Component {
 
 export default reduxForm({
   form: 'RegisterForm'
-})(connect(mapStateToProps, mapDispatchToProps)(RegisterForm));
+})(connect(mapStateToProps, mapDispatchToProps)(RegisterTournamentForm));

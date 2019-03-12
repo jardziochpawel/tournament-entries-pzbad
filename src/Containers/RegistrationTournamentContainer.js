@@ -1,31 +1,34 @@
-import React from "react";
-import RegisterTournamentForm from "../Forms/RegisterTournamentForm";
+import React from 'react';
+import {clubFetch, clubUnload} from "../Actions/actions";
 import {connect} from "react-redux";
+import {Spinner} from "../Components/Commons/Spinner";
+import RegisterTournamentForm from "../Forms/RegisterTournamentForm";
 
 const mapStateToProps = state => ({
-  ...state.registration
+  ...state.club
 });
 
 const mapDispatchToProps = {
-
+  clubFetch: clubFetch,
+  clubUnload: clubUnload
 };
 
 class RegistrationContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {counter: 10};
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-
+  componentDidMount() {
+    this.props.clubFetch(this.props.match.params.id);
   }
 
   componentWillUnmount() {
-
+    this.props.clubUnload();
   }
 
   render() {
-      return <RegisterTournamentForm/>;
+    const {isFetching, club, history} = this.props;
+
+    if (isFetching) {
+      return (<Spinner/>);
+    }
+      return <RegisterTournamentForm club={club} history={history}/>;
   }
 }
 

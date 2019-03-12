@@ -20,23 +20,23 @@ const mapDispatchToProps = {
 
 class TournamentsResultContainer extends React.Component {
   componentDidMount() {
+    this.props.tournamentsResultSetPage(this.props.match.params.category);
+    this.props.tournamentsResultSetCategory(this.props.match.params.category);
     this.props.tournamentsResultFetch(this.getQueryParamPage(), this.props.match.params.typeOfGame, this.props.match.params.category );
     this.props.tournamentFetch(this.getQueryParamPage());
   }
 
   componentDidUpdate(prevProps) {
-    const {currentPage, tournamentsResultFetch, tournamentsResultSetPage, currentCategory} = this.props;
-
-    if (prevProps.match.params.page !== this.getQueryParamPage()) {
-      tournamentsResultSetPage(currentPage);
-    }
+    const {currentPage, tournamentsResultFetch, currentCategory} = this.props;
 
     if (prevProps.currentPage !== currentPage) {
-      tournamentsResultFetch(this.props.match.params.id, currentPage,  currentCategory);
+
+      tournamentsResultFetch(this.props.match.params.id, currentPage,   currentCategory);
     }
 
     if (prevProps.currentCategory !== currentCategory) {
-      tournamentsResultFetch(this.props.match.params.id, currentPage,  currentCategory);
+
+      tournamentsResultFetch(this.props.match.params.id, currentPage, currentCategory );
     }
 
 

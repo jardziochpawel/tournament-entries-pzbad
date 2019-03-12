@@ -120,7 +120,7 @@ class PlayersList extends React.Component {
                         <input type='text' className='form-control' name='typeClub' value={this.state.typeClub} onChange={this.handleChange} onKeyPress={this.onEnterClick} /></th>
                     <th scope="col">Licencja&nbsp;Drużynowa
                         <input type='text' className='form-control' name='typeTeam' value={this.state.typeTeam} onChange={this.handleChange} onKeyPress={this.onEnterClick} /></th>
-                    <th scope="col">Licencja&nbsp;do:
+                    <th scope="col">Licencja&nbsp;ważna&nbsp;do
                         <input type='text' className='form-control' name='expiredAt' value={this.state.expiredAt} onChange={this.handleChange} onKeyPress={this.onEnterClick} /></th>
                   </tr>
                 </thead>

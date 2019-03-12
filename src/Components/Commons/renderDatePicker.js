@@ -59,6 +59,7 @@ export default class renderDatePicker extends React.Component {
                     {...rest}
                     selected={this.state.selectedDate}
                     onChange={this.handleChange}
+                    className='form-control'
                 />
                 {touched &&
                 error &&

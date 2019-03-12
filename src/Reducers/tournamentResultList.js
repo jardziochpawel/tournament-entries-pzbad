@@ -13,7 +13,7 @@ export default(state = {
   isFetching: false,
   isLoading: false,
   currentPage: 'SM',
-  currentCategory: 'JM',
+  currentCategory: null,
   pageCount: null
 }, action) => {
   switch (action.type) {
