@@ -104,7 +104,7 @@ class PlayersList extends React.Component {
             <table className="table table-striped ">
                 <thead>
                   <tr>
-                    <th scope="col">PZBAD ID
+                    <th scope="col">ID
                         <input type='text' className='form-control' name='pzbadId' value={this.state.pzbadId} onChange={this.handleChange} onKeyPress={this.onEnterClick} />
                     </th>
                     <th scope="col">Imię
