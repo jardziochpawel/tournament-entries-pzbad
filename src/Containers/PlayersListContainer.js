@@ -42,14 +42,14 @@ class PlayersListContainer extends React.Component {
   }
 
   render() {
-    const {players, isFetching, currentPage, pageCount} = this.props;
+    const {players, isFetching, currentPage, pageCount, history, match, location} = this.props;
 
     if (isFetching) {
       return (<Spinner/>);
     }
     return (
       <div>
-        <PlayersList players={players}/>
+        <PlayersList players={players} history={history} params={match.params} location={location}/>
         <Paginator pageCount={pageCount} currentPage={currentPage} changePage={this.changePage.bind(this)}/>
       </div>
     )
