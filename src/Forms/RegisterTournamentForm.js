@@ -3,17 +3,16 @@ import {Field, reduxForm} from "redux-form";
 import {renderChoicesField, renderField} from "../Components/Commons/form";
 import renderDatePicker from "../Components/Commons/renderDatePicker";
 import {connect} from "react-redux";
-import {clubListFetch, clubListSetPage} from "../Actions/actions";
-import {Spinner} from "../Components/Commons/Spinner";
-import moment from 'moment'
+import {imageDelete} from "../Actions/actions";
+import ImageUpload from "../Components/ImageUpload";
+import {ImageBrowser} from "../Components/ImageBrowser";
+
 
 const mapStateToProps = state => ({
-  ...state.clubsList
 });
 
 const mapDispatchToProps = {
-  clubListFetch: clubListFetch,
-  clubListSetPage: clubListSetPage
+  imageDelete
 };
 
 class RegisterTournamentForm extends React.Component {
@@ -25,7 +24,6 @@ class RegisterTournamentForm extends React.Component {
   }
 
   componentDidMount() {
-    // this.props.clubListFetch();
   }
 
 
@@ -38,66 +36,42 @@ class RegisterTournamentForm extends React.Component {
   }
 
   render() {
-    const {handleSubmit, club} = this.props;
-
+    const {handleSubmit, imageReqInProgress, imageDelete} = this.props;
+    const images = [];
     const options = [
       { value: 'E', label: 'Elita' },
       { value: 'J', label: 'Junior' },
       { value: 'JM', label: 'Junior Młodszy' },
       { value: 'M', label: 'Młodzik' },
-      { value: 'MM', label: 'Młodzik Młodszy' },
-      { value: 'Ż', label: 'Żak' },
-      { value: 'ŻM', label: 'Żak Młodszy' },
+      { value: 'MM', label: 'Młodzik Młodszy' }
     ];
 
     return (
       <div className="card mt-3 mb-6 shadow-sm">
         <div className="card-body">
           <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-            <Field name="pzbadId" label="ID:" type="text" component={renderField}/>
+            <Field name="pzbadId" label="Nazwa skrócona:" type="text" component={renderField}/>
             <Field name="name" label="Nazwa:" type="text" component={renderField}/>
-            <Field name="place" label="Miasto:" type="text" component={renderField}/>
+            <Field name="place" label="Miejsce:" type="text" component={renderField}/>
             <Field name="organizer" className="" component={renderChoicesField} options={options}
                    isSearchable={true} isMulti={false} closeMenuOnSelect={true}>
               Organizator:
             </Field>
-            <div className='row'>
-              <div className='col-3'>              <Field
-                  name="expirationDateOf"
-                  inputValueFormat="YYYY-MM-DD"
-                  dateFormat="YYYY-MM-dd"
-                  dateFormatCalendar="dddd"
-                  fixedHeight
-                  showMonthDropdown
-                  placeholder='Wybierz datę'
-                  showYearDropdown
-                  dropdownMode="select"
-                  normalize={value => (value ? moment(value).format('YYYY-MM-DD') : null)}
-                  component={renderDatePicker}
+            <Field
+                name='date'
+                component={renderDatePicker}
               >
-                Data turnieju od:
-              </Field></div>
-              <div className='col-9'>
-                <Field
-                    name="expirationDateTo"
-                    inputValueFormat="YYYY-MM-DD"
-                    dateFormat="YYYY-MM-dd"
-                    dateFormatCalendar="dddd"
-                    fixedHeight
-                    showMonthDropdown
-                    placeholder='Wybierz datę'
-                    showYearDropdown
-                    dropdownMode="select"
-                    normalize={value => (value ? moment(value).format('YYYY-MM-DD') : null)}
-                    component={renderDatePicker}
-                >
-                  Data turnieju do:
-                </Field></div>
-            </div>
+                Data turnieju:
+              </Field>
             <Field name="playersCategories" className="" component={renderChoicesField} options={options}
                    isSearchable={false} isMulti={true} closeMenuOnSelect={false}>
               Kategorie:
             </Field>
+
+            <ImageUpload label='Komunikat organizacyjny:'/>
+            <ImageBrowser images={images}
+                          deleteHandler={imageDelete}
+                          isLocked={imageReqInProgress} />
             <br/>
             <button type="submit" className="btn btn-primary btn-big btn-block">
               Wyślij

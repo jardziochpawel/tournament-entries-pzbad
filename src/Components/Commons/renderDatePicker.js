@@ -1,45 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { DateRangePicker } from 'react-dates';
+import 'react-dates/lib/css/_datepicker.css';
 
 export default class renderDatePicker extends React.Component {
-    static propTypes = {
-        input: PropTypes.shape({
-            onChange: PropTypes.func,
-            value: PropTypes.string,
-        }).isRequired,
-        meta: PropTypes.shape({
-            touched: PropTypes.bool,
-            error: PropTypes.string,
-        }).isRequired,
-        inputValueFormat: PropTypes.string,
-    };
 
     static defaultProps = {
         inputValueFormat: null,
     };
 
     state = {
-        selectedDate: null,
+        startDate: null,
+        endDate: null,
     };
 
     componentWillMount() {
         if (this.props.input.value) {
             this.setState({
-                selectedDate: moment(this.props.input.value, this.props.inputValueFormat),
+                startDate: moment(this.props.input.value.startDate),
+                endDate: moment(this.props.input.value.endDate),
             });
         }
     }
 
-    handleChange = (date) => {
+    handleChange = ({ startDate, endDate } ) => {
         this.setState({
-            selectedDate: date,
+            startDate: startDate,
+            endDate: endDate,
         });
 
-        this.props.input.onChange(date);
-    }
+        this.props.input.onChange({
+            'startDate': moment(startDate).format(this.props.inputValueFormat),
+            'endDate':  moment(endDate).format(this.props.inputValueFormat),
+        });
+    };
 
     render() {
         const {
@@ -54,12 +50,14 @@ export default class renderDatePicker extends React.Component {
                 <label>
                     {children}
                 </label><br/>
-                <DatePicker
-                    placeholderText={placeholder}
-                    {...rest}
-                    selected={this.state.selectedDate}
-                    onChange={this.handleChange}
-                    className='form-control'
+                <DateRangePicker
+                    startDate={this.state.startDate}
+                    startDateId="your_unique_start_date_id"
+                    endDate={this.state.endDate}
+                    endDateId="your_unique_end_date_id"
+                    onDatesChange={this.handleChange.bind(this)}
+                    focusedInput={this.state.focusedInput}
+                    onFocusChange={focusedInput => this.setState({ focusedInput })}
                 />
                 {touched &&
                 error &&

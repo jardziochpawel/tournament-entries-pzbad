@@ -15,6 +15,7 @@ import TournamentsListContainer from "./Containers/TournamentsListContainer";
 import TournamentResultContainer from "./Containers/TournamentResultContainer";
 import TournamentResultForm from "./Forms/TournamentResultForm";
 import ClassificationListContainer from "./Containers/ClassificationListContainer";
+import 'react-dates/initialize';
 
 const mapStateToProps = state => ({
   ...state.auth

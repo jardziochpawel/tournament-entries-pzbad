@@ -16,8 +16,10 @@ class ImageUpload extends React.Component {
   }
 
   render() {
+    const {label} = this.props;
     return (
       <div className="form-group nice-input-upload">
+        {label !== null && label !== '' && <label>{label}</label>}
         <input type="file"
                onChange={this.onChange.bind(this)}
                className="form-control-file text-primary font-weight-bold"

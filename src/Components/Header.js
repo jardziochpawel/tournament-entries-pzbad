@@ -23,9 +23,9 @@ export default class Header extends React.Component {
 
     return (
       <nav className="navbar navbar-expand-lg navbar-dark fixed-top bg-pzbad">
-        <Link to="/" className="navbar-brand">
+        <a href="http://pzbad.pl" className="navbar-brand" >
             <img src={Logo} alt="PZBAD"/>
-        </Link>
+        </a>
 
         <ul className="navbar-nav mr-auto">
 

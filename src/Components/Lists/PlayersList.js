@@ -92,7 +92,7 @@ class PlayersList extends React.Component {
       let id = club['@id'].match(/(\d+)/)[1];
 
       return (
-          <Link to={`/club/${id}`}>{club.name}</Link>
+          <Link to={`/club/${id}`} className='badge badge-success col-12'>{club.name}</Link>
       )
     };
 
@@ -125,17 +125,48 @@ class PlayersList extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                    {players.map(player => (
-                          <tr key={player.id}>
-                            <td>{player.pzbadId}</td>
-                            <td>{player.firstName}</td>
-                            <td>{player.lastName}</td>
-                            <td>{clubName(player.club)}</td>
-                            <td>{player.typeClub}</td>
-                            <td>{player.typeTeam}</td>
-                            <td>{moment(player.expiredAt).format('YYYY-MM-DD')}</td>
-                          </tr>
-                    ))}
+                    {players.map(player => {
+                        if(new Date() <= new Date(player.expiredAt) && new Date(Date.now() + 12096e5) >= new Date(player.expiredAt)){
+                            return(
+                                <tr key={player.id} className='bg-warning text-black border-warning'>
+                                    <td>{player.pzbadId}</td>
+                                    <td>{player.firstName}</td>
+                                    <td>{player.lastName}</td>
+                                    <td>{clubName(player.club)}</td>
+                                    <td>{player.typeClub}</td>
+                                    <td>{player.typeTeam}</td>
+                                    <td>{moment(player.expiredAt).format('YYYY-MM-DD')}</td>
+                                </tr>
+                            )
+                        }
+
+                        if(new Date() <= new Date(player.expiredAt)){
+                            return(
+                                <tr key={player.id}>
+                                    <td>{player.pzbadId}</td>
+                                    <td>{player.firstName}</td>
+                                    <td>{player.lastName}</td>
+                                    <td>{clubName(player.club)}</td>
+                                    <td>{player.typeClub}</td>
+                                    <td>{player.typeTeam}</td>
+                                    <td>{moment(player.expiredAt).format('YYYY-MM-DD')}</td>
+                                </tr>
+                            )
+                        }
+
+                        return(
+                            <tr key={player.id} className='bg-danger text-white border-danger'>
+                                <td>{player.pzbadId}</td>
+                                <td>{player.firstName}</td>
+                                <td>{player.lastName}</td>
+                                <td>{clubName(player.club)}</td>
+                                <td>{player.typeClub}</td>
+                                <td>{player.typeTeam}</td>
+                                <td>{moment(player.expiredAt).format('YYYY-MM-DD')}</td>
+                            </tr>
+                        )
+                        }
+                    )}
                 </tbody>
             </table>
         </div>)

@@ -36,13 +36,13 @@ class BlogPostForm extends React.Component {
   }
 
   render() {
-    if(!this.props.userData){
-      return(<Spinner/>);
-    }
-
-    if (!canWriteBlogPost(this.props.userData)) {
-      return <Redirect to="/login"/>
-    }
+    // if(!this.props.userData){
+    //   return(<Spinner/>);
+    // }
+    //
+    // if (!canWriteBlogPost(this.props.userData)) {
+    //   return <Redirect to="/login"/>
+    // }
 
     const {submitting, handleSubmit, error, images, imageReqInProgress, imageDelete} = this.props;
 

@@ -31,7 +31,12 @@ export const renderHiddenField = ({input, label, type, id}) => {
 export const renderChoicesField = (props) =>{
   const { children, input, options, isMulti, isSearchable, closeMenuOnSelect, meta: {error}} = props;
   function handleChange(value) {
-    props.input.onChange(value)
+      if(isMulti){
+          props.input.onChange(value)
+      }
+    else {
+          props.input.onChange(value.value)
+      }
   }
   return (
       <div className='form-group'>
