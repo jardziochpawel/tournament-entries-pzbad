@@ -15,7 +15,14 @@ class RegisterForm extends React.Component {
   }
 
   onSubmit(values) {
-    return this.props.userRegister(...Object.values(values))
+    const username = values.username;
+    const password = values.password;
+    const retypedPassword = values.retypedPassword;
+    const email = values.email;
+    const name = values.name;
+    const object = {username, password, retypedPassword, email, name};
+
+    return this.props.userRegister(...Object.values(object))
       .then(() => {
         this.props.reset();
       });

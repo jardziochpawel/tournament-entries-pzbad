@@ -13,6 +13,7 @@ import blogPostForm from "./Reducers/blogPostForm";
 import tournamentsList from "./Reducers/tournamentsList";
 import tournamentResultList from "./Reducers/tournamentResultList";
 import registrationTournament from "./Reducers/registrationTournament";
+import playerCategories from "./Reducers/playerCategories";
 
 export default combineReducers({
   playersList,
@@ -27,6 +28,7 @@ export default combineReducers({
   tournamentsList,
   tournamentResultList,
   registrationTournament,
+  playerCategories,
   router: routerReducer,
   form: formReducer
 });

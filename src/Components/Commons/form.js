@@ -29,7 +29,7 @@ export const renderHiddenField = ({input, label, type, id}) => {
 };
 
 export const renderChoicesField = (props) =>{
-  const { children, input, options, isMulti, isSearchable, closeMenuOnSelect, meta: {error}} = props;
+  const { children, input, options, isMulti, isSearchable, closeMenuOnSelect, meta: {error}, getOptionLabel, getOptionValue} = props;
   function handleChange(value) {
           props.input.onChange(value)
   }
@@ -51,6 +51,8 @@ export const renderChoicesField = (props) =>{
             isSearchable={isSearchable}
             isMulti={isMulti}
             closeMenuOnSelect={closeMenuOnSelect}
+            getOptionLabel={getOptionLabel}
+            getOptionValue={getOptionValue}
         />
         {error && <small className="form-text text-danger">{error}</small>}
       </div>

@@ -19,6 +19,10 @@ import {
   CLUB_PLAYERS_LIST_RECEIVED,
   CLUB_PLAYERS_LIST_REQUEST,
   CLUB_PLAYERS_LIST_SET_PAGE,
+  PLAYER_CATEGORIES_ERROR,
+  PLAYER_CATEGORIES_RECEIVED,
+  PLAYER_CATEGORIES_REQUEST,
+  PLAYER_CATEGORIES_SET_PAGE,
   CLUB_LIST_ERROR,
   CLUB_LIST_RECEIVED,
   CLUB_LIST_REQUEST,
@@ -257,10 +261,19 @@ export const clubListSetPage = (page) => ({
   page
 });
 
-export const clubListFetch = (page) => {
+export const clubListFetch = (page, perPage = 50) => {
   return (dispatch) => {
     dispatch(clubListRequest());
-    return requests.get('/clubs?_page='+page)
+    return requests.get('/clubs?_page='+page+'&itemsPerPage='+perPage)
+      .then(response => dispatch(clubListReceived(response)))
+      .catch(error => dispatch(clubListError(error)));
+  }
+};
+
+export const allClubListFetch = () => {
+  return (dispatch) => {
+    dispatch(clubListRequest());
+    return requests.get('/clubs')
       .then(response => dispatch(clubListReceived(response)))
       .catch(error => dispatch(clubListError(error)));
   }
@@ -510,5 +523,33 @@ export const tournamentRegister = (pzbadId, name, startDate, endDate, place, pla
         .catch(error => {
           throw new SubmissionError(parseApiErrors(error));
         });
+  }
+};
+
+export const playerCategoriesRequest = () => ({
+  type: PLAYER_CATEGORIES_REQUEST,
+});
+
+export const playerCategoriesError = (error) => ({
+  type: PLAYER_CATEGORIES_ERROR,
+  error
+});
+
+export const playerCategoriesReceived = (data) => ({
+  type: PLAYER_CATEGORIES_RECEIVED,
+  data
+});
+
+export const playerCategoriesSetPage = (page) => ({
+  type: PLAYER_CATEGORIES_SET_PAGE,
+  page
+});
+
+export const playerCategoriesFetch = (page = 1) => {
+  return (dispatch) => {
+    dispatch(playerCategoriesRequest());
+    return requests.get('/player_categories?_page='+page)
+        .then(response => dispatch(playerCategoriesReceived(response)))
+        .catch(error => dispatch(playerCategoriesError(error)));
   }
 };

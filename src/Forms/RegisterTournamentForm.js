@@ -3,17 +3,22 @@ import {Field, reduxForm} from "redux-form";
 import {renderChoicesField, renderField} from "../Components/Commons/form";
 import renderDatePicker from "../Components/Commons/renderDatePicker";
 import {connect} from "react-redux";
-import {imageDelete, tournamentRegister} from "../Actions/actions";
+import {imageDelete, tournamentRegister, playerCategoriesFetch, allClubListFetch} from "../Actions/actions";
 import ImageUpload from "../Components/ImageUpload";
 import {ImageBrowser} from "../Components/ImageBrowser";
+import Spinner from "reactstrap/es/Spinner";
 
 
 const mapStateToProps = state => ({
+  ...state.playerCategories,
+  ...state.clubsList
 });
 
 const mapDispatchToProps = {
   imageDelete,
-  tournamentRegister
+  tournamentRegister,
+  playerCategoriesFetch,
+  allClubListFetch
 };
 
 class RegisterTournamentForm extends React.Component {
@@ -25,6 +30,8 @@ class RegisterTournamentForm extends React.Component {
   }
 
   componentDidMount() {
+    this.props.playerCategoriesFetch();
+    this.props.allClubListFetch();
   }
 
 
@@ -34,8 +41,8 @@ class RegisterTournamentForm extends React.Component {
     let playerCategory = [];
     const pzbadId = values.pzbadId || null;
     const name = values.name || null;
-    const startDate = values.date.startDate || null;
-    const endDate = values.date.endDate || null;
+    const startDate = values.date ? values.date.startDate : null;
+    const endDate = values.date ? values.date.endDate : null;
     const place = values.place || null;
     values.playersCategories && values.playersCategories.map(pc => {
        playerCategory[i] = {pzbadId: pc.value};
@@ -68,15 +75,19 @@ class RegisterTournamentForm extends React.Component {
   }
 
   render() {
-    const {handleSubmit, imageReqInProgress, imageDelete} = this.props;
+    const {handleSubmit, imageReqInProgress, imageDelete, playerCategories, isFetching, clubs} = this.props;
     const images = [];
     const options = [
-      { value: 'E', label: 'Elita' },
-      { value: 'J', label: 'Junior' },
-      { value: 'JM', label: 'Junior Młodszy' },
-      { value: 'M', label: 'Młodzik' },
-      { value: 'MM', label: 'Młodzik Młodszy' }
+      { value: 'E', label: 'Elita'},
+      { value: 'J', label: 'Junior'},
+      { value: 'JM', label: 'Junior Młodszy'},
+      { value: 'M', label: 'Młodzik'},
+      { value: 'MM', label: 'Młodzik Młodszy'}
     ];
+
+    if(isFetching){
+      return(<Spinner/>)
+    }
 
     return (
       <div className="card mt-3 mb-6 shadow-sm">
@@ -85,7 +96,9 @@ class RegisterTournamentForm extends React.Component {
             <Field name="pzbadId" label="Nazwa skrócona:" type="text" component={renderField}/>
             <Field name="name" label="Nazwa:" type="text" component={renderField}/>
             <Field name="place" label="Miejsce:" type="text" component={renderField}/>
-            <Field name="organizer" className="" component={renderChoicesField} options={options}
+            <Field name="organizer" className="" component={renderChoicesField} options={clubs? clubs : options}
+                   getOptionValue={option => option.id }
+                   getOptionLabel={option => option.name}
                    isSearchable={true} isMulti={false} closeMenuOnSelect={true}>
               Organizator:
             </Field>
@@ -95,7 +108,9 @@ class RegisterTournamentForm extends React.Component {
               >
                 Data turnieju:
               </Field>
-            <Field name="playersCategories" className="" component={renderChoicesField} options={options}
+            <Field name="playersCategories" className="" component={renderChoicesField} options={playerCategories? playerCategories : options}
+                   getOptionValue={option => option.id}
+                   getOptionLabel={option => option.name}
                    isSearchable={false} isMulti={true} closeMenuOnSelect={false}>
               Kategorie:
             </Field>
