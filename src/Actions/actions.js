@@ -13,6 +13,7 @@ import {
   TOURNAMENT_RECEIVED,
   TOURNAMENT_REQUEST,
   TOURNAMENT_UNLOAD,
+  TOURNAMENT_REGISTER_SUCCESS,
   COMMENT_ADDED,
   CLUB_PLAYERS_LIST_ERROR,
   CLUB_PLAYERS_LIST_RECEIVED,
@@ -493,5 +494,21 @@ export const imageDeleted = (id) => {
   return {
     type: IMAGE_DELETED,
     imageId: id
+  }
+};
+
+export const tournamentRegisterSuccess = () => {
+  return {
+    type: TOURNAMENT_REGISTER_SUCCESS
+  }
+};
+
+export const tournamentRegister = (pzbadId, name, startDate, endDate, place, playerCategory, organizer) => {
+  return (dispatch) => {
+    return requests.post('/tournaments', {pzbadId, name, startDate, endDate, place, playerCategory, organizer}, false)
+        .then(() => dispatch(tournamentRegisterSuccess()))
+        .catch(error => {
+          throw new SubmissionError(parseApiErrors(error));
+        });
   }
 };

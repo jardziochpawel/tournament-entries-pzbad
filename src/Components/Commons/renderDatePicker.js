@@ -1,7 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
-import 'react-datepicker/dist/react-datepicker.css';
 import { DateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 

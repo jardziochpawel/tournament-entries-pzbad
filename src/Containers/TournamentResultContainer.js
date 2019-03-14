@@ -20,7 +20,7 @@ const mapDispatchToProps = {
 
 class TournamentsResultContainer extends React.Component {
   componentDidMount() {
-    this.props.tournamentsResultSetPage(this.props.match.params.category);
+    this.props.tournamentsResultSetPage(this.props.match.params.typeOfGame);
     this.props.tournamentsResultSetCategory(this.props.match.params.category);
     this.props.tournamentsResultFetch(this.getQueryParamPage(), this.props.match.params.typeOfGame, this.props.match.params.category );
     this.props.tournamentFetch(this.getQueryParamPage());
@@ -47,18 +47,18 @@ class TournamentsResultContainer extends React.Component {
   }
 
 
-  changePage(page) {
+  changePage(typeOfGame) {
     const {tournamentsResultSetPage, history, match,tournamentsResultChangePage} = this.props;
     tournamentsResultChangePage();
-    tournamentsResultSetPage(page);
-    history.push('/tournament-result/'+match.params.id+'/'+match.params.category+'/'+page);
+    tournamentsResultSetPage(typeOfGame);
+    history.push('/tournament-result/'+match.params.id+'/'+match.params.category+'/'+typeOfGame);
   }
 
-  changeCategory(id, typeOfGame) {
-    const {tournamentsResultSetCategory, history,tournamentsResultChangePage, currentPage} = this.props;
+  changeCategory(id, category) {
+    const {tournamentsResultSetCategory, history,tournamentsResultChangePage, match} = this.props;
       tournamentsResultChangePage();
-      tournamentsResultSetCategory(typeOfGame);
-    history.push('/tournament-result/'+id+'/'+typeOfGame+'/'+currentPage);
+      tournamentsResultSetCategory(category);
+    history.push('/tournament-result/'+id+'/'+ category +'/'+ match.params.typeOfGame);
   }
 
   render() {

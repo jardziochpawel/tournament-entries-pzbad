@@ -3,7 +3,7 @@ import {Field, reduxForm} from "redux-form";
 import {renderChoicesField, renderField} from "../Components/Commons/form";
 import renderDatePicker from "../Components/Commons/renderDatePicker";
 import {connect} from "react-redux";
-import {imageDelete} from "../Actions/actions";
+import {imageDelete, tournamentRegister} from "../Actions/actions";
 import ImageUpload from "../Components/ImageUpload";
 import {ImageBrowser} from "../Components/ImageBrowser";
 
@@ -12,7 +12,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  imageDelete
+  imageDelete,
+  tournamentRegister
 };
 
 class RegisterTournamentForm extends React.Component {
@@ -29,10 +30,41 @@ class RegisterTournamentForm extends React.Component {
 
   onSubmit(values) {
     console.log(values);
-    // return this.props.userRegister(...Object.values(values))
-    //   .then(() => {
-    //     this.props.reset();
-    //   });
+    let i = 0;
+    let playerCategory = [];
+    const pzbadId = values.pzbadId || null;
+    const name = values.name || null;
+    const startDate = values.date.startDate || null;
+    const endDate = values.date.endDate || null;
+    const place = values.place || null;
+    values.playersCategories && values.playersCategories.map(pc => {
+       playerCategory[i] = {pzbadId: pc.value};
+       i++
+    });
+    const organizer = values.organizer ? values.organizer.value : null;
+
+    console.log({
+      pzbadId:pzbadId,
+      name:name,
+      startDate:startDate,
+      endDate:endDate,
+      place:place,
+      playerCategory:playerCategory,
+      organizer:organizer
+    });
+
+    return this.props.tournamentRegister(...Object.values({
+      pzbadId,
+      name,
+      startDate,
+      endDate,
+      place,
+      playerCategory,
+      organizer
+    }))
+      .then(() => {
+        this.props.reset();
+      });
   }
 
   render() {
