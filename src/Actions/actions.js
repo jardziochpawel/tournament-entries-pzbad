@@ -548,7 +548,7 @@ export const playerCategoriesSetPage = (page) => ({
 export const playerCategoriesFetch = (page = 1) => {
   return (dispatch) => {
     dispatch(playerCategoriesRequest());
-    return requests.get('/player_categories?_page='+page)
+    return requests.get('/player_categories')
         .then(response => dispatch(playerCategoriesReceived(response)))
         .catch(error => dispatch(playerCategoriesError(error)));
   }
