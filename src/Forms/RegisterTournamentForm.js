@@ -38,17 +38,13 @@ class RegisterTournamentForm extends React.Component {
   onSubmit(values) {
     console.log(values);
     let i = 0;
-    let playerCategory = [];
     const pzbadId = values.pzbadId || null;
     const name = values.name || null;
     const startDate = values.date ? values.date.startDate : null;
     const endDate = values.date ? values.date.endDate : null;
     const place = values.place || null;
-    values.playersCategories && values.playersCategories.map(pc => {
-       playerCategory[i] = {pzbadId: pc.value};
-       i++
-    });
-    const organizer = values.organizer ? values.organizer.value : null;
+    const playersCategories = values.playersCategories ? values.playersCategories : null;
+    const organizer = values.organizer ? values.organizer : null;
 
     console.log({
       pzbadId:pzbadId,
@@ -56,7 +52,7 @@ class RegisterTournamentForm extends React.Component {
       startDate:startDate,
       endDate:endDate,
       place:place,
-      playerCategory:playerCategory,
+      playersCategories:playersCategories,
       organizer:organizer
     });
 
@@ -66,7 +62,7 @@ class RegisterTournamentForm extends React.Component {
       startDate,
       endDate,
       place,
-      playerCategory,
+      playersCategories,
       organizer
     }))
       .then(() => {
