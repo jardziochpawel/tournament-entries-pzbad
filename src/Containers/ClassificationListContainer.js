@@ -52,7 +52,7 @@ class ClubContainer extends React.Component {
 
     return (
       <div className='w-100'>
-        <h1>Listy w trakcie aktualizacji danych, prosimy o cierpliwość.</h1><br/>
+        <h1 class="text-danger">Listy w trakcie aktualizacji danych, prosimy o cierpliwość.</h1><br/>
         <div className="btn-group" role="group" aria-label="Basic example" style={{marginBottom: 50+'px'}}>
           <button type="button" className={1 === Number(match.params.id) ? "btn btn-secondary active" : "btn btn-secondary"}
                   onClick={()=>this.changeCategory(1)}
