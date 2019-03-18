@@ -108,6 +108,15 @@ export const tournamentsListSetPage = (page) => ({
   page
 });
 
+export const tournamentsFetchAll = () => {
+  return (dispatch) => {
+    dispatch(tournamentsListRequest());
+    return requests.get('/tournaments')
+        .then(response => dispatch(tournamentsListReceived(response)))
+        .catch(error => dispatch(tournamentsListError(error)));
+  }
+};
+
 export const tournamentsListFetch = (page = 1) => {
   return (dispatch) => {
     dispatch(tournamentsListRequest());

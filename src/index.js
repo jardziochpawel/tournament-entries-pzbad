@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {applyMiddleware, createStore} from "redux";
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 import {Provider} from "react-redux";
 import {ConnectedRouter} from "react-router-redux";
 import {Route} from "react-router";
@@ -17,7 +17,7 @@ const store = createStore(
   reducer,
   applyMiddleware(thunkMiddleware, tokenMiddleware)
 );
-const history = createHistory();
+const history = createBrowserHistory();
 
 ReactDOM.render((
   <Provider store={store}>
