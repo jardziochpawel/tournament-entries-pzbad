@@ -80,10 +80,10 @@ export const playerListSetPage = (page) => ({
   page
 });
 
-export const playerListFetch = (page = 1) => {
+export const playerListFetch = (page = 1, query = '?') => {
   return (dispatch) => {
     dispatch(playerListRequest());
-    return requests.get(`/players?_page=${page}`)
+    return requests.get(`/players${query}&_page=${page}`)
       .then(response => dispatch(playerListReceived(response)))
       .catch(error => dispatch(playerListError(error)));
   }

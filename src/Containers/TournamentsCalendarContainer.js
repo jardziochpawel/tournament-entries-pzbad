@@ -51,7 +51,7 @@ class TournamentsCalendarContainer extends React.Component {
               tooltipAccessor="name"
               defaultDate={new Date()}
               views={['month']}
-              style={{ height: "100vh" }}
+              style={{ height: "80vh" }}
               culture="pl"
           />}
         </div>

@@ -17,7 +17,7 @@ class PlayersList extends React.Component {
             club: '',
             typeClub: '',
             typeTeam: '',
-            expiredAt: '',
+            'expiredAt[after]': '',
         };
         this.onEnterClick = this.onEnterClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -31,7 +31,8 @@ class PlayersList extends React.Component {
         let club = values.club || '';
         let typeClub = values.typeClub || '';
         let typeTeam = values.typeTeam || '';
-        let expiredAt = values.expiredAt || '';
+        let expiredAt = values['expiredAt[after]'] || '';
+        console.log(values['expiredAt[after]']);
         this.setState({ id: id});
         this.setState({ pzbadId:  pzbadId });
         this.setState({ firstName:  firstName });
@@ -39,7 +40,7 @@ class PlayersList extends React.Component {
         this.setState({ club:  club });
         this.setState({ typeClub:  typeClub });
         this.setState({ typeTeam:  typeTeam });
-        this.setState({ expiredAt:  expiredAt });
+        this.setState({ 'expiredAt[after]':  expiredAt });
 
     }
     componentDidUpdate(prevProps, prevState) {
@@ -53,6 +54,8 @@ class PlayersList extends React.Component {
     }
 
     handleChange(event)  {
+        const {playerListFetch} = this.props;
+
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
@@ -121,7 +124,7 @@ class PlayersList extends React.Component {
                     <th scope="col">Licencja&nbsp;Drużynowa
                         <input type='text' className='form-control' name='typeTeam' value={this.state.typeTeam} onChange={this.handleChange} onKeyPress={this.onEnterClick} /></th>
                     <th scope="col">Licencja&nbsp;ważna&nbsp;do
-                        <input type='text' className='form-control' name='expiredAt' value={this.state.expiredAt} onChange={this.handleChange} onKeyPress={this.onEnterClick} /></th>
+                        <input type='text' className='form-control' name='expiredAt[after]' value={this.state['expiredAt[after]']} onChange={this.handleChange} onKeyPress={this.onEnterClick} /></th>
                   </tr>
                 </thead>
                 <tbody>

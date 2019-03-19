@@ -4,6 +4,7 @@ import {playerListFetch, playerListSetPage} from "../Actions/actions";
 import {connect} from "react-redux";
 import {Spinner} from "../Components/Commons/Spinner";
 import {Paginator} from "../Components/Commons/Paginator";
+import queryString from "query-string";
 
 const mapStateToProps = state => ({
   ...state.playersList
@@ -16,7 +17,7 @@ const mapDispatchToProps = {
 
 class PlayersListContainer extends React.Component {
   componentDidMount() {
-    this.props.playerListFetch(this.getQueryParamPage());
+    this.props.playerListFetch(this.getQueryParamPage(), this.QueryFilters());
   }
 
   componentDidUpdate(prevProps) {
@@ -27,7 +28,11 @@ class PlayersListContainer extends React.Component {
     }
 
     if (prevProps.currentPage !== currentPage) {
-      playerListFetch(currentPage);
+      playerListFetch(currentPage, this.QueryFilters());
+    }
+
+    if (prevProps.location.search !== this.props.location.search) {
+      playerListFetch(currentPage, this.QueryFilters());
     }
   }
 
@@ -35,10 +40,25 @@ class PlayersListContainer extends React.Component {
     return Number(this.props.match.params.page) || 1;
   }
 
+  QueryFilters(){
+
+    if(this.props.location.search)
+    {
+      return this.props.location.search;
+    }
+    return '?';
+  }
+
   changePage(page) {
     const {history, playerListSetPage} = this.props;
     playerListSetPage(page);
-    history.push(`/players/${page}`);
+    if(this.props.location.search){
+      history.push(`/players/${page}`+this.props.location.search);
+    }
+    else{
+      history.push(`/players/${page}`);
+    }
+
   }
 
   render() {
@@ -49,7 +69,7 @@ class PlayersListContainer extends React.Component {
     }
     return (
       <div>
-        <PlayersList players={players} history={history} params={match.params} location={location}/>
+        <PlayersList players={players} history={history} params={match.params} location={location} playerListFetch={this.props.playerListFetch.bind(this)}/>
         <Paginator pageCount={pageCount} currentPage={currentPage} changePage={this.changePage.bind(this)}/>
       </div>
     )
