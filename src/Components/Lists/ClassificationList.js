@@ -13,7 +13,6 @@ class ClassificationList extends React.Component {
     const {classification, params,changeTypeOfGames} = this.props;
     let i = 0;
     const playerCategory = (id) => {
-        console.log(id);
 
         switch (Number(id)) {
             case 1:

@@ -39,18 +39,21 @@ class ClubContainer extends React.Component {
       if(typeOfGame !== match.params.typeOfGame)
       {
           classificationListClear();
+          history.push('/classification/'+match.params.id+'/'+typeOfGame);
       }
-      history.push('/classification/'+match.params.id+'/'+typeOfGame);
   }
 
   changeCategory(id){
       const {history, match, classificationListSetCategory, classificationListClear} = this.props;
       classificationListSetCategory(id);
-      if(id !== match.params.id)
+
+      if(id !== Number(match.params.id))
       {
+          console.log(id);
+          console.log(match.params.id);
           classificationListClear();
+          history.push('/classification/'+id+'/'+match.params.typeOfGame);
       }
-      history.push('/classification/'+id+'/'+match.params.typeOfGame);
   }
 
   render() {
@@ -58,7 +61,7 @@ class ClubContainer extends React.Component {
 
     return (
       <div className='w-100'>
-        <h1 class="text-danger">Listy w trakcie aktualizacji danych, prosimy o cierpliwość.</h1><br/>
+        <h1 className="text-danger">Listy w trakcie aktualizacji danych, prosimy o cierpliwość.</h1><br/>
         <div className="btn-group" role="group" aria-label="Basic example" style={{marginBottom: 50+'px'}}>
           <button type="button" className={1 === Number(match.params.id) ? "btn btn-secondary active disabled" : "btn btn-secondary"}
                   onClick={()=>this.changeCategory(1)}
