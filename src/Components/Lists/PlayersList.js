@@ -14,7 +14,7 @@ class PlayersList extends React.Component {
             pzbadId: '',
             firstName: '',
             lastName: '',
-            club: '',
+            'club.name': '',
             typeClub: '',
             typeTeam: '',
             'expiredAt[after]': '',
@@ -28,7 +28,7 @@ class PlayersList extends React.Component {
         let pzbadId = values.pzbadId || '';
         let firstName = values.firstName || '';
         let lastName = values.lastName || '';
-        let club = values.club || '';
+        let club = values['club.name'] || '';
         let typeClub = values.typeClub || '';
         let typeTeam = values.typeTeam || '';
         let expiredAt = values['expiredAt[after]'] || '';
@@ -37,7 +37,7 @@ class PlayersList extends React.Component {
         this.setState({ pzbadId:  pzbadId });
         this.setState({ firstName:  firstName });
         this.setState({ lastName:  lastName });
-        this.setState({ club:  club });
+        this.setState({ 'club.name':  club });
         this.setState({ typeClub:  typeClub });
         this.setState({ typeTeam:  typeTeam });
         this.setState({ 'expiredAt[after]':  expiredAt });
@@ -117,7 +117,7 @@ class PlayersList extends React.Component {
                         <input type='text' className='form-control' name='lastName' value={this.state.lastName} onChange={this.handleChange} onKeyPress={this.onEnterClick} />
                     </th>
                     <th scope="col">Klub
-                        <input type='text' className='form-control' name='club' value={this.state.club} onChange={this.handleChange} onKeyPress={this.onEnterClick} />
+                        <input type='text' className='form-control' name='club.name' value={this.state['club.name']} onChange={this.handleChange} onKeyPress={this.onEnterClick} />
                     </th>
                     <th scope="col">Licencja&nbsp;Klubowa
                         <input type='text' className='form-control' name='typeClub' value={this.state.typeClub} onChange={this.handleChange} onKeyPress={this.onEnterClick} /></th>
