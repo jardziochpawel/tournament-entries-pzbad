@@ -36,14 +36,20 @@ class ClubContainer extends React.Component {
   changeTypeOfGames(typeOfGame){
       const {history, match, classificationListSetTypeOfGame, classificationListClear} = this.props;
       classificationListSetTypeOfGame(typeOfGame);
-      classificationListClear();
+      if(typeOfGame !== match.params.typeOfGame)
+      {
+          classificationListClear();
+      }
       history.push('/classification/'+match.params.id+'/'+typeOfGame);
   }
 
   changeCategory(id){
       const {history, match, classificationListSetCategory, classificationListClear} = this.props;
       classificationListSetCategory(id);
-      classificationListClear();
+      if(id !== match.params.id)
+      {
+          classificationListClear();
+      }
       history.push('/classification/'+id+'/'+match.params.typeOfGame);
   }
 
@@ -54,19 +60,19 @@ class ClubContainer extends React.Component {
       <div className='w-100'>
         <h1 class="text-danger">Listy w trakcie aktualizacji danych, prosimy o cierpliwość.</h1><br/>
         <div className="btn-group" role="group" aria-label="Basic example" style={{marginBottom: 50+'px'}}>
-          <button type="button" className={1 === Number(match.params.id) ? "btn btn-secondary active" : "btn btn-secondary"}
+          <button type="button" className={1 === Number(match.params.id) ? "btn btn-secondary active disabled" : "btn btn-secondary"}
                   onClick={()=>this.changeCategory(1)}
           >E</button>
-          <button type="button" className={2 === Number(match.params.id) ? "btn btn-secondary active" : "btn btn-secondary" }
+          <button type="button" className={2 === Number(match.params.id) ? "btn btn-secondary active disabled" : "btn btn-secondary" }
                   onClick={()=>this.changeCategory(2)}
           >J</button>
-          <button type="button" className={5 === Number(match.params.id) ? "btn btn-secondary active" : "btn btn-secondary" }
+          <button type="button" className={5 === Number(match.params.id) ? "btn btn-secondary active disabled" : "btn btn-secondary" }
                   onClick={()=>this.changeCategory(5)}
           >JM</button>
-          <button type="button" className={7 === Number(match.params.id) ? "btn btn-secondary active" : "btn btn-secondary" }
+          <button type="button" className={7 === Number(match.params.id) ? "btn btn-secondary active disabled" : "btn btn-secondary" }
                   onClick={()=>this.changeCategory(7)}
           >M</button>
-          <button type="button" className={10 === Number(match.params.id) ? "btn btn-secondary active" : "btn btn-secondary" }
+          <button type="button" className={10 === Number(match.params.id) ? "btn btn-secondary active disabled" : "btn btn-secondary" }
                   onClick={()=>this.changeCategory(10)}
           >MM</button>
         </div>
