@@ -46,7 +46,7 @@ export const renderChoicesField = (props) =>{
             onChange={handleChange}
             onBlur={() => props.input.onBlur(props.input.value)}
             options={options}
-            placeholder="Select"
+            placeholder="Wybierz"
             simpleValue
             isSearchable={isSearchable}
             isMulti={isMulti}

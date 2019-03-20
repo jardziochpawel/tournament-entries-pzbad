@@ -18,7 +18,7 @@ const mapDispatchToProps = {
   imageDelete
 };
 
-class RegisterTournamentForm extends React.Component {
+class EditTournamentForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,6 +31,7 @@ class RegisterTournamentForm extends React.Component {
     let pc = [];
     let i = 0;
     const pzbadId = values.pzbadId || null;
+    const id = values.id;
     const name = values.name || null;
     const startDate = values.date ? values.date.startDate : null;
     const endDate = values.date ? values.date.endDate : null;
@@ -55,9 +56,8 @@ class RegisterTournamentForm extends React.Component {
     const accommodation = values.accommodation || null;
     const awards = values.awards || null;
 
-    console.log(values);
-
-    return this.props.tournamentRegister(...Object.values({
+    return this.props.tournamentUpdate(...Object.values({
+      id,
       pzbadId,
       name,
       startDate,
@@ -140,5 +140,5 @@ class RegisterTournamentForm extends React.Component {
 }
 
 export default reduxForm({
-  form: 'RegisterTournament'
-})(connect(mapStateToProps, mapDispatchToProps)(RegisterTournamentForm));
+  form: 'EditTournament'
+})(connect(mapStateToProps, mapDispatchToProps)(EditTournamentForm));

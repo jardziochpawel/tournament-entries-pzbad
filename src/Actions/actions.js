@@ -530,9 +530,70 @@ export const tournamentRegisterSuccess = () => {
   }
 };
 
-export const tournamentRegister = (pzbadId, name, startDate, endDate, place, playerCategory, organizer) => {
+export const tournamentRegister = (
+    pzbadId,
+    name,
+    startDate,
+    endDate,
+    place,
+    playerCategory,
+    organizer,
+    responsiblePersons,
+    systemOfGames,
+    entryFee,
+    shuttlecocks,
+    applications,
+    mainJudge,
+    alimentation,
+    accommodation,
+    awards) => {
   return (dispatch) => {
-    return requests.post('/tournaments', {pzbadId, name, startDate, endDate, place, playerCategory, organizer}, false)
+    return requests.post('/tournaments', {pzbadId, name, startDate, endDate, place, playerCategory, organizer,
+      responsiblePersons,
+      systemOfGames,
+      entryFee,
+      shuttlecocks,
+      applications,
+      mainJudge,
+      alimentation,
+      accommodation,
+      awards}, false)
+        .then(() => dispatch(tournamentRegisterSuccess()))
+        .catch(error => {
+          throw new SubmissionError(parseApiErrors(error));
+        });
+  }
+};
+
+export const tournamentUpdate = (
+    id,
+    pzbadId,
+    name,
+    startDate,
+    endDate,
+    place,
+    playerCategory,
+    organizer,
+    responsiblePersons,
+    systemOfGames,
+    entryFee,
+    shuttlecocks,
+    applications,
+    mainJudge,
+    alimentation,
+    accommodation,
+    awards) => {
+  return (dispatch) => {
+    return requests.put('/tournaments/'+id, { pzbadId, name, startDate, endDate, place, playerCategory, organizer,
+      responsiblePersons,
+      systemOfGames,
+      entryFee,
+      shuttlecocks,
+      applications,
+      mainJudge,
+      alimentation,
+      accommodation,
+      awards}, false)
         .then(() => dispatch(tournamentRegisterSuccess()))
         .catch(error => {
           throw new SubmissionError(parseApiErrors(error));

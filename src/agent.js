@@ -22,6 +22,9 @@ export const requests = {
   post: (url, body = null, secured = true) => {
     return superagent.post(`${API_ROOT}${url}`, body).use(tokenPlugin(secured)).then(responseBody);
   },
+  put: (url, body = null, secured = true) => {
+    return superagent.put(`${API_ROOT}${url}`, body).use(tokenPlugin(secured)).then(responseBody);
+  },
   upload: (url, file, secured = true) =>
     superagent.post(`${API_ROOT}${url}`).attach('file', file)
       .use(tokenPlugin(secured))

@@ -67,6 +67,7 @@ class App extends React.Component {
             <Route path="/club/:id/:page?" component={ClubContainer}/>
             <Route path="/register" component={RegistrationContainer}/>
             <Route path="/register-tournament" component={RegistrationTournamentContainer}/>
+            <Route path="/edit-tournament/:id?" component={RegistrationTournamentContainer}/>
             <Route path="/players/:page?" component={PlayersListContainer}/>
             <Route path="/classification/:id/:typeOfGame" component={ClassificationListContainer}/>
             <Route path="/tournaments/:page?" component={TournamentsListContainer}/>

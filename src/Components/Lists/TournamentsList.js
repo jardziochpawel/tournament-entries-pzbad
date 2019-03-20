@@ -74,7 +74,7 @@ class TournamentsList extends React.Component {
                         {
                             canWriteBlogPost(userData) &&
                             <td>
-                                <Link to={'/tournament-result-form/'+tournament.id}>
+                                <Link to={'/edit-tournament/'+tournament.id}>
                                             <i className='fa fa-pencil'/>
                                 </Link>
                             </td>
