@@ -44,7 +44,6 @@ class TournamentsListContainer extends React.Component {
 
   render() {
     const {tournaments, isFetching, currentPage, pageCount} = this.props;
-    console.log(tournaments);
 
     if (isFetching) {
       return (<Spinner/>);

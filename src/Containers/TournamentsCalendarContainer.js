@@ -30,10 +30,13 @@ class TournamentsCalendarContainer extends React.Component {
   componentDidMount() {
     this.props.tournamentsFetchAll();
   }
+  onClick(event){
+    const {history} = this.props;
+    history.push('/tournament-result/'+event.id+'/'+event.playerCategory[0].pzbadId+'/SM')
+  }
 
   render() {
     const {tournaments, isFetching} = this.props;
-    console.log(tournaments);
 
     if (isFetching) {
       return (<Spinner/>);
@@ -52,6 +55,7 @@ class TournamentsCalendarContainer extends React.Component {
               defaultDate={new Date()}
               views={['month']}
               style={{ height: "80vh" }}
+              onSelectEvent={(event)=>this.onClick(event)}
               culture="pl"
           />}
         </div>

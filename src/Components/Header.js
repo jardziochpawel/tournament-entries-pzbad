@@ -40,6 +40,11 @@ export default class Header extends React.Component {
             </Link>
           </li>
           <li className="nav-item">
+            <Link to="/tournaments-calendar" className="nav-link">
+              Kalendarz
+            </Link>
+          </li>
+          <li className="nav-item">
             <Link to="/tournaments" className="nav-link">
               Turnieje
             </Link>

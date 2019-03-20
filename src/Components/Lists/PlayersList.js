@@ -32,7 +32,6 @@ class PlayersList extends React.Component {
         let typeClub = values.typeClub || '';
         let typeTeam = values.typeTeam || '';
         let expiredAt = values['expiredAt[after]'] || '';
-        console.log(values['expiredAt[after]']);
         this.setState({ id: id});
         this.setState({ pzbadId:  pzbadId });
         this.setState({ firstName:  firstName });
@@ -47,14 +46,7 @@ class PlayersList extends React.Component {
 
     }
 
-    getQueryParamPage() {
-        const { params} = this.props;
-
-        return Number(params.page) || 1;
-    }
-
     handleChange(event)  {
-        const {playerListFetch} = this.props;
 
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -72,20 +64,32 @@ class PlayersList extends React.Component {
         if(location.search){
             if(event.key === 'Enter'){
                 values[event.target.name] = event.target.value;
+                let searchValues = queryString.stringify(values);
+
+                if(event.target.value === '')
+                {
+                    searchValues = searchValues.replace(encodeURI(event.target.name)+'=', '');
+                }
+
                 history.push({
-                    search: queryString.stringify(values)
+                    search: searchValues
                 } );
             }
         }else{
             if(event.key === 'Enter'){
                 values[event.target.name] = event.target.value;
+                let searchValues = queryString.stringify(values);
+
+                if(event.target.value === '')
+                {
+                    searchValues = searchValues.replace(encodeURI(event.target.name)+'=', '');
+                }
+
                 history.push(
-                   '/players/'+(Number(params.page)||1)+'?'+queryString.stringify(values)
+                   '/players/'+(Number(params.page)||1)+'?'+searchValues
                 );
             }
         }
-
-
     }
 
     render() {
