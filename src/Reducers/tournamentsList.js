@@ -2,7 +2,8 @@ import {
   TOURNAMENTS_LIST_REQUEST,
   TOURNAMENTS_LIST_RECEIVED,
   TOURNAMENTS_LIST_ERROR,
-  TOURNAMENTS_LIST_SET_PAGE
+  TOURNAMENTS_LIST_SET_PAGE,
+  TOURNAMENTS_CALENDAR_SET_CATEGORY
 } from "../Actions/constants";
 import {hydraPageCount} from "../apiUtils";
 
@@ -10,6 +11,7 @@ export default(state = {
   tournaments: null,
   isFetching: false,
   currentPage: 1,
+  currentCategory: '',
   pageCount: null
 }, action) => {
   switch (action.type) {
@@ -37,6 +39,11 @@ export default(state = {
       return {
         ...state,
         currentPage: action.page
+      };
+    case TOURNAMENTS_CALENDAR_SET_CATEGORY:
+      return {
+        ...state,
+        currentCategory: action.category
       };
     default:
       return state;

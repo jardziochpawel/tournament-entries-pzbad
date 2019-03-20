@@ -73,13 +73,6 @@ class RegisterTournamentForm extends React.Component {
   render() {
     const {handleSubmit, imageReqInProgress, imageDelete, playerCategories, isFetching, clubs} = this.props;
     const images = [];
-    const options = [
-      { value: 'E', label: 'Elita'},
-      { value: 'J', label: 'Junior'},
-      { value: 'JM', label: 'Junior Młodszy'},
-      { value: 'M', label: 'Młodzik'},
-      { value: 'MM', label: 'Młodzik Młodszy'}
-    ];
 
     if(isFetching){
       return(<Spinner/>)
@@ -92,7 +85,7 @@ class RegisterTournamentForm extends React.Component {
             <Field name="pzbadId" label="Nazwa skrócona:" type="text" component={renderField}/>
             <Field name="name" label="Nazwa:" type="text" component={renderField}/>
             <Field name="place" label="Miejsce:" type="text" component={renderField}/>
-            <Field name="organizer" className="" component={renderChoicesField} options={clubs? clubs : options}
+            <Field name="organizer" className="" component={renderChoicesField} options={clubs? clubs : []}
                    getOptionValue={option => option.id }
                    getOptionLabel={option => option.name}
                    isSearchable={true} isMulti={false} closeMenuOnSelect={true}>
@@ -104,7 +97,7 @@ class RegisterTournamentForm extends React.Component {
               >
                 Data turnieju:
               </Field>
-            <Field name="playersCategories" className="" component={renderChoicesField} options={playerCategories? playerCategories : options}
+            <Field name="playersCategories" className="" component={renderChoicesField} options={playerCategories? playerCategories : []}
                    getOptionValue={option => option.id}
                    getOptionLabel={option => option.name}
                    isSearchable={false} isMulti={true} closeMenuOnSelect={false}>

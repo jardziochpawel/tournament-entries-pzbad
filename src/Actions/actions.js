@@ -12,7 +12,6 @@ import {
   TOURNAMENT_ERROR,
   TOURNAMENT_RECEIVED,
   TOURNAMENT_REQUEST,
-  TOURNAMENT_UNLOAD,
   TOURNAMENT_REGISTER_SUCCESS,
   COMMENT_ADDED,
   CLUB_PLAYERS_LIST_ERROR,
@@ -45,6 +44,7 @@ import {
   TOURNAMENTS_LIST_ERROR,
   TOURNAMENTS_LIST_RECEIVED,
   TOURNAMENTS_LIST_SET_PAGE,
+  TOURNAMENTS_CALENDAR_SET_CATEGORY,
   TOURNAMENTS_RESULT_REQUEST,
   TOURNAMENTS_RESULT_ERROR,
   TOURNAMENTS_RESULT_RECEIVED,
@@ -108,10 +108,15 @@ export const tournamentsListSetPage = (page) => ({
   page
 });
 
-export const tournamentsFetchAll = () => {
+export const tournamentsCalendarSetCategory = (category) => ({
+  type: TOURNAMENTS_CALENDAR_SET_CATEGORY,
+  category
+});
+
+export const tournamentsFetchCategory = (category = '') => {
   return (dispatch) => {
     dispatch(tournamentsListRequest());
-    return requests.get('/tournaments')
+    return requests.get('/tournaments?playerCategory.id='+category)
         .then(response => dispatch(tournamentsListReceived(response)))
         .catch(error => dispatch(tournamentsListError(error)));
   }
