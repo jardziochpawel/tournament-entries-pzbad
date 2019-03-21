@@ -4,6 +4,7 @@ import {renderChoicesField, renderField} from "../Components/Commons/form";
 import renderDatePicker from "../Components/Commons/renderDatePicker";
 import {connect} from "react-redux";
 import {
+  blogPostFormUnload,
   imageDelete
 } from "../Actions/actions";
 import ImageUpload from "../Components/ImageUpload";
@@ -12,10 +13,12 @@ import Spinner from "reactstrap/es/Spinner";
 
 
 const mapStateToProps = state => ({
+  ...state.blogPostForm
 });
 
 const mapDispatchToProps = {
-  imageDelete
+  imageDelete,
+  blogPostFormUnload
 };
 
 class EditTournamentForm extends React.Component {
@@ -25,9 +28,22 @@ class EditTournamentForm extends React.Component {
       termsAccepted: false
     }
   }
-
+  componentWillUnmount() {
+    this.props.blogPostFormUnload();
+  }
+  getUrlToObject(array){
+    let a = [];
+    let i = 0;
+    if(array.length > 0 && array !== undefined){
+      array.map(o =>{
+        a[i] = o['@id'];
+        i++
+      });
+    }
+    return a;
+  }
   onSubmit(values) {
-    const {reset, history} = this.props;
+    const {reset, history,images} = this.props;
     let pc = [];
     let i = 0;
     const pzbadId = values.pzbadId || null;
@@ -55,6 +71,7 @@ class EditTournamentForm extends React.Component {
     const alimentation = values.alimentation || null;
     const accommodation = values.accommodation || null;
     const awards = values.awards || null;
+    const tournamentAttachment = values.tournamentAttachment? this.getUrlToObject(images) : null;
 
     return this.props.tournamentUpdate(...Object.values({
       id,
@@ -73,7 +90,8 @@ class EditTournamentForm extends React.Component {
       mainJudge,
       alimentation,
       accommodation,
-      awards
+      awards,
+      tournamentAttachment
     }))
         .then(() => {
           reset();
@@ -82,8 +100,7 @@ class EditTournamentForm extends React.Component {
   }
 
   render() {
-    const {handleSubmit, imageReqInProgress, imageDelete, playerCategories, isFetching, clubs} = this.props;
-    const images = [];
+    const {handleSubmit, imageReqInProgress, imageDelete, playerCategories, isFetching, clubs, images} = this.props;
 
     if(isFetching){
       return(<Spinner/>)

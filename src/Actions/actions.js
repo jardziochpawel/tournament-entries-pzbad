@@ -497,7 +497,16 @@ export const imageUploadError = () => {
 export const imageUpload = (file) => {
   return (dispatch) => {
     dispatch(imageUploadRequest());
-    return requests.upload('/images', file)
+    return requests.upload('/attachment', file)
+      .then(response => dispatch(imageUploaded(response)))
+      .catch(() => dispatch(imageUploadError))
+  }
+};
+
+export const tournamentPlannerFiles = (file) => {
+  return (dispatch) => {
+    dispatch(imageUploadRequest());
+    return requests.upload('/TournamentPlannerFiles', file)
       .then(response => dispatch(imageUploaded(response)))
       .catch(() => dispatch(imageUploadError))
   }
@@ -512,7 +521,15 @@ export const imageDeleteRequest = () => {
 export const imageDelete = (id) => {
   return (dispatch) => {
     dispatch(imageDeleteRequest());
-    return requests.delete(`/images/${id}`)
+    return requests.delete(`/tournament_attachments/${id}`)
+      .then(() => dispatch(imageDeleted(id)));
+  }
+};
+
+export const ResultCSVDelete = (id) => {
+  return (dispatch) => {
+    dispatch(imageDeleteRequest());
+    return requests.delete(`/tournament_planner_c_s_vs/${id}`)
       .then(() => dispatch(imageDeleted(id)));
   }
 };
@@ -546,7 +563,8 @@ export const tournamentRegister = (
     mainJudge,
     alimentation,
     accommodation,
-    awards) => {
+    awards,
+    tournamentAttachment) => {
   return (dispatch) => {
     return requests.post('/tournaments', {pzbadId, name, startDate, endDate, place, playerCategory, organizer,
       responsiblePersons,
@@ -557,7 +575,8 @@ export const tournamentRegister = (
       mainJudge,
       alimentation,
       accommodation,
-      awards}, false)
+      awards,
+      tournamentAttachment}, false)
         .then(() => dispatch(tournamentRegisterSuccess()))
         .catch(error => {
           throw new SubmissionError(parseApiErrors(error));
@@ -582,7 +601,8 @@ export const tournamentUpdate = (
     mainJudge,
     alimentation,
     accommodation,
-    awards) => {
+    awards,
+    tournamentAttachment) => {
   return (dispatch) => {
     return requests.put('/tournaments/'+id, { pzbadId, name, startDate, endDate, place, playerCategory, organizer,
       responsiblePersons,
@@ -593,7 +613,55 @@ export const tournamentUpdate = (
       mainJudge,
       alimentation,
       accommodation,
-      awards}, false)
+      awards,
+      tournamentAttachment}, false)
+        .then(() => dispatch(tournamentRegisterSuccess()))
+        .catch(error => {
+          throw new SubmissionError(parseApiErrors(error));
+        });
+  }
+};
+
+export const tournamentResultUpdate = (
+    id,
+    pzbadId,
+    name,
+    startDate,
+    endDate,
+    place,
+    playerCategory,
+    organizer,
+    responsiblePersons,
+    systemOfGames,
+    entryFee,
+    shuttlecocks,
+    applications,
+    mainJudge,
+    alimentation,
+    accommodation,
+    awards,
+    // tournamentAttachment,
+    tournamentPlannerCSV) => {
+  return (dispatch) => {
+    return requests.put('/tournaments/'+id, {
+      pzbadId,
+      name,
+      startDate,
+      endDate,
+      place,
+      playerCategory,
+      organizer,
+      responsiblePersons,
+      systemOfGames,
+      entryFee,
+      shuttlecocks,
+      applications,
+      mainJudge,
+      alimentation,
+      accommodation,
+      awards,
+      // tournamentAttachment,
+      tournamentPlannerCSV}, false)
         .then(() => dispatch(tournamentRegisterSuccess()))
         .catch(error => {
           throw new SubmissionError(parseApiErrors(error));

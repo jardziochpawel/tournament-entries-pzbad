@@ -1,11 +1,10 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {Spinner} from "../Components/Commons/Spinner";
-import RegisterTournamentForm from "../Forms/RegisterTournamentForm";
-import {tournamentRegister, playerCategoriesFetch, allClubListFetch, tournamentFetch, tournamentUpdate} from "../Actions/actions";
-import EditTournamentForm from "../Forms/EditTournamentForm";
+import {tournamentRegister, playerCategoriesFetch, allClubListFetch, tournamentFetch, tournamentResultUpdate} from "../Actions/actions";
 import {canWriteBlogPost} from "../apiUtils";
 import {Redirect} from "react-router";
+import ResultTournamentForm from "../Forms/ResultTournamentForm";
 
 const mapStateToProps = state => ({
     ...state.tournament,
@@ -17,7 +16,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
     tournamentFetch: tournamentFetch,
     tournamentRegister,
-    tournamentUpdate,
+    tournamentResultUpdate,
     playerCategoriesFetch,
     allClubListFetch,
 };
@@ -31,18 +30,14 @@ class RegistrationContainer extends React.Component {
       this.props.allClubListFetch();
   }
 
-  componentWillUnmount() {
 
-  }
 
   render() {
-    const {isFetching, history, tournament, playerCategories, clubs, tournamentRegister, tournamentUpdate} = this.props;
+    const {isFetching, history, tournament, playerCategories, clubs, tournamentResultUpdate} = this.props;
 
         if (isFetching) {
           return (<Spinner/>);
         }
-
-
 
     if(tournament === undefined){
       return (<Spinner/>);
@@ -54,8 +49,7 @@ class RegistrationContainer extends React.Component {
       if (!canWriteBlogPost(this.props.userData)) {
           return <Redirect to="/login"/>
       }
-      console.log(tournament);
-
+        console.log(tournament);
       const item = {
             'id': tournament? tournament.id : '',
             'pzbadId': tournament? tournament.pzbadId : '',
@@ -80,11 +74,11 @@ class RegistrationContainer extends React.Component {
             'tournamentPlannerCSV':  tournament ? tournament.tournamentPlannerCSV : ''
     };
 
-    if(tournament){
-        return <EditTournamentForm history={history} match={this.props.match} initialValues={item} playerCategories={playerCategories} clubs={clubs} tournamentUpdate={tournamentUpdate}/>;
-    }
-
-    return <RegisterTournamentForm history={history} match={this.props.match} playerCategories={playerCategories} clubs={clubs} tournamentRegister={tournamentRegister}/>;
+        if(tournament)
+        {
+            return <ResultTournamentForm history={history} match={this.props.match} initialValues={item} tournamentResultUpdate={tournamentResultUpdate} tournament={tournament}/>;
+        }
+      return <ResultTournamentForm history={history} match={this.props.match} initialValues={item} tournamentResultUpdate={tournamentResultUpdate} tournament={tournament}/>;
   }
 }
 

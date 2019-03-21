@@ -1,37 +1,33 @@
 import React from "react";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
-import PDFIcon from '../img/pdf-icon-1.png';
-import DocIcon from "../img/doc-ico.png";
-import CSVIcon from "../img/File-CSV-icon.png";
+import CSVIcon from '../img/File-CSV-icon.png';
+import DocIcon from '../img/doc-ico.png';
 import ImageIcon from '../img/image-ico.png';
+import PDFIcon from "../img/pdf-icon-1.png";
 
-export class ImageBrowser extends React.Component {
+export class ResultCSVBrowser extends React.Component {
 
     imageRender(url){
-        const style = {
-            height: 150+'px',
-
-        };
         const fileFormat =  url.match(/[^.]+$/)[0];
         switch (fileFormat) {
             case 'doc':
             case 'docx':
-                return <img src={DocIcon} className="img-fluid" alt='doc-ico' style={style}/>;
+                return <img src={DocIcon} className="img-fluid" alt='doc-ico'/>;
             case 'jpg':
             case 'jpeg':
             case 'png':
             case 'gif':
-                return <img src={ImageIcon} className="img-fluid" alt='img-ico' style={style}/>;
+                return <img src={ImageIcon} className="img-fluid" alt='img-ico'/>;
             case 'csv':
-                return <img src={CSVIcon} className="img-fluid" alt='csv-ico' style={style}/>;
+                return <img src={CSVIcon} className="img-fluid" alt='csv-ico'/>;
 
             default:
-                return <img src={PDFIcon} className="img-fluid" alt='csv-ico' style={style}/>
+                return <img src={PDFIcon} className="img-fluid" alt='csv-ico'/>
         }
     }
-  render() {
-    const {images, deleteHandler, isLocked} = this.props;
 
+    render() {
+    const {images, deleteHandler, isLocked} = this.props;
 
     return (
       <div className="row mt-4 mb-4">
@@ -48,7 +44,7 @@ export class ImageBrowser extends React.Component {
                     <div className="mt-2 mb-2">
                         {this.imageRender(image.url)}
 
-                        <small>{image.url}</small>
+                           <small>{image.url}</small>
                     </div>
                     <div className="mb-2">
                       <button type="button"
