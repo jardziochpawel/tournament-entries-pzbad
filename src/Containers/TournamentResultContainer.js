@@ -93,7 +93,7 @@ class TournamentsResultContainer extends React.Component {
                 <div className="row">
                   <div className='col-6'>
                     <p className="card-text">
-                      Organizator:&nbsp;{tournament && tournament.organizer}
+                      Organizator:&nbsp;{tournament && tournament.organizer.name}
                     </p>
                     <p className="card-text">
                       Główny sędzia:&nbsp;{tournament && tournament.mainJudge}
