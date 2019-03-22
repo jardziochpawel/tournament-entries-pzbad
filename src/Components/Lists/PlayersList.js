@@ -123,6 +123,9 @@ class PlayersList extends React.Component {
                     <th scope="col">Klub
                         <input type='text' className='form-control' name='club.name' value={this.state['club.name']} onChange={this.handleChange} onKeyPress={this.onEnterClick} />
                     </th>
+                    <th scope="col">Data&nbsp;Urodzenia
+                        <input type='text' className='form-control ' name='birthAt' readOnly={true} placeholder='w budowie'/>
+                    </th>
                     <th scope="col">Licencja&nbsp;Klubowa
                         <input type='text' className='form-control' name='typeClub' value={this.state.typeClub} onChange={this.handleChange} onKeyPress={this.onEnterClick} /></th>
                     <th scope="col">Licencja&nbsp;Drużynowa
@@ -140,6 +143,7 @@ class PlayersList extends React.Component {
                                     <td>{player.firstName}</td>
                                     <td>{player.lastName}</td>
                                     <td>{clubName(player.club)}</td>
+                                    <td>{moment(player.birthAt).format('YYYY-MM-DD')}</td>
                                     <td>{player.typeClub}</td>
                                     <td>{player.typeTeam}</td>
                                     <td>{moment(player.expiredAt).format('YYYY-MM-DD')}</td>
@@ -154,6 +158,7 @@ class PlayersList extends React.Component {
                                     <td>{player.firstName}</td>
                                     <td>{player.lastName}</td>
                                     <td>{clubName(player.club)}</td>
+                                    <td>{moment(player.birthAt).format('YYYY-MM-DD')}</td>
                                     <td>{player.typeClub}</td>
                                     <td>{player.typeTeam}</td>
                                     <td>{moment(player.expiredAt).format('YYYY-MM-DD')}</td>
@@ -167,6 +172,7 @@ class PlayersList extends React.Component {
                                 <td>{player.firstName}</td>
                                 <td>{player.lastName}</td>
                                 <td>{clubName(player.club)}</td>
+                                <td>{moment(player.birthAt).format('YYYY-MM-DD')}</td>
                                 <td>{player.typeClub}</td>
                                 <td>{player.typeTeam}</td>
                                 <td>{moment(player.expiredAt).format('YYYY-MM-DD')}</td>
