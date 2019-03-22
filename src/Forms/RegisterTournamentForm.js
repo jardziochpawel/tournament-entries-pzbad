@@ -70,7 +70,7 @@ class RegisterTournamentForm extends React.Component {
     const alimentation = values.alimentation || null;
     const accommodation = values.accommodation || null;
     const awards = values.awards || null;
-    const tournamentAttachment = values.tournamentAttachment?  this.getUrlToObject(images) : null;
+    const tournamentAttachment = images?  this.getUrlToObject(images) : [];
 
     return this.props.tournamentRegister(...Object.values({
       pzbadId,

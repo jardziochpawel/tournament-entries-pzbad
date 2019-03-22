@@ -30,7 +30,7 @@ export const canWriteBlogPost = (userData) => {
 };
 
 
-const canAddTournamentResultRoles = ['ROLE_ADMIN', "ROLE_SUPERADMIN"];
+const canAddTournamentResultRoles = ['ROLE_JUDGE', 'ROLE_ADMIN', "ROLE_SUPERADMIN"];
 
 export const canAddTournamentResult = (userData) => {
   return null !== userData

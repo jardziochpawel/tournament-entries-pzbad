@@ -108,16 +108,22 @@ class TournamentsResultContainer extends React.Component {
                       Zgłoszenia:&nbsp;{tournament && tournament.applications}
                     </p>
                     <p className="card-text">
+                      Wpisowe:&nbsp;{tournament && tournament.entryFee}
+                    </p>
+                    <p className="card-text">
+                      System rozgrywek:&nbsp;{tournament && tournament.systemOfGames}
+                    </p>
+                    <p className="card-text">
+                      Lotki:&nbsp;{tournament && tournament.shuttlecocks}
+                    </p>
+                    <p className="card-text">
                       Zakwaterowanie:&nbsp;{tournament && tournament.accommodation}
                     </p>
                     <p className="card-text">
                       Wyżywienie:&nbsp;{tournament && tournament.alimentation}
                     </p>
                     <p className="card-text">
-                      Wyżywienie:&nbsp;{tournament && tournament.alimentation}
-                    </p>
-                    <p className="card-text">
-                      Lotki:&nbsp;{tournament && tournament.shuttlecocks}
+                      Nagrody:&nbsp;{tournament && tournament.awards}
                     </p>
                   </div>
                     <div className='col-6'>
