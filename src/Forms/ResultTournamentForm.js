@@ -3,7 +3,8 @@ import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {
   ResultCSVDelete,
-  blogPostFormUnload
+  blogPostFormUnload,
+  importResultTournament
 } from "../Actions/actions";
 import ResultsCSVUpload from "../Components/ResultsCSVUpload";
 import Spinner from "reactstrap/es/Spinner";
@@ -16,7 +17,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   ResultCSVDelete,
-  blogPostFormUnload
+  blogPostFormUnload,
+  importResultTournament
 };
 
 class ResultTournamentForm extends React.Component {
@@ -42,7 +44,7 @@ class ResultTournamentForm extends React.Component {
   }
 
   onSubmit(values) {
-    const {reset, history, images} = this.props;
+    const {reset, history, images, importResultTournament} = this.props;
     const pzbadId = values.pzbadId || null;
     const id = values.id;
     const name = values.name || null;
@@ -62,7 +64,8 @@ class ResultTournamentForm extends React.Component {
     const awards = values.awards || null;
     const tournamentPlannerCSV =  images ? this.getUrlToObject(images) : '';
 
-    return this.props.tournamentResultUpdate(...Object.values({
+
+     this.props.tournamentResultUpdate(...Object.values({
       id,
       pzbadId,
       name,
@@ -84,8 +87,11 @@ class ResultTournamentForm extends React.Component {
     }))
         .then(() => {
           reset();
-          history.push('/tournaments');
         });
+    return setTimeout(()=>{
+      importResultTournament(id);
+      history.push('/tournaments');
+    },1500);
   }
 
   render() {

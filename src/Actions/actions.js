@@ -696,3 +696,9 @@ export const playerCategoriesFetch = (page = 1) => {
         .catch(error => dispatch(playerCategoriesError(error)));
   }
 };
+
+export const importResultTournament = (id) => {
+  return () => {
+    return requests.get('/import/tournament/'+id);
+  }
+};

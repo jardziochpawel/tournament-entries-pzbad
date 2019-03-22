@@ -6,9 +6,12 @@ import TournamentResultList from "../Components/Lists/TournamentResultList";
 import moment from "moment";
 import Download from '@axetroy/react-download';
 import {BACKEND_ROOT} from "../agent";
+import {canAddTournamentResult} from "../apiUtils";
+import {Redirect} from "react-router";
 
 const mapStateToProps = state => ({
   ...state.tournamentResultList,
+  userData: state.auth.userData,
   ...state.tournament
 });
 
@@ -76,7 +79,7 @@ class TournamentsResultContainer extends React.Component {
     }, 100);
   }
   render() {
-    const {results, isFetching, currentPage, tournament, match} = this.props;
+    const {results, isFetching, currentPage, tournament, match, history} = this.props;
 
     if (isFetching) {
       return (<Spinner/>);
@@ -85,7 +88,10 @@ class TournamentsResultContainer extends React.Component {
     return (
         <div>
           <div className="card">
-              <h4 className="card-header">{tournament && tournament.name}</h4>
+              <h2 className="card-header" style={{display: 'inline'}}><span style={{float: 'left'}} className='badge badge-dark'>{tournament && tournament.name}</span>
+                {canAddTournamentResult(this.props.userData) &&
+                <button className='btn btn-primary' style={{float: 'right'}} onClick={()=>history.push('/add-tournament-result/'+tournament.id)}><i className='fa fa-plus'/>&nbsp;Dodaj wyniki</button>
+                }</h2>
               <div className="card-body">
                 <h4 className="card-title">Miejscowość:&nbsp;{tournament && tournament.place}</h4>
                 {tournament && <h5 className="card-title">Data:&nbsp;

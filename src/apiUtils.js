@@ -28,3 +28,13 @@ export const canWriteBlogPost = (userData) => {
       userRoles => canWriteBlogPostRoles.includes(userRoles)
     );
 };
+
+
+const canAddTournamentResultRoles = ['ROLE_ADMIN', "ROLE_SUPERADMIN"];
+
+export const canAddTournamentResult = (userData) => {
+  return null !== userData
+    && userData.roles.some(
+      userRoles => canAddTournamentResultRoles.includes(userRoles)
+    );
+};
