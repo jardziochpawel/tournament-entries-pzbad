@@ -28,6 +28,10 @@ class RegisterTournamentForm extends React.Component {
       termsAccepted: false
     }
   }
+  componentWillMount() {
+    this.props.reset();
+  }
+
   componentWillUnmount() {
     this.props.blogPostFormUnload();
   }

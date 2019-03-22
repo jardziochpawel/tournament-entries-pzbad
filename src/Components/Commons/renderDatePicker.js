@@ -56,6 +56,7 @@ export default class renderDatePicker extends React.Component {
                     onDatesChange={this.handleChange.bind(this)}
                     focusedInput={this.state.focusedInput}
                     onFocusChange={focusedInput => this.setState({ focusedInput })}
+                    isOutsideRange={() => false}
                 />
                 {touched &&
                 error &&

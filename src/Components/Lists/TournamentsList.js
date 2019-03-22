@@ -6,6 +6,15 @@ import {canWriteBlogPost} from "../../apiUtils";
 
 class TournamentsList extends React.Component {
 
+  trimByWord(sentence) {
+    let result = sentence;
+    let resultArray = result.split(" ");
+    if(resultArray.length > 7){
+      resultArray = resultArray.slice(0, 7);
+      result = resultArray.join(" ") + "…";
+    }
+    return result;
+  }
 
 
   render() {
@@ -41,7 +50,7 @@ class TournamentsList extends React.Component {
                         <td>{tournament.pzbadId}</td>
                         <td>{tournament.name}</td>
                         <td>{tournament.organizer.name}</td>
-                        <td>{tournament.place}</td>
+                        <td>{this.trimByWord(tournament.place)}</td>
                         <td>{moment(tournament.startDate).format('YYYY-MM-DD')}</td>
                         <td>{moment(tournament.endDate).format('YYYY-MM-DD')}</td>
                         <td>

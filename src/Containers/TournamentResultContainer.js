@@ -78,9 +78,27 @@ class TournamentsResultContainer extends React.Component {
        window.open(response.file, "_blank");
     }, 100);
   }
+  trimByWord(sentence) {
+    let result = sentence;
+    let resultArray = result.split(" ");
+    if(resultArray.length > 5){
+      resultArray = resultArray.slice(0,100);
+      resultArray[4] = resultArray[4]+'\n';
+      console.log(resultArray);
+      result = resultArray.join(" ") ;
+
+      console.log(result);
+
+    }
+    return result;
+  }
   render() {
     const {results, isFetching, currentPage, tournament, match, history} = this.props;
-
+    const style = {headerText:{
+        float: 'left',
+        color: '#fff',
+        padding: '4px 20px'
+      }};
     if (isFetching) {
       return (<Spinner/>);
     }
@@ -88,12 +106,9 @@ class TournamentsResultContainer extends React.Component {
     return (
         <div>
           <div className="card">
-              <h2 className="card-header" style={{display: 'inline'}}><span style={{float: 'left'}} className='badge badge-dark'>{tournament && tournament.name}</span>
-                {canAddTournamentResult(this.props.userData) &&
-                <button className='btn btn-primary' style={{float: 'right'}} onClick={()=>history.push('/add-tournament-result/'+tournament.id)}><i className='fa fa-plus'/>&nbsp;Dodaj wyniki</button>
-                }</h2>
+              <h2 className="card-header" style={{display: 'inline'}}>{tournament && tournament.name}</h2>
               <div className="card-body">
-                <h4 className="card-title">Miejscowość:&nbsp;{tournament && tournament.place}</h4>
+                <h4 className="card-title">Miejsce:&nbsp;{tournament && tournament.place}</h4>
                 {tournament && <h5 className="card-title">Data:&nbsp;
                 {tournament && moment(tournament.startDate).format('YYYY-MM-DD')} - {tournament &&  moment(tournament.endDate).format('YYYY-MM-DD')}</h5>}
                 <div className="row">
@@ -152,6 +167,9 @@ class TournamentsResultContainer extends React.Component {
                     })}
 
                 </div>
+                {canAddTournamentResult(this.props.userData) &&
+                <button className='btn btn-primary' style={{float: 'right'}} onClick={()=>history.push('/add-tournament-result/'+tournament.id)}><i className='fa fa-plus'/>&nbsp;Dodaj wyniki</button>
+                }
               </div>
 
           </div>

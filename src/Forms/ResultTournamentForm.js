@@ -45,23 +45,23 @@ class ResultTournamentForm extends React.Component {
 
   onSubmit(values) {
     const {reset, history, images, importResultTournament} = this.props;
-    const pzbadId = values.pzbadId || null;
+    const pzbadId = values.pzbadId || '';
     const id = values.id;
-    const name = values.name || null;
-    const startDate = values.date ? values.date.startDate : null;
-    const endDate = values.date ? values.date.endDate : null;
-    const place = values.place ? values.place : null;
-    const playersCategories = values.playerCategory ? this.getUrlToObject(values.playerCategory) : null;
-    const organizer = values.organizer ? values.organizer['@id'] : null;
-    const responsiblePersons = values.responsiblePersons || null;
-    const systemOfGames = values.systemOfGames || null;
-    const entryFee = values.entryFee || null;
-    const shuttlecocks = values.shuttlecocks || null;
-    const applications = values.applications || null;
-    const mainJudge = values.mainJudge || null;
-    const alimentation = values.alimentation || null;
-    const accommodation = values.accommodation || null;
-    const awards = values.awards || null;
+    const name = values.name || '';
+    const startDate = values.date ? values.date.startDate : '';
+    const endDate = values.date ? values.date.endDate : '';
+    const place = values.place ? values.place : '';
+    const playersCategories = values.playerCategory ? this.getUrlToObject(values.playerCategory) : '';
+    const organizer = values.organizer ? values.organizer['@id'] : '';
+    const responsiblePersons = values.responsiblePersons || '';
+    const systemOfGames = values.systemOfGames || '';
+    const entryFee = values.entryFee || '';
+    const shuttlecocks = values.shuttlecocks || '';
+    const applications = values.applications || '';
+    const mainJudge = values.mainJudge || '';
+    const alimentation = values.alimentation || '';
+    const accommodation = values.accommodation || '';
+    const awards = values.awards || '';
     const tournamentPlannerCSV =  images ? this.getUrlToObject(images) : '';
 
 
@@ -90,7 +90,7 @@ class ResultTournamentForm extends React.Component {
         });
     return setTimeout(()=>{
       importResultTournament(id);
-      history.push('/tournaments');
+      history.goBack();
     },1500);
   }
 

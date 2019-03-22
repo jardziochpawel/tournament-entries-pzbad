@@ -80,7 +80,7 @@ class RegistrationContainer extends React.Component {
             'tournamentPlannerCSV':  tournament ? tournament.tournamentPlannerCSV : ''
     };
 
-    if(tournament){
+    if(tournament && this.props.match.params.id){
         return <EditTournamentForm history={history} match={this.props.match} initialValues={item} playerCategories={playerCategories} clubs={clubs} tournamentUpdate={tournamentUpdate}/>;
     }
 
