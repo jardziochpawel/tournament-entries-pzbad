@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import Logo from "../img/pzbad_logo.png";
+import moment from 'moment';
 
 export default class Header extends React.Component {
   renderUser() {
@@ -20,6 +21,9 @@ export default class Header extends React.Component {
 
   render() {
     const {isAuthenticated} = this.props;
+    const date = new Date();
+    const year = moment(date).format('Y');
+    const month = moment(date).format('MM');
 
     return (
       <nav className="navbar navbar-expand-lg navbar-dark fixed-top bg-pzbad">
@@ -40,7 +44,7 @@ export default class Header extends React.Component {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/tournaments-calendar" className="nav-link">
+            <Link to={"/tournaments-calendar/"+year+"-"+month} className="nav-link">
               Kalendarz
             </Link>
           </li>
