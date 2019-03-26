@@ -57,6 +57,8 @@ export default class renderDatePicker extends React.Component {
                     focusedInput={this.state.focusedInput}
                     onFocusChange={focusedInput => this.setState({ focusedInput })}
                     isOutsideRange={() => false}
+                    enableOutsideDays={true}
+                    minimumNights={0}
                 />
                 {touched &&
                 error &&
