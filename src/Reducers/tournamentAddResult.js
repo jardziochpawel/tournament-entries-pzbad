@@ -53,7 +53,7 @@ export default (state = {
       return {
         ...state,
         tournament: action.data,
-        images: action.data.tournamentAttachment,
+        images: action.data.tournamentPlannerCSV,
         isFetching: false
       };
     case TOURNAMENT_ERROR:

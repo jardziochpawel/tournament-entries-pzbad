@@ -13,7 +13,7 @@ import Spinner from "reactstrap/es/Spinner";
 
 
 const mapStateToProps = state => ({
-  ...state.blogPostForm
+  ...state.tournament
 });
 
 const mapDispatchToProps = {
@@ -34,7 +34,7 @@ class EditTournamentForm extends React.Component {
   getUrlToObject(array){
     let a = [];
     let i = 0;
-    if(array.length > 0 && array !== undefined){
+    if(array.length > 0){
       array.map(o =>{
         a[i] = o['@id'];
         i++

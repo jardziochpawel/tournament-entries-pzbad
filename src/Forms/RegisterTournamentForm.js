@@ -13,7 +13,7 @@ import Spinner from "reactstrap/es/Spinner";
 
 
 const mapStateToProps = state => ({
-  ...state.blogPostForm
+  ...state.tournament
 });
 
 const mapDispatchToProps = {

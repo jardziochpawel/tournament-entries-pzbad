@@ -9,7 +9,8 @@ export class ResultCSVBrowser extends React.Component {
 
     imageRender(url){
         const fileFormat =  url.match(/[^.]+$/)[0];
-        switch (fileFormat) {
+        console.log(fileFormat);
+        switch (fileFormat.toLocaleLowerCase()) {
             case 'doc':
             case 'docx':
                 return <img src={DocIcon} className="img-fluid" alt='doc-ico'/>;
@@ -20,9 +21,10 @@ export class ResultCSVBrowser extends React.Component {
                 return <img src={ImageIcon} className="img-fluid" alt='img-ico'/>;
             case 'csv':
                 return <img src={CSVIcon} className="img-fluid" alt='csv-ico'/>;
-
+            case 'pdf':
+                return <img src={PDFIcon} className="img-fluid" alt='csv-ico'/>;
             default:
-                return <img src={PDFIcon} className="img-fluid" alt='csv-ico'/>
+                return <img src={PDFIcon} className="img-fluid" alt='csv-ico'/>;
         }
     }
 

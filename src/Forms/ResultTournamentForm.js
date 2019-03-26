@@ -12,7 +12,7 @@ import {ResultCSVBrowser} from "../Components/ResultCSVBrowser";
 
 
 const mapStateToProps = state => ({
-  ...state.blogPostForm
+  ...state.tournamentAddResult
 });
 
 const mapDispatchToProps = {
