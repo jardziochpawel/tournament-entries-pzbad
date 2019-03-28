@@ -92,7 +92,7 @@ export default class peselFormValidator extends React.Component {
     };
 
     render() {
-        const {input, label, type, meta: {error}} = this.props;
+        const {input, label, type, meta: {error}, placeholder} = this.props;
 
         let classes = classNames(
             'form-control'
@@ -117,7 +117,7 @@ export default class peselFormValidator extends React.Component {
                 <div className="form-group">
                     {label !== null && label !== '' && <label>{label}</label>}
                     <MaskedInput {...input} type={type} value={this.state.pesel} className={classes} onChange={this.handleChange.bind(this)}
-                                 mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}/>
+                                 mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]} placeholder={placeholder}/>
                     {error && <small className="form-text text-danger">{error}</small>}
                 </div>
 

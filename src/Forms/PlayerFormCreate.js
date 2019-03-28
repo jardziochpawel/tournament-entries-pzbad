@@ -41,14 +41,14 @@ class PlayerFormCreate extends React.Component {
         <div className="card mt-3 mb-6 shadow-sm">
           <div className="card-body">
             <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-              <Field name="firstName" label="Imię:" type="text" component={renderField}/>
-              <Field name="lastName" label="Nazwisko:" type="text" component={renderField}/>
-              <Field name="pesel" label="PESEL:" type="text" component={peselFormValidator} />
-              <Field name="placeOfBirth" label="Miejsce urodzenia:" type="text" component={renderField}/>
+              <Field name="firstName" label="Imię:" type="text" component={renderField}  placeholder='Imię'/>
+              <Field name="lastName" label="Nazwisko:" type="text" component={renderField} placeholder='Nazwisko'/>
+              <Field name="pesel" label="PESEL:" type="text" component={peselFormValidator} placeholder='PESEL'/>
+              <Field name="placeOfBirth" label="Miejsce urodzenia:" type="text" component={renderField} placeholder='Miejscowość'/>
               <div><h4>Adres Zameldowania</h4></div>
               <Field name="registerAddressStreet" label="Ulica:" type="text" component={renderField} placeholder='Ulica, nr domu, nr mieszkania'/>
-              <Field name="registerAddressPostCode" label="kod pocztowy:" type="text" component={renderMaskedField} mask={[/\d/,/\d/,'-',/\d/,/\d/,/\d/]}/>
-              <Field name="registerAddressPostOffice" label="Miejscowość:" type="text" component={renderField}/>
+              <Field name="registerAddressPostCode" label="kod pocztowy:" type="text" component={renderMaskedField} mask={[/\d/,/\d/,'-',/\d/,/\d/,/\d/]} placeholder='00-000'/>
+              <Field name="registerAddressPostOffice" label="Miejscowość:" type="text" component={renderField} placeholder='Miejscowość'/>
               <div className="form-check form-group">
                 <input className="form-check-input" type="checkbox"
                        value={false}
@@ -59,12 +59,13 @@ class PlayerFormCreate extends React.Component {
                 <div>
                   <div><h4>Adres Korenspondencyjny</h4></div>
                   <Field name="addressForCorrespondenceStreet" label="Ulica:" type="text" component={renderField} placeholder='Ulica, nr domu, nr mieszkania'/>
-                  <Field name="addressForCorrespondencePostCode" label="kod pocztowy:" type="text" component={renderMaskedField} mask={[/\d/,/\d/,'-',/\d/,/\d/,/\d/]}/>
-                  <Field name="addressForCorrespondencePostOffice" label="Miejscowość:" type="text" component={renderField}/>
+                  <Field name="addressForCorrespondencePostCode" label="kod pocztowy:" type="text" component={renderMaskedField} mask={[/\d/,/\d/,'-',/\d/,/\d/,/\d/]} placeholder='00-000'/>
+                  <Field name="addressForCorrespondencePostOffice" label="Miejscowość:" type="text" component={renderField} placeholder='Miejscowość'/>
                 </div>
               }
 
-              <Field name="mail" label="E-mail:" type="text" component={renderField}/>
+              <Field name="mail" label="E-mail:" type="text" component={renderField} placeholder='e-mail'/>
+              <Field name="phone" label="Telefon:" type="text" component={renderField} placeholder='Telefon'/>
               <button type="submit" className="btn btn-primary btn-big btn-block">
                 Zapisz
               </button>

@@ -37,7 +37,7 @@ export const renderFieldGender = ({input, label, type, meta: {error}, sex}) => {
   );
 };
 
-export const renderMaskedField = ({input, label, type, meta: {error}, mask}) => {
+export const renderMaskedField = ({input, label, type, meta: {error}, mask, placeholder}) => {
     const classes = classNames(
         'form-control',
         {
@@ -47,7 +47,7 @@ export const renderMaskedField = ({input, label, type, meta: {error}, mask}) => 
     return (
         <div className="form-group">
             {label !== null && label !== '' && <label>{label}</label>}
-            <MaskedInput {...input} type={type} className={classes} mask={mask}/>
+            <MaskedInput {...input} type={type} className={classes} mask={mask} placeholder={placeholder}/>
             {error && <small className="form-text text-danger">{error}</small>}
         </div>
     );
