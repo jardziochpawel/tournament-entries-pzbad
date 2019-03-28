@@ -130,14 +130,14 @@ class PlayersList extends React.Component {
                         <input type='text' className='form-control' name='club.name' value={this.state['club.name']} onChange={this.handleChange} onKeyPress={this.onEnterClick} />
                     </th>
                     <th scope="col">Data&nbsp;Urodzenia
-                        <input type='text' className='form-control ' name='birthAt[after]' readOnly={true} placeholder='w budowie' value={this.state['birthAt[after]']} onChange={this.handleChange} onKeyPress={this.onEnterClick} />
+                        <input type='text' className='form-control ' name='birthAt[after]' value={this.state['birthAt[after]']} onChange={this.handleChange} onKeyPress={this.onEnterClick} />
                     </th>
                     <th scope="col">Licencja&nbsp;Klubowa
                         <input type='text' className='form-control' name='typeClub' value={this.state.typeClub} onChange={this.handleChange} onKeyPress={this.onEnterClick} /></th>
                     <th scope="col">Licencja&nbsp;Drużynowa
                         <input type='text' className='form-control' name='typeTeam' value={this.state.typeTeam} onChange={this.handleChange} onKeyPress={this.onEnterClick} /></th>
                     <th scope="col">Narodowość&nbsp;&nbsp;
-                        <input type='text' className='form-control' name='typeNationality' readOnly={true} placeholder='w budowie' value={this.state.typeNationality} onChange={this.handleChange} onKeyPress={this.onEnterClick} /></th>
+                        <input type='text' className='form-control' name='typeNationality' value={this.state.typeNationality} onChange={this.handleChange} onKeyPress={this.onEnterClick} /></th>
                     <th scope="col">Licencja&nbsp;ważna&nbsp;do
                         <input type='text' className='form-control' name='expiredAt[after]' value={this.state['expiredAt[after]']} onChange={this.handleChange} onKeyPress={this.onEnterClick} /></th>
                   </tr>

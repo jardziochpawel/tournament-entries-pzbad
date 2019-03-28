@@ -1,7 +1,7 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {renderChoicesField, renderField} from "../Components/Commons/form";
-import renderDatePicker from "../Components/Commons/renderDatePicker";
+import renderDateRangePicker from "../Components/Commons/renderDateRangePicker";
 import {connect} from "react-redux";
 import {
   blogPostFormUnload,
@@ -38,7 +38,7 @@ class RegisterTournamentForm extends React.Component {
   getUrlToObject(array){
     let a = [];
     let i = 0;
-    if(array.length > 0 && array !== undefined){
+    if(array.length > 0){
       array.map(o =>{
         a[i] = o['@id'];
         i++
@@ -123,7 +123,7 @@ class RegisterTournamentForm extends React.Component {
             </Field>
             <Field
                 name='date'
-                component={renderDatePicker}
+                component={renderDateRangePicker}
               >
                 Data turnieju:
               </Field>

@@ -1,7 +1,8 @@
 import React from 'react';
 import moment from 'moment';
-import { DateRangePicker } from 'react-dates';
+import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
+import {PeselDecode} from './peselFormValidator';
 
 export default class renderDatePicker extends React.Component {
 
@@ -10,29 +11,42 @@ export default class renderDatePicker extends React.Component {
     };
 
     state = {
-        startDate: null,
-        endDate: null,
+        date: null,
+        focused: false
     };
 
     componentWillMount() {
         if (this.props.input.value) {
             this.setState({
-                startDate: moment(this.props.input.value.startDate),
-                endDate: moment(this.props.input.value.endDate),
+                date: moment(this.props.input.value.date)
             });
         }
     }
 
-    handleChange = ({ startDate, endDate } ) => {
+    componentDidUpdate(prevProps, prevState) {
+        const {inputValue, valid} = this.props;
+        if(valid && !prevState.date){
+            this.setState({
+                date: moment(inputValue)
+            });
+        }
+        if(!valid && prevState.date){
+            this.setState({
+                date: inputValue
+            });
+        }
+
+    }
+
+    handleChange = ( date ) => {
+        console.log(date);
         this.setState({
-            startDate: startDate,
-            endDate: endDate,
+            date: date,
+        });
+        this.props.input.onChange({
+            'date': moment(date).format(this.props.inputValueFormat)
         });
 
-        this.props.input.onChange({
-            'startDate': moment(startDate).format(this.props.inputValueFormat),
-            'endDate':  moment(endDate).format(this.props.inputValueFormat),
-        });
     };
 
     render() {
@@ -40,25 +54,50 @@ export default class renderDatePicker extends React.Component {
             children,
             placeholder,
             meta: { touched, error },
+            id,
+            label,
             ...rest
         } = this.props;
+
+        const returnYears = () => {
+            let years = [];
+            for(let i = moment().year() - 100; i <= moment().year(); i++) {
+                years.push(<option value={i} key={i}>{i}</option>);
+            }
+            return years;
+        };
+
+        const renderMonthElement = ({ month, onMonthSelect, onYearSelect }) =>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <div className='form-group'>
+                    <select value={month.month()} onChange={(e) => { onMonthSelect(month, parseInt(e.target.value))} } className='form-control-sm'>
+                        {moment.months().map((label, i) => (
+                            <option value={i} key={i}>{label}</option>
+                        ))}
+                    </select>
+                    <select value={month.year()} onChange={(e) => onYearSelect(month, parseInt(e.target.value))} className='form-control-sm'>
+                        {returnYears()}
+                    </select>
+                </div>
+            </div>;
 
         return (
             <div className='form-group'>
                 <label>
-                    {children}
+                    {label}
                 </label><br/>
-                <DateRangePicker
-                    startDate={this.state.startDate}
-                    startDateId="your_unique_start_date_id"
-                    endDate={this.state.endDate}
-                    endDateId="your_unique_end_date_id"
-                    onDatesChange={this.handleChange.bind(this)}
-                    focusedInput={this.state.focusedInput}
-                    onFocusChange={focusedInput => this.setState({ focusedInput })}
+                <SingleDatePicker
+                    date={this.state.date}
+                    onDateChange={this.handleChange.bind(this)}
+                    focused={this.state.focused} // PropTypes.bool
+                    onFocusChange={({ focused }) => this.setState({ focused })}
+                    numberOfMonths={1}
+                    renderMonthElement={renderMonthElement}
+                    id={id}
                     isOutsideRange={() => false}
-                    enableOutsideDays={true}
-                    minimumNights={0}
+                    disabled={true}
+                    block={true}
+                    placeholder='Wprowadź PESEL'
                 />
                 {touched &&
                 error &&

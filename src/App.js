@@ -18,6 +18,7 @@ import ClassificationListContainer from "./Containers/ClassificationListContaine
 import 'react-dates/initialize';
 import TournamentsCalendarContainer from "./Containers/TournamentsCalendarContainer";
 import AddResultTournamentContainer from "./Containers/AddResultTournamentContainer";
+import PlayerFormContainer from "./Containers/PlayerFormContainer";
 
 const mapStateToProps = state => ({
   ...state.auth
@@ -67,6 +68,7 @@ class App extends React.Component {
             <Route path="/clubs/:page?" component={ClubsListContainer}/>
             <Route path="/club/:id/:page?" component={ClubContainer}/>
             <Route path="/register" component={RegistrationContainer}/>
+            <Route path="/player-register" component={PlayerFormContainer}/>
             <Route path="/register-tournament" component={RegistrationTournamentContainer}/>
             <Route path="/add-tournament-result/:id?" component={AddResultTournamentContainer}/>
             <Route path="/edit-tournament/:id?" component={RegistrationTournamentContainer}/>

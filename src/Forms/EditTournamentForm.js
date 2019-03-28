@@ -1,7 +1,7 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {renderChoicesField, renderField} from "../Components/Commons/form";
-import renderDatePicker from "../Components/Commons/renderDatePicker";
+import renderDateRangePicker from "../Components/Commons/renderDateRangePicker";
 import {connect} from "react-redux";
 import {
   blogPostFormUnload,
@@ -121,7 +121,7 @@ class EditTournamentForm extends React.Component {
             </Field>
             <Field
                 name='date'
-                component={renderDatePicker}
+                component={renderDateRangePicker}
               >
                 Data turnieju:
               </Field>
