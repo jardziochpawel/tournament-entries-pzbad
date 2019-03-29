@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from "classnames";
 import MaskedInput from 'react-text-mask'
 import {Field} from "redux-form";
-import renderDatePicker from "./renderDatePicker";
+import renderDatePickerBlock from "./renderDatePickerBlock";
 import {renderFieldGender} from "./form";
 
 export const PeselDecode = (pesel) => {
@@ -121,7 +121,7 @@ export default class peselFormValidator extends React.Component {
                     {error && <small className="form-text text-danger">{error}</small>}
                 </div>
 
-                <Field name="birthAt" label="Data urodzenia:" component={renderDatePicker} inputValue={this.state.birthAt} valid={this.state.valid} pesel={this.state.pesel}/>
+                <Field name="birthAt" label="Data urodzenia:" component={renderDatePickerBlock} inputValue={this.state.birthAt} valid={this.state.valid} pesel={this.state.pesel}/>
                 <Field type="text" name="gender" label="Płeć:" component={renderFieldGender} sex={this.state.sex}/>
             </div>
 

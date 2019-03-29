@@ -3,14 +3,15 @@ import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 
-export default class renderDatePicker extends React.Component {
+export default class renderDatePickerBlock extends React.Component {
 
     static defaultProps = {
         inputValueFormat: null,
     };
 
     state = {
-        date: null
+        date: null,
+        focused: false
     };
 
     componentWillMount() {
@@ -21,8 +22,23 @@ export default class renderDatePicker extends React.Component {
         }
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        const {inputValue, valid} = this.props;
+        if(valid && !prevState.date){
+            this.setState({
+                date: moment(inputValue)
+            });
+        }
+        if(!valid && prevState.date){
+            this.setState({
+                date: inputValue
+            });
+        }
+
+    }
 
     handleChange = ( date ) => {
+        console.log(date);
         this.setState({
             date: date,
         });
@@ -39,7 +55,6 @@ export default class renderDatePicker extends React.Component {
             meta: { touched, error },
             id,
             label,
-            block,
             ...rest
         } = this.props;
 
@@ -79,9 +94,9 @@ export default class renderDatePicker extends React.Component {
                     renderMonthElement={renderMonthElement}
                     id={id}
                     isOutsideRange={() => false}
-                    disabled={block}
+                    disabled={true}
                     block={true}
-                    placeholder='Wprowadź datę urodzenia'
+                    placeholder='Wprowadź PESEL'
                 />
                 {touched &&
                 error &&

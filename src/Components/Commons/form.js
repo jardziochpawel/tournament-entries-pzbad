@@ -21,6 +21,24 @@ export const renderField = ({input, label, type, meta: {error}, placeholder}) =>
   );
 };
 
+export const renderChoices = ({input, label, children, meta: {error}, placeholder}) => {
+  const classes = classNames(
+    'form-control',
+    {
+      'is-invalid': error
+    }
+  );
+  return (
+    <div className="form-group block">
+      {label !== null && label !== '' && <label>{label}</label>}
+      <select {...input} className={classes} placeholder={placeholder}>
+          {children}
+      </select>
+      {error && <small className="form-text text-danger">{error}</small>}
+    </div>
+  );
+};
+
 export const renderFieldGender = ({input, label, type, meta: {error}, sex}) => {
   const classes = classNames(
     'form-control',
