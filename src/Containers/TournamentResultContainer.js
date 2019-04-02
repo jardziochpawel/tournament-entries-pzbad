@@ -146,7 +146,7 @@ class TournamentsResultContainer extends React.Component {
                       <ul>
                       {tournament && tournament.tournamentAttachment.map(a=>{
                         return(
-                            <li><button className='btn btn-link' key={a.id} onClick={()=>this.download(a.url)}>{a.fileName}</button></li>
+                            <li key={a.id} ><button className='btn btn-link' onClick={()=>this.download(a.url)}>{a.fileName}</button></li>
                         )
                       })}
                       </ul>
