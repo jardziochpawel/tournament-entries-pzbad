@@ -49,7 +49,7 @@ export class ImageBrowser extends React.Component {
                     <div className="mt-2 mb-2">
                         {this.imageRender(image.url)}
 
-                        <small>{image.name}</small>
+                        <small>{image.fileName}</small>
                     </div>
                     <div className="mb-2">
                       <button type="button"
