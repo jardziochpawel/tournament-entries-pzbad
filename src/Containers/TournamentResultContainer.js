@@ -143,11 +143,13 @@ class TournamentsResultContainer extends React.Component {
                   </div>
                     <div className='col-6'>
                       <h5>Komunikaty:</h5>
+                      <ul>
                       {tournament && tournament.tournamentAttachment.map(a=>{
                         return(
-                            <button className='btn btn-link' key={a.id} onClick={()=>this.download(a.url)}>{a.name}</button>
+                            <li><button className='btn btn-link' key={a.id} onClick={()=>this.download(a.url)}>{a.fileName}</button></li>
                         )
                       })}
+                      </ul>
                     </div>
                   </div>
                 <h4 style={{paddingTop: 50+'px',}}>Kategorie:</h4>
