@@ -9,6 +9,10 @@ import {
   CLUB_RECEIVED,
   CLUB_REQUEST,
   CLUB_UNLOAD,
+  COMMON_ERROR,
+  COMMON_RECEIVED,
+  COMMON_REQUEST,
+  COMMON_UNLOAD,
   TOURNAMENT_ERROR,
   TOURNAMENT_RECEIVED,
   TOURNAMENT_REQUEST,
@@ -230,6 +234,43 @@ export const clubFetch = (id) => {
     return requests.get(`/clubs/${id}`)
       .then(response => dispatch(clubReceived(response)))
       .catch(error => dispatch(clubError(error)));
+  }
+};
+
+export const commonRequest = () => ({
+  type: COMMON_REQUEST,
+});
+
+export const commonError = (error) => ({
+  type: COMMON_ERROR,
+  error
+});
+
+export const commonReceived = (data) => ({
+  type: COMMON_RECEIVED,
+  data
+});
+
+export const commonUnload = () => ({
+  type: COMMON_UNLOAD,
+});
+
+export const commonClassificationFetch = () => {
+  return (dispatch) => {
+    dispatch(commonRequest());
+    return requests.get(`/classification/zip`)
+      .then(response => dispatch(commonReceived(response)))
+      .catch(error => dispatch(commonError(error)));
+  }
+};
+
+
+export const commonPlayerListFetch = () => {
+  return (dispatch) => {
+    dispatch(commonRequest());
+    return requests.get(`/playersList/excel`)
+      .then(response => dispatch(commonReceived(response)))
+      .catch(error => dispatch(commonError(error)));
   }
 };
 
