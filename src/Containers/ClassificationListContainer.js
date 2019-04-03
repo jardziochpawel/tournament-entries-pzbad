@@ -1,5 +1,12 @@
 import React from 'react';
-import {classificationListFetch, classificationListSetTypeOfGame, classificationListSetCategory, classificationListClear, commonClassificationFetch} from "../Actions/actions";
+import {
+    classificationListFetch,
+    classificationListSetTypeOfGame,
+    classificationListSetCategory,
+    classificationListClear,
+    commonClassificationFetch,
+    commonUnload
+} from "../Actions/actions";
 import {connect} from "react-redux";
 import ClassificationList from "../Components/Lists/ClassificationList";
 import moment from "moment";
@@ -16,7 +23,8 @@ const mapDispatchToProps = {
     classificationListSetTypeOfGame: classificationListSetTypeOfGame,
     classificationListSetCategory: classificationListSetCategory,
     classificationListClear:classificationListClear,
-    commonClassificationFetch: commonClassificationFetch
+    commonClassificationFetch: commonClassificationFetch,
+    commonUnload:commonUnload
 };
 
 class ClubContainer extends React.Component {
@@ -37,6 +45,9 @@ class ClubContainer extends React.Component {
       if (prevProps.currentCategory !== currentCategory) {
           classificationListFetch(currentCategory, currentTypeOfGame);
       }
+  }
+  componentWillUnmount() {
+      this.props.commonUnload();
   }
 
   changeTypeOfGames(typeOfGame){
