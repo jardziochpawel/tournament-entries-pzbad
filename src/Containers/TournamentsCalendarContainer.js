@@ -69,7 +69,7 @@ class TournamentsCalendarContainer extends React.Component {
     history.push('/tournaments-calendar/'+year+'-'+month+'/'+currentCategory);
   }
   render() {
-    const {tournaments, isFetching, match} = this.props;
+    const {tournaments, isFetching, match,history,currentCategory} = this.props;
     const ButtonView = ({type, className, name, children, onClick}) => {
       return(
           <Button type={type} className={className} name={name} onClick={onClick}>{children}</Button>
@@ -78,7 +78,12 @@ class TournamentsCalendarContainer extends React.Component {
     if (isFetching) {
       return (<Spinner/>);
     }
-    
+    if(!match.params.date){
+      const date = new Date();
+      const year = moment(date).format('Y');
+      const month = moment(date).format('MM');
+      history.push('/tournaments-calendar/'+year+'-'+month+'/'+currentCategory)
+    }
     return (
         <div>
           <div className="btn-group btn-group-lg" role="group" aria-label="Basic example" style={{marginBottom: 20+'px'}}>

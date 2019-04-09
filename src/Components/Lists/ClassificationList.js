@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "react-tabs/style/react-tabs.css";
 import {Spinner} from "../../Components/Commons/Spinner";
+import PopoverButton from "../Commons/PopoverButton";
 
 class ClassificationList extends React.Component {
 
@@ -72,16 +73,20 @@ class ClassificationList extends React.Component {
                                       <td>{moment(c.player.birthAt).format('YYYY')}</td>
                                       <td>{c.player.voivodeship}</td>
                                       <td>{c.sum_of_points}</td>
-                                      <td>{c.best_results.map(b=>{
-                                          return(
-                                              <span key={b.tournament.id}>
-                                        <Link to={'/tournament-result/'+b.tournament.id+'/'+playerCategory(params.id)+'/'+params.typeOfGame} >
-                                            {b.points}
-                                        </Link>
-                                                  &nbsp;&nbsp;
-                                    </span>
-                                          );
-                                      })}</td>
+                                      <td>
+                                          <div style={{display: 'flex', flexWrap: 'wrap', flexDirection: 'row'}}>
+                                          {c.best_results.map(b=>{
+                                              return(
+                                                  <div key={b.tournament.id} style={{width: 50+'px', margin: 'auto'}}>
+                                                    <Link to={'/tournament-result/'+b.tournament.id+'/'+playerCategory(params.id)+'/'+params.typeOfGame} >
+                                                        {b.tournament && <PopoverButton points={b.points} tournament={b.tournament} pzbadId={c.player.pzbadId}/>}
+                                                    </Link>
+                                                  </div>
+                                              );
+                                                  })
+                                          }
+                                          </div>
+                                      </td>
                                   </tr>
                               );
                           })}

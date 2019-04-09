@@ -16,7 +16,10 @@ class TournamentsList extends React.Component {
     return result;
   }
 
-
+  haveResults(r){
+    console.log(r.length > 0);
+    return Boolean(r.length > 0);
+  }
   render() {
     const {tournaments, userData} = this.props;
 
@@ -35,6 +38,7 @@ class TournamentsList extends React.Component {
               <th scope="col">Miejsce zawodów</th>
               <th scope="col">Data rozpoczęcia</th>
               <th scope="col">Data zakończenia</th>
+                <th scope="col">Kategorie</th>
                 <th scope="col">Wyniki</th>
                 {
                     canWriteBlogPost(userData) &&
@@ -80,6 +84,9 @@ class TournamentsList extends React.Component {
                                 )}
                             </ul>
                         </td>
+                      <td>
+                        {tournament.tournamentPlannerCSV && <input className='form-control' type='checkbox' checked={this.haveResults(tournament.tournamentPlannerCSV)} disabled={true} />}
+                      </td>
                         {
                             canWriteBlogPost(userData) &&
                             <td>
