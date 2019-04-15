@@ -18,7 +18,7 @@ class ImageUpload extends React.Component {
 
   render() {
     const {label, imageReqInProgress} = this.props;
-    console.log(imageReqInProgress);
+
     if(imageReqInProgress){
       return (<Spinner/>);
     }

@@ -66,8 +66,6 @@ class ClubContainer extends React.Component {
 
       if(id !== Number(match.params.id))
       {
-          console.log(id);
-          console.log(match.params.id);
           classificationListClear();
           history.push('/classification/'+id+'/'+match.params.typeOfGame);
       }
@@ -77,10 +75,6 @@ class ClubContainer extends React.Component {
           const response = {
               file: BACKEND_ROOT+url,
           };
-          // server sent the url to the file!
-          // now, let's download:
-          // window.location.href = response.file;
-          // you could also do:
           window.open(response.file, "_blank");
       }, 100);
   }

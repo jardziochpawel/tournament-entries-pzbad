@@ -42,8 +42,6 @@ class RegistrationContainer extends React.Component {
           return (<Spinner/>);
         }
 
-
-
     if(tournament === undefined){
       return (<Spinner/>);
     }
@@ -54,7 +52,6 @@ class RegistrationContainer extends React.Component {
       if (!canWriteBlogPost(this.props.userData)) {
           return <Redirect to="/login"/>
       }
-      console.log(tournament);
 
       const item = {
             'id': tournament? tournament.id : '',
