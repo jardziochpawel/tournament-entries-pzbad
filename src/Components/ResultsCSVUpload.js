@@ -10,8 +10,6 @@ const mapDispatchToProps = {
 class ResultsCSVUpload extends React.Component {
   onChange(e) {
     const {tournament} = this.props;
-    console.log(e.target);
-    console.log(e.target.files[0]);
     const file = e.target.files[0];
     this.props.tournamentPlannerFiles(file, tournament);
   }

@@ -9,7 +9,6 @@ export class ResultCSVBrowser extends React.Component {
 
     imageRender(url){
         const fileFormat =  url.match(/[^.]+$/)[0];
-        console.log(fileFormat);
         switch (fileFormat.toLocaleLowerCase()) {
             case 'doc':
             case 'docx':

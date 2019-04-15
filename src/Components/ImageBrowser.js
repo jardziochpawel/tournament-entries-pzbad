@@ -33,7 +33,6 @@ export class ImageBrowser extends React.Component {
   render() {
     const {images, deleteHandler, isLocked} = this.props;
 
-
     return (
       <div className="row mt-4 mb-4">
         <TransitionGroup component={null}>
