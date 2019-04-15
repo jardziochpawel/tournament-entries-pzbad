@@ -32,10 +32,10 @@ export default class PopoverButton extends React.Component {
         const {tournament, points, pzbadId} = this.props;
         return (
             <div onMouseOver={()=>this.toggle()} onMouseOut={()=>this.setState({popoverOpen: false})}>
-                <button id={'Popover'+tournament.id+'-'+pzbadId}  className='btn btn-link'>
+                <button id={'Popover'+tournament.id+'-'+pzbadId.replace(/ /g,"_")}  className='btn btn-link'>
                     {points}
                 </button>
-                <Popover placement="top" isOpen={this.state.popoverOpen} target={'Popover'+tournament.id+'-'+pzbadId}>
+                <Popover placement="top" isOpen={this.state.popoverOpen} target={'Popover'+tournament.id+'-'+pzbadId.replace(/ /g,"_")}>
                     <PopoverHeader>#{tournament.id} - {tournament.name}</PopoverHeader>
                     <PopoverBody>{this.trimByWord(tournament.place)}</PopoverBody>
                 </Popover>

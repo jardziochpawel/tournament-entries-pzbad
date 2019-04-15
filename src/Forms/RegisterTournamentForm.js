@@ -143,7 +143,7 @@ class RegisterTournamentForm extends React.Component {
             <Field name="accommodation" label="Zakwaterowanie:" type="text" component={renderField}/>
             <Field name="awards" label="Nagrody:" type="text" component={renderField}/>
 
-            <ImageUpload label='Komunikat organizacyjny:'/>
+            <ImageUpload label='Komunikat organizacyjny:' imageReqInProgress={imageReqInProgress}/>
             <ImageBrowser images={images}
                           deleteHandler={imageDelete}
                           isLocked={imageReqInProgress} />

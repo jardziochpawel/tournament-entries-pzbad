@@ -540,7 +540,7 @@ export const imageUpload = (file) => {
     dispatch(imageUploadRequest());
     return requests.upload('/attachment', file)
       .then(response => dispatch(imageUploaded(response)))
-      .catch(() => dispatch(imageUploadError))
+      .catch((error) => dispatch(imageUploadError))
   }
 };
 
