@@ -38,9 +38,9 @@ class TournamentResultList extends React.Component {
                     <table className="table table-striped ">
                         <thead>
                         <tr>
-                            <th scope="col">PZBAD ID</th>
+                            <th scope="col">ID</th>
                             <th scope="col">Imię</th>
-                            <th scope="col">Nazwisko</th>
+                            <th scope="col">Przynależność</th>
                             <th scope="col">Miejsce</th>
                             <th scope="col">Miejsce z TP</th>
                             <th scope="col">Punkty</th>
@@ -50,9 +50,9 @@ class TournamentResultList extends React.Component {
                         {results && results.map(result => {
                             return(
                                 <tr key={result['@id']}>
-                                    <td>{result.playerId.pzbadId}</td>
-                                    <td>{result.playerId.firstName}</td>
-                                    <td>{result.playerId.lastName}</td>
+                                    <td>{result.fId}</td>
+                                    <td>{result.fName}</td>
+                                    <td>{result.fMembership}</td>
                                     <td>{result.position}</td>
                                     <td>{result.displayedPosition}</td>
                                     <td>{result.points}</td>

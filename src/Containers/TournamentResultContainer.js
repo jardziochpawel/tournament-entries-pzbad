@@ -170,7 +170,7 @@ class TournamentsResultContainer extends React.Component {
 
                 </div>
                 {canAddTournamentResult(this.props.userData) &&
-                <button className='btn btn-primary' style={{float: 'right'}} onClick={()=>history.push('/add-tournament-result/'+tournament.id)}><i className='fa fa-plus'/>&nbsp;Dodaj wyniki</button>
+                  <button className='btn btn-primary' style={{float: 'right'}} onClick={()=>history.push('/add-tournament-result/'+tournament.id)}><i className='fa fa-plus'/>&nbsp;Dodaj wyniki</button>
                 }
               </div>
 
