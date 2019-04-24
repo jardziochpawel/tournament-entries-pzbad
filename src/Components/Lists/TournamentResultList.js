@@ -48,9 +48,17 @@ class TournamentResultList extends React.Component {
                         </thead>
                         <tbody>
                         {results && results.map(result => {
+                            const isPlayer = (result) => {
+                                if(result.playerId !== null){
+                                    return <p>{result.fId}</p>
+                                }
+                                else{
+                                    return <u>{result.fId}</u>
+                                }
+                            };
                             return(
                                 <tr key={result['@id']}>
-                                    <td>{result.fId}</td>
+                                    <td>{isPlayer(result)}</td>
                                     <td>{result.fName}</td>
                                     <td>{result.fMembership}</td>
                                     <td>{result.position}</td>
