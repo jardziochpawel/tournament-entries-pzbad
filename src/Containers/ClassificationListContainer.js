@@ -87,7 +87,7 @@ class ClubContainer extends React.Component {
 
     return (
       <div className='w-100'>
-        <h1 className="text-danger">Listy w trakcie aktualizacji danych, prosimy o cierpliwość. Ostatnia aktualizacja z {common !== null && moment(common['last_update'].date).format('DD-MM-YYYY')}</h1><br/>
+        <h1 className="text-danger">Ostatnia aktualizacja z {common !== null && moment(common['last_update'].date).format('DD-MM-YYYY')}</h1><br/>
         <div className="row">
             <div className='col-6'>
                 <div className="btn-group" role="group" aria-label="Basic example" style={{marginBottom: 50+'px'}}>
