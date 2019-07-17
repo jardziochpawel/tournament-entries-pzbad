@@ -74,27 +74,23 @@ class TournamentsListContainer extends React.Component {
   }
 
   changePage(page) {
-    const {history, tournamentsListSetPage, currentSeason} = this.props;
-    tournamentsListSetPage(page);
+    const {history, currentSeason} = this.props;
     history.push(`/tournaments/${currentSeason}/${page}`);
   }
 
   changeSeason(season) {
-    const {history, tournamentsListSetSeason} = this.props;
-    tournamentsListSetSeason(season);
+    const {history} = this.props;
     history.push(`/tournaments/${season}/1`);
   }
 
   render() {
     const {tournaments, isFetching, currentPage, pageCount, currentSeason} = this.props;
-    if (isFetching) {
-      return (<Spinner/>);
-    }
+
 
     return (
         <div>
           <Switch changeSeason={this.changeSeason.bind(this)} seasons={this.props.seasons} currentSeason={currentSeason}/>
-          <TournamentsList tournaments={tournaments} userData={this.props.userData}/>
+          <TournamentsList tournaments={tournaments} userData={this.props.userData} isFetching={isFetching}/>
           <Paginator pageCount={pageCount} currentPage={currentPage} changePage={this.changePage.bind(this)} />
         </div>
     )

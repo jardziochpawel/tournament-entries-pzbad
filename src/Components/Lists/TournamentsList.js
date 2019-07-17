@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {Message} from "../Commons/Message";
 import moment from "moment";
 import {canWriteBlogPost} from "../../apiUtils";
+import {Spinner} from "../Commons/Spinner";
 
 class TournamentsList extends React.Component {
 
@@ -20,8 +21,10 @@ class TournamentsList extends React.Component {
     return Boolean(r.length > 0);
   }
   render() {
-    const {tournaments, userData} = this.props;
-
+    const {tournaments, userData, isFetching} = this.props;
+    if (isFetching) {
+      return (<Spinner/>);
+    }
     if (null === tournaments || 0 === tournaments.length) {
       return (<Message message="No tournaments yet"/>);
     }
