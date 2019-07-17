@@ -7,6 +7,7 @@ export const BACKEND_ROOT = 'http://rozgrywki-backend.draftway.pl/';
 const responseBody = response => response.body;
 
 let token = null;
+let lastSeason = null;
 
 const tokenPlugin = secured => {
   return (request) => {
@@ -33,5 +34,7 @@ export const requests = {
   delete: (url, secured = true) => {
     return superagent.del(`${API_ROOT}${url}`).use(tokenPlugin(secured)).then(responseBody)
   },
-  setToken: (newJwtToken) => token = newJwtToken
+  setToken: (newJwtToken) => token = newJwtToken,
+  setSeason: (newLastSeason) => lastSeason = newLastSeason
+
 };

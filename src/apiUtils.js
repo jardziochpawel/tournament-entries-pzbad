@@ -15,6 +15,7 @@ export const hydraPageCount = (collection) => {
   if (!collection['hydra:view']['hydra:last']) {
     return 1;
   }
+
   return Number(
     collection['hydra:view']['hydra:last'].match(/page=(\d+)/)[1]
   );

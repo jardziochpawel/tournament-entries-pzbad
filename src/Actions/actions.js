@@ -48,6 +48,7 @@ import {
   TOURNAMENTS_LIST_ERROR,
   TOURNAMENTS_LIST_RECEIVED,
   TOURNAMENTS_LIST_SET_PAGE,
+  TOURNAMENTS_LIST_SET_SEASON,
   TOURNAMENTS_CALENDAR_SET_CATEGORY,
   TOURNAMENTS_RESULT_REQUEST,
   TOURNAMENTS_RESULT_ERROR,
@@ -60,7 +61,13 @@ import {
   CLASSIFICATION_LIST_ERROR,
   CLASSIFICATION_LIST_RECEIVED,
   CLASSIFICATION_LIST_SET_TYPE_OF_GAME,
-  CLASSIFICATION_LIST_SET_CATEGORY
+  CLASSIFICATION_LIST_SET_CATEGORY,
+  LAST_SEASON_RECEIVED,
+  LAST_SEASON_ERROR,
+  LAST_SEASON_REQUEST,
+  SEASON_LIST_RECEIVED,
+  SEASON_LIST_ERROR,
+  SEASON_LIST_REQUEST
 } from "./constants";
 import {SubmissionError} from "redux-form";
 import {parseApiErrors} from "../apiUtils";
@@ -117,6 +124,11 @@ export const tournamentsCalendarSetCategory = (category) => ({
   category
 });
 
+export const tournamentsListSetSeason = (season) => ({
+  type: TOURNAMENTS_LIST_SET_SEASON,
+  season
+});
+
 export const tournamentsFetchCategory = (category = '') => {
   return (dispatch) => {
     dispatch(tournamentsListRequest());
@@ -126,10 +138,10 @@ export const tournamentsFetchCategory = (category = '') => {
   }
 };
 
-export const tournamentsListFetch = (page = 1) => {
+export const tournamentsListFetch = (page = 1, season) => {
   return (dispatch) => {
     dispatch(tournamentsListRequest());
-    return requests.get('/tournaments?_page='+page)
+    return requests.get('/tournaments?_page='+page+'&season='+season)
         .then(response => dispatch(tournamentsListReceived(response)))
         .catch(error => dispatch(tournamentsListError(error)));
   }
@@ -741,5 +753,53 @@ export const playerCategoriesFetch = (page = 1) => {
 export const importResultTournament = (id) => {
   return () => {
     return requests.get('/import/tournament/'+id);
+  }
+};
+
+
+export const lastSeasonRequest = () => ({
+  type: LAST_SEASON_REQUEST,
+});
+
+export const lastSeasonError = (error) => ({
+  type: LAST_SEASON_ERROR,
+  error
+});
+
+export const lastSeasonReceived = (data) => ({
+  type: LAST_SEASON_RECEIVED,
+  data
+});
+
+export const getLastSeason = () => {
+  return (dispatch) => {
+    dispatch(lastSeasonRequest());
+    return requests.get('/last_season')
+        .then(response => dispatch(lastSeasonReceived(response)))
+        .catch(error => dispatch(lastSeasonError(error)));
+  }
+};
+
+
+export const seasonListRequest = () => ({
+  type: SEASON_LIST_REQUEST,
+});
+
+export const seasonListError = (error) => ({
+  type: SEASON_LIST_ERROR,
+  error
+});
+
+export const seasonListReceived = (data) => ({
+  type: SEASON_LIST_RECEIVED,
+  data
+});
+
+export const getSeasonList = () => {
+  return (dispatch) => {
+    dispatch(seasonListRequest());
+    return requests.get('/seasons')
+        .then(response => dispatch(seasonListReceived(response)))
+        .catch(error => dispatch(seasonListError(error)));
   }
 };

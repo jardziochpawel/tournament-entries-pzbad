@@ -6,7 +6,7 @@ import Header from "./Components/Header";
 import ClubContainer from "./Containers/ClubContainer";
 import {requests} from "./agent";
 import {connect} from "react-redux";
-import {userLogout, userProfileFetch, userSetId} from "./Actions/actions";
+import {userLogout, userProfileFetch, userSetId, getLastSeason} from "./Actions/actions";
 import RegistrationContainer from "./Containers/RegistrationContainer";
 import RegistrationTournamentContainer from "./Containers/RegistrationTournamentContainer";
 import BlogPostForm from "./Forms/BlogPostForm";
@@ -19,28 +19,36 @@ import 'react-dates/initialize';
 import TournamentsCalendarContainer from "./Containers/TournamentsCalendarContainer";
 import AddResultTournamentContainer from "./Containers/AddResultTournamentContainer";
 import PlayerFormContainer from "./Containers/PlayerFormContainer";
-
 const mapStateToProps = state => ({
-  ...state.auth
+  ...state.auth,
+  ...state.lastSeason
 });
 
 const mapDispatchToProps = {
-  userProfileFetch, userSetId, userLogout
+  userProfileFetch, userSetId, userLogout, getLastSeason
 };
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     const token = window.localStorage.getItem('jwtToken');
+    const lastSeason = window.localStorage.getItem('lastSeason');
 
     if (token) {
       requests.setToken(token);
     }
+
+    if (lastSeason) {
+      requests.setSeason(lastSeason);
+    }
+
   }
 
   componentDidMount() {
     const userId = window.localStorage.getItem('userId');
-    const {userSetId} = this.props;
+    const {userSetId, getLastSeason} = this.props;
+
+    getLastSeason();
 
     if (userId) {
       userSetId(userId);
@@ -56,7 +64,7 @@ class App extends React.Component {
   }
 
   render() {
-    const {isAuthenticated, userData, userLogout} = this.props;
+    const {isAuthenticated, userData, userLogout, lastSeason} = this.props;
 
     return (
       <div>
@@ -74,7 +82,7 @@ class App extends React.Component {
             <Route path="/edit-tournament/:id?" component={RegistrationTournamentContainer}/>
             <Route path="/players/:page?" component={PlayersListContainer}/>
             <Route path="/classification/:id/:typeOfGame" component={ClassificationListContainer}/>
-            <Route path="/tournaments/:page?" component={TournamentsListContainer}/>
+            <Route path="/tournaments/:season?/:page?" component={TournamentsListContainer} lastSeason={lastSeason}/>
             <Route path="/tournaments-calendar/:date?/:category?" component={TournamentsCalendarContainer}/>
             <Route path="/tournament-result/:id/:category/:typeOfGame?" component={TournamentResultContainer}/>
             <Route path="/tournament-result-form/:id" component={TournamentResultForm}/>

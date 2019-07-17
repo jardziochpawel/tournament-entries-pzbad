@@ -1,9 +1,14 @@
-import {USER_LOGIN_SUCCESS, USER_LOGOUT, USER_PROFILE_ERROR} from "./Actions/constants";
+import {LAST_SEASON_RECEIVED, USER_LOGIN_SUCCESS, USER_LOGOUT, USER_PROFILE_ERROR} from "./Actions/constants";
 import {requests} from "./agent";
 import {userLogout} from "./Actions/actions";
 
 export const tokenMiddleware = store => next => action => {
+
   switch (action.type) {
+    case LAST_SEASON_RECEIVED:
+      window.localStorage.setItem('lastSeason', action.data.last_season);
+      requests.setSeason(action.data.last_season);
+      break;
     case USER_LOGIN_SUCCESS:
       window.localStorage.setItem('jwtToken', action.token);
       window.localStorage.setItem('userId', action.userId);

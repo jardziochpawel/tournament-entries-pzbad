@@ -16,6 +16,8 @@ import registrationTournament from "./Reducers/registrationTournament";
 import playerCategories from "./Reducers/playerCategories";
 import tournamentAddResult from "./Reducers/tournamentAddResult";
 import commons from "./Reducers/commons";
+import lastSeason from "./Reducers/lastSeason";
+import seasonList from "./Reducers/seasonList";
 
 export default combineReducers({
   playersList,
@@ -25,8 +27,10 @@ export default combineReducers({
   clubPlayersList,
   auth,
   registration,
+  lastSeason,
   blogPostForm,
   clubsList,
+  seasonList,
   commons,
   tournamentsList,
   tournamentResultList,

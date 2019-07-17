@@ -17,7 +17,6 @@ class TournamentsList extends React.Component {
   }
 
   haveResults(r){
-    console.log(r.length > 0);
     return Boolean(r.length > 0);
   }
   render() {
