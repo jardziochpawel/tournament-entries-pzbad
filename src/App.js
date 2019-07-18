@@ -81,9 +81,9 @@ class App extends React.Component {
             <Route path="/add-tournament-result/:id?" component={AddResultTournamentContainer}/>
             <Route path="/edit-tournament/:id?" component={RegistrationTournamentContainer}/>
             <Route path="/players/:page?" component={PlayersListContainer}/>
-            <Route path="/classification/:id/:typeOfGame" component={ClassificationListContainer}/>
+            <Route path="/classification/:id/:typeOfGame/:season?" component={ClassificationListContainer}/>
             <Route path="/tournaments/:season?/:page?" component={TournamentsListContainer} lastSeason={lastSeason}/>
-            <Route path="/tournaments-calendar/:date?/:category?" component={TournamentsCalendarContainer}/>
+            <Route path="/tournaments-calendar/:date?/:season?/:category?" component={TournamentsCalendarContainer} lastSeason={lastSeason}/>
             <Route path="/tournament-result/:id/:category/:typeOfGame?" component={TournamentResultContainer}/>
             <Route path="/tournament-result-form/:id" component={TournamentResultForm}/>
             <Redirect from="/" to="/players/:page?"/>

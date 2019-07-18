@@ -11,7 +11,7 @@ class ClassificationList extends React.Component {
 
 
   render() {
-    const {classification, params,changeTypeOfGames} = this.props;
+    const {classification, params,changeTypeOfGames, isFetching} = this.props;
     let i = 0;
     const playerCategory = (id) => {
 
@@ -41,7 +41,7 @@ class ClassificationList extends React.Component {
                   return(<Spinner/>);
               }
               if ( 0 === classification.length) {
-                  return (<Message message="No data yet"/>);
+                  return (<Message message="No result yet"/>);
               }
 
               if(classification){
@@ -132,7 +132,8 @@ class ClassificationList extends React.Component {
                 <TabPanel>
                 </TabPanel>
             </Tabs>
-            {renderTabs(classification)}
+            {isFetching && <Spinner/>}
+            {!isFetching && renderTabs(classification)}
         </div>)
   }
 }

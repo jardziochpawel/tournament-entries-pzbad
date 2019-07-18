@@ -62,6 +62,7 @@ import {
   CLASSIFICATION_LIST_RECEIVED,
   CLASSIFICATION_LIST_SET_TYPE_OF_GAME,
   CLASSIFICATION_LIST_SET_CATEGORY,
+  CLASSIFICATION_LIST_SET_SEASON,
   LAST_SEASON_RECEIVED,
   LAST_SEASON_ERROR,
   LAST_SEASON_REQUEST,
@@ -129,10 +130,17 @@ export const tournamentsListSetSeason = (season) => ({
   season
 });
 
-export const tournamentsFetchCategory = (category = '') => {
+export const classificationListSetSeason = (season) => ({
+  type: CLASSIFICATION_LIST_SET_SEASON,
+  season
+});
+
+export const tournamentsFetchCategory = (category = '', season = '') => {
+  console.log('sezon: '+ season);
+
   return (dispatch) => {
     dispatch(tournamentsListRequest());
-    return requests.get('/tournaments?playerCategory.id='+category)
+    return requests.get('/tournaments?playerCategory.id='+category+'&season='+season+'&itemsPerPage=3000')
         .then(response => dispatch(tournamentsListReceived(response)))
         .catch(error => dispatch(tournamentsListError(error)));
   }
@@ -213,10 +221,10 @@ export const classificationListSetCategory = (category) => ({
   category
 });
 
-export const classificationListFetch = (id, typeOfGame = 'SM') => {
+export const classificationListFetch = (id, typeOfGame = 'SM', season) => {
   return (dispatch) => {
     dispatch(classificationListRequest());
-    return requests.get('/classification/'+id+'/'+typeOfGame)
+    return requests.get('/classification/'+season+'/'+id+'/'+typeOfGame)
         .then(response => dispatch(classificationListReceived(response)))
         .catch(error => dispatch(classificationListError(error)));
   }

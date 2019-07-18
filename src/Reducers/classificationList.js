@@ -4,7 +4,7 @@ import {
   CLASSIFICATION_LIST_CLEAR,
   CLASSIFICATION_LIST_ERROR,
   CLASSIFICATION_LIST_SET_TYPE_OF_GAME,
-  CLASSIFICATION_LIST_SET_CATEGORY
+  CLASSIFICATION_LIST_SET_CATEGORY, CLASSIFICATION_LIST_SET_SEASON
 } from "../Actions/constants";
 import {hydraPageCount} from "../apiUtils";
 
@@ -52,6 +52,11 @@ export default(state = {
       return {
         ...state,
         currentCategory: action.category
+      };
+    case CLASSIFICATION_LIST_SET_SEASON:
+      return {
+        ...state,
+        currentSeason: action.season
       };
     default:
       return state;
