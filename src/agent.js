@@ -2,8 +2,8 @@ import superagentPromise from 'superagent-promise';
 import _superagent from 'superagent';
 
 const superagent = superagentPromise(_superagent, global.Promise);
-export const API_ROOT = 'http://rozgrywki-backend.draftway.pl/api';
-export const BACKEND_ROOT = 'http://rozgrywki-backend.draftway.pl/';
+export const API_ROOT = 'http://rozgrywki-backend.pzbad.pl/api';
+export const BACKEND_ROOT = 'http://rozgrywki-backend.pzbad.pl/';
 const responseBody = response => response.body;
 
 let token = null;
