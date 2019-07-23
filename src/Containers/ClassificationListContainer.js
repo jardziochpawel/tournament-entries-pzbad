@@ -12,6 +12,7 @@ import ClassificationList from "../Components/Lists/ClassificationList";
 import moment from "moment";
 import {BACKEND_ROOT} from "../agent";
 import {Switch} from "../Components/Commons/Switch";
+import {Spinner} from "../Components/Commons/Spinner";
 
 const mapStateToProps = state => ({
     lastSeason: state.lastSeason.lastSeason,
@@ -61,6 +62,7 @@ class ClubContainer extends React.Component {
           classificationListFetch(currentCategory, currentTypeOfGame, currentSeason);
       }
   }
+
   componentWillUnmount() {
       this.props.commonUnload();
   }
@@ -118,7 +120,13 @@ class ClubContainer extends React.Component {
 
 
       if(!match.params.season){
-          history.push('/classification/'+match.params.id+'/'+match.params.typeOfGame+'/'+currentSeason);
+          if(!currentSeason)
+          {
+              return (<Spinner/>)
+          }
+          else{
+              history.push('/classification/'+match.params.id+'/'+match.params.typeOfGame+'/'+currentSeason);
+          }
       }
 
       return (

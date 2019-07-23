@@ -7,10 +7,13 @@ import {Paginator} from "../Components/Commons/Paginator";
 import queryString from "query-string";
 import moment from "moment";
 import {BACKEND_ROOT} from "../agent";
+import {canWriteBlogPost} from "../apiUtils";
 
 const mapStateToProps = state => ({
   ...state.playersList,
-  ...state.commons
+  ...state.commons,
+  userData: state.auth.userData,
+
 });
 
 const mapDispatchToProps = {
@@ -82,7 +85,7 @@ class PlayersListContainer extends React.Component {
     }, 100);
   }
   render() {
-    const {players, isFetching, currentPage, pageCount, history, match, location, common} = this.props;
+    const {players, isFetching, currentPage, pageCount, history, match, location, common, userData} = this.props;
 
     if (isFetching) {
       return (<Spinner/>);
@@ -92,7 +95,12 @@ class PlayersListContainer extends React.Component {
         <h1 style={{color: 'red',display: 'block'}}>Ostatnia aktualizacja: {common !== null && moment(common['last_update'].date).format('DD-MM-YYYY')}
           <button type="button" className={"btn btn-primary float-right"}
                   onClick={()=>this.downloadFile(common['url'])}
-          >Pobierz pliki</button></h1>
+          >Pobierz pliki</button>
+          {canWriteBlogPost(userData) && <button type="button" className={"btn btn-success float-right"}
+                                                 onClick={()=>history.push('/update-players-list')}
+          >Aktualizuj listę</button>}
+
+        </h1>
         <PlayersList players={players} history={history} params={match.params} location={location} playerListFetch={this.props.playerListFetch.bind(this)}/>
         <Paginator pageCount={pageCount} currentPage={currentPage} changePage={this.changePage.bind(this)}/>
       </div>

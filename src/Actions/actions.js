@@ -9,6 +9,7 @@ import {
   CLUB_RECEIVED,
   CLUB_REQUEST,
   CLUB_UNLOAD,
+  CLUB_REGISTER_SUCCESS,
   COMMON_ERROR,
   COMMON_RECEIVED,
   COMMON_REQUEST,
@@ -35,6 +36,12 @@ import {
   IMAGE_UPLOAD_ERROR,
   IMAGE_UPLOAD_REQUEST,
   IMAGE_UPLOADED,
+  PLAYERS_LIST_UPLOADED,
+  PLAYERS_LIST_UPLOAD_REQUEST,
+  PLAYERS_LIST_UPLOAD_ERROR,
+  PLAYERS_LIST_DELETE_REQUEST,
+  PLAYERS_LIST_DELETED,
+  UPDATE_PLAYERS_LIST_FORM_UNLOAD,
   USER_CONFIRMATION_SUCCESS,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
@@ -68,7 +75,8 @@ import {
   LAST_SEASON_REQUEST,
   SEASON_LIST_RECEIVED,
   SEASON_LIST_ERROR,
-  SEASON_LIST_REQUEST
+  SEASON_LIST_REQUEST,
+
 } from "./constants";
 import {SubmissionError} from "redux-form";
 import {parseApiErrors} from "../apiUtils";
@@ -809,5 +817,74 @@ export const getSeasonList = () => {
     return requests.get('/seasons')
         .then(response => dispatch(seasonListReceived(response)))
         .catch(error => dispatch(seasonListError(error)));
+  }
+};
+
+export const UpdatePlayersListFormUnload = () => ({
+  type: UPDATE_PLAYERS_LIST_FORM_UNLOAD
+});
+
+export const playersListUploaded = (data) => {
+  return {
+    type: PLAYERS_LIST_UPLOADED,
+    image: data
+  }
+};
+
+export const playersListRequest = () => {
+  return {
+    type: PLAYERS_LIST_UPLOAD_REQUEST,
+  }
+};
+
+export const playersListError = () => {
+  return {
+    type: PLAYERS_LIST_UPLOAD_ERROR,
+  }
+};
+
+export const playersListUpload = (file) => {
+  return (dispatch) => {
+    dispatch(playersListRequest());
+    return requests.upload('/uploadUsersCSV', file)
+        .then(response => dispatch(playersListUploaded(response)))
+        .catch((error) => dispatch(playersListError))
+  }
+};
+
+export const playersListDeleteRequest = () => {
+  return {
+    type: PLAYERS_LIST_DELETE_REQUEST,
+  }
+};
+
+export const playersListDeleted = (id) => {
+  return {
+    type: PLAYERS_LIST_DELETED,
+    imageId: id
+  }
+};
+
+export const playersListDelete = (id) => {
+  return (dispatch) => {
+    dispatch(playersListDeleteRequest());
+    return requests.delete(`/upload_users_csvs/${id}`)
+        .then(() => dispatch(playersListDeleted(id)));
+  }
+};
+
+export const clubRegisterSuccess = () => {
+  return {
+    type: CLUB_REGISTER_SUCCESS
+  }
+};
+
+export const clubRegister = (pzbadId, name, voivodeship) => {
+  return (dispatch) => {
+    return requests.post('/clubs', {pzbadId, name, voivodeship}, false)
+        .then(() => dispatch(clubRegisterSuccess()))
+        .catch(error => {
+          throw new SubmissionError(parseApiErrors(error));
+        });
   }
 };

@@ -19,6 +19,8 @@ import 'react-dates/initialize';
 import TournamentsCalendarContainer from "./Containers/TournamentsCalendarContainer";
 import AddResultTournamentContainer from "./Containers/AddResultTournamentContainer";
 import PlayerFormContainer from "./Containers/PlayerFormContainer";
+import UpdatePlayersListContainer from "./Containers/UpdatePlayersListContainer";
+import ClubRegistrationContainer from "./Containers/ClubRegistrationContainer";
 const mapStateToProps = state => ({
   ...state.auth,
   ...state.lastSeason
@@ -77,10 +79,12 @@ class App extends React.Component {
             <Route path="/club/:id/:page?" component={ClubContainer}/>
             <Route path="/register" component={RegistrationContainer}/>
             <Route path="/register-player" component={PlayerFormContainer}/>
+            <Route path="/register-club" component={ClubRegistrationContainer}/>
             <Route path="/register-tournament" component={RegistrationTournamentContainer}/>
             <Route path="/add-tournament-result/:id?" component={AddResultTournamentContainer}/>
             <Route path="/edit-tournament/:id?" component={RegistrationTournamentContainer}/>
             <Route path="/players/:page?" component={PlayersListContainer}/>
+            <Route path="/update-players-list" component={UpdatePlayersListContainer}/>
             <Route path="/classification/:id/:typeOfGame/:season?" component={ClassificationListContainer}/>
             <Route path="/tournaments/:season?/:page?" component={TournamentsListContainer} lastSeason={lastSeason}/>
             <Route path="/tournaments-calendar/:date?/:season?/:category?" component={TournamentsCalendarContainer} lastSeason={lastSeason}/>
