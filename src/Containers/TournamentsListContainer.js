@@ -8,7 +8,7 @@ import {Switch} from "../Components/Commons/Switch";
 
 const mapStateToProps = state => ({
   userData: state.auth.userData,
-  lastSeason: state.lastSeason.lastSeason,
+  lastSeason: state.lastSeason,
   ...state.tournamentsList,
   ...state.seasonList,
 

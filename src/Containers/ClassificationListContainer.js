@@ -69,7 +69,7 @@ class ClubContainer extends React.Component {
 
   checkLastSeason(){
     if(this.props.lastSeason){
-        return this.props.lastSeason.last_season;
+        return this.props.lastSeason;
     }
     else{
         setTimeout(() => this.checkLastSeason(),500);
