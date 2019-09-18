@@ -633,7 +633,8 @@ export const tournamentRegister = (
     alimentation,
     accommodation,
     awards,
-    tournamentAttachment) => {
+    tournamentAttachment,
+    season) => {
   return (dispatch) => {
     return requests.post('/tournaments', {pzbadId, name, startDate, endDate, place, playerCategory, organizer,
       responsiblePersons,
@@ -645,7 +646,8 @@ export const tournamentRegister = (
       alimentation,
       accommodation,
       awards,
-      tournamentAttachment}, false)
+      tournamentAttachment,
+      season}, false)
         .then(() => dispatch(tournamentRegisterSuccess()))
         .catch(error => {
           throw new SubmissionError(parseApiErrors(error));

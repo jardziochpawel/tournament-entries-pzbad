@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {Spinner} from "../Components/Commons/Spinner";
 import RegisterTournamentForm from "../Forms/RegisterTournamentForm";
-import {tournamentRegister, playerCategoriesFetch, allClubListFetch, tournamentFetch, tournamentUpdate} from "../Actions/actions";
+import {tournamentRegister, playerCategoriesFetch, allClubListFetch, tournamentFetch, tournamentUpdate, getLastSeason, getSeasonList} from "../Actions/actions";
 import EditTournamentForm from "../Forms/EditTournamentForm";
 import {canWriteBlogPost} from "../apiUtils";
 import {Redirect} from "react-router";
@@ -11,6 +11,7 @@ const mapStateToProps = state => ({
     ...state.tournament,
     userData: state.auth.userData,
     ...state.playerCategories,
+    ...state.lastSeason,
     ...state.clubsList
 });
 
@@ -20,6 +21,8 @@ const mapDispatchToProps = {
     tournamentUpdate,
     playerCategoriesFetch,
     allClubListFetch,
+    getLastSeason,
+    getSeasonList
 };
 
 class RegistrationContainer extends React.Component {
@@ -28,6 +31,8 @@ class RegistrationContainer extends React.Component {
       this.props.tournamentFetch(this.props.match.params.id);
     }
       this.props.playerCategoriesFetch();
+      this.props.getLastSeason();
+      this.props.getSeasonList();
       this.props.allClubListFetch();
   }
 
@@ -36,7 +41,7 @@ class RegistrationContainer extends React.Component {
   }
 
   render() {
-    const {isFetching, history, tournament, playerCategories, clubs, tournamentRegister, tournamentUpdate} = this.props;
+    const {isFetching, history, tournament, playerCategories, clubs, tournamentRegister, tournamentUpdate, lastSeason} = this.props;
 
         if (isFetching) {
           return (<Spinner/>);
@@ -74,14 +79,15 @@ class RegistrationContainer extends React.Component {
             'accommodation':  tournament ? tournament.accommodation : '',
             'awards':  tournament ? tournament.awards : '',
             'tournamentAttachment':  tournament ? tournament.tournamentAttachment : '',
-            'tournamentPlannerCSV':  tournament ? tournament.tournamentPlannerCSV : ''
+            'tournamentPlannerCSV':  tournament ? tournament.tournamentPlannerCSV : '',
+            'season':  tournament ? tournament.season : ''
     };
 
     if(tournament && this.props.match.params.id){
-        return <EditTournamentForm history={history} match={this.props.match} initialValues={item} playerCategories={playerCategories} clubs={clubs} tournamentUpdate={tournamentUpdate}/>;
+        return <EditTournamentForm history={history} match={this.props.match} initialValues={item} playerCategories={playerCategories} clubs={clubs} tournamentUpdate={tournamentUpdate} lastSeason={lastSeason}/>;
     }
 
-    return <RegisterTournamentForm history={history} match={this.props.match} playerCategories={playerCategories} clubs={clubs} tournamentRegister={tournamentRegister}/>;
+    return <RegisterTournamentForm history={history} match={this.props.match} playerCategories={playerCategories} clubs={clubs} tournamentRegister={tournamentRegister} lastSeason={lastSeason}/>;
   }
 }
 

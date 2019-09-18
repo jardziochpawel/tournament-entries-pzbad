@@ -18,7 +18,7 @@ export default(state = {
     case LAST_SEASON_RECEIVED:
       state = {
         ...state,
-        lastSeason: action.data,
+        lastSeason: action.data ? action.data.last_season : action.data,
         isFetching: false
       };
       return state;

@@ -43,7 +43,7 @@ class EditTournamentForm extends React.Component {
     return a;
   }
   onSubmit(values) {
-    const {reset, history,images} = this.props;
+    const {reset, history,images, lastSeason} = this.props;
     let pc = [];
     let i = 0;
     const pzbadId = values.pzbadId || null;
@@ -95,7 +95,7 @@ class EditTournamentForm extends React.Component {
     }))
         .then(() => {
           reset();
-          history.push('/tournaments');
+          history.push('/tournaments/'+lastSeason);
         });
   }
 

@@ -47,7 +47,7 @@ class RegisterTournamentForm extends React.Component {
     return a;
   }
   onSubmit(values) {
-    const {reset, history, images} = this.props;
+    const {reset, history, images, lastSeason} = this.props;
     let pc = [];
     let i = 0;
     const pzbadId = values.pzbadId || null;
@@ -75,6 +75,7 @@ class RegisterTournamentForm extends React.Component {
     const accommodation = values.accommodation || null;
     const awards = values.awards || null;
     const tournamentAttachment = images?  this.getUrlToObject(images) : [];
+    const season = lastSeason ?  `/api/seasons/${lastSeason}` : null;
 
     return this.props.tournamentRegister(...Object.values({
       pzbadId,
@@ -93,16 +94,17 @@ class RegisterTournamentForm extends React.Component {
       alimentation,
       accommodation,
       awards,
-      tournamentAttachment
+      tournamentAttachment,
+      season
     }))
         .then(() => {
           reset();
-          history.push('/tournaments');
+          history.push('/tournaments/'+lastSeason);
         });
   }
 
   render() {
-    const {handleSubmit, imageReqInProgress, imageDelete, playerCategories, isFetching, clubs, images} = this.props;
+    const {handleSubmit, imageReqInProgress, imageDelete, playerCategories, isFetching, clubs, images, lastSeason} = this.props;
 
     if(isFetching){
       return(<Spinner/>)
