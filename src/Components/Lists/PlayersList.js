@@ -167,7 +167,7 @@ class PlayersList extends React.Component {
                                     <td>{player.firstName}</td>
                                     <td>{player.lastName}</td>
                                     <td>{clubName(player.club)}</td>
-                                    <td>{moment(player.birthAt).format('YYYY-MM-DD')}</td>
+                                    <td>{moment(player.birthAt).format('YYYY')}</td>
                                     <td>{player.typeClub}</td>
                                     <td>{player.typeTeam}</td>
                                     <td>{player.typeNationality}</td>
@@ -182,7 +182,7 @@ class PlayersList extends React.Component {
                                 <td>{player.firstName}</td>
                                 <td>{player.lastName}</td>
                                 <td>{clubName(player.club)}</td>
-                                <td>{moment(player.birthAt).format('YYYY-MM-DD')}</td>
+                                <td>{moment(player.birthAt).format('YYYY')}</td>
                                 <td>{player.typeClub}</td>
                                 <td>{player.typeTeam}</td>
                                 <td>{player.typeNationality}</td>
