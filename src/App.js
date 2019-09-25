@@ -70,7 +70,7 @@ class App extends React.Component {
 
     return (
       <div>
-        <Header isAuthenticated={isAuthenticated} userData={userData} logout={userLogout}/>
+        <Header isAuthenticated={isAuthenticated} userData={userData} logout={userLogout} lastSeason={lastSeason}/>
         <div className='w-100' style={{marginTop: 100+'px'}}>
           <Switch>
             <Route path="/login" component={LoginForm}/>

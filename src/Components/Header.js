@@ -19,7 +19,7 @@ export default class Header extends React.Component {
   }
 
   render() {
-    const {isAuthenticated} = this.props;
+    const {isAuthenticated, lastSeason} = this.props;
     const date = new Date();
     const year = moment(date).format('Y');
     const month = moment(date).format('MM');
@@ -52,13 +52,13 @@ export default class Header extends React.Component {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/tournaments" className="nav-link">
+              <Link to={"/tournaments/"+lastSeason} className="nav-link">
                 Turnieje
               </Link>
             </li>
             <li className="nav-item">
               <Link to="/classification/1/SM" className="nav-link">
-                Listy klasyfikacyjne
+                Wyniki Sezonowe
               </Link>
             </li>
               {

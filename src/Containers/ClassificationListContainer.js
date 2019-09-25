@@ -156,7 +156,7 @@ class ClubContainer extends React.Component {
             <div className='col-6 '>
                 <button type="button" className={"btn btn-primary float-right"}
                         onClick={()=>this.downloadFile(common['url'])}
-                >Pobierz pliki</button>
+                >Pobierz pliki list klasyfikacyjnych</button>
             </div>
         </div>
 
