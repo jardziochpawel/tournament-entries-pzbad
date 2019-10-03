@@ -55,10 +55,10 @@ class App extends React.Component {
 
   componentDidMount() {
     const userId = window.localStorage.getItem('userId');
-    const {userSetId, getLastSeason} = this.props;
+    const {userSetId, getLastSeason, getCurrentSeason} = this.props;
 
     getLastSeason();
-
+    getCurrentSeason();
     if (userId) {
       userSetId(userId);
     }
