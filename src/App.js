@@ -6,7 +6,7 @@ import Header from "./Components/Header";
 import ClubContainer from "./Containers/ClubContainer";
 import {requests} from "./agent";
 import {connect} from "react-redux";
-import {userLogout, userProfileFetch, userSetId, getLastSeason} from "./Actions/actions";
+import {userLogout, userProfileFetch, userSetId, getLastSeason, getCurrentSeason} from "./Actions/actions";
 import RegistrationContainer from "./Containers/RegistrationContainer";
 import RegistrationTournamentContainer from "./Containers/RegistrationTournamentContainer";
 import BlogPostForm from "./Forms/BlogPostForm";
@@ -21,13 +21,15 @@ import AddResultTournamentContainer from "./Containers/AddResultTournamentContai
 import PlayerFormContainer from "./Containers/PlayerFormContainer";
 import UpdatePlayersListContainer from "./Containers/UpdatePlayersListContainer";
 import ClubRegistrationContainer from "./Containers/ClubRegistrationContainer";
+import currentSeason from "./Reducers/currentSeason";
 const mapStateToProps = state => ({
   ...state.auth,
-  ...state.lastSeason
+  ...state.lastSeason,
+  ...state.currentSeason
 });
 
 const mapDispatchToProps = {
-  userProfileFetch, userSetId, userLogout, getLastSeason
+  userProfileFetch, userSetId, userLogout, getLastSeason, getCurrentSeason
 };
 
 class App extends React.Component {
@@ -35,13 +37,18 @@ class App extends React.Component {
     super(props);
     const token = window.localStorage.getItem('jwtToken');
     const lastSeason = window.localStorage.getItem('lastSeason');
+    const currentSeason = window.localStorage.getItem('currentSeason');
 
     if (token) {
       requests.setToken(token);
     }
 
     if (lastSeason) {
-      requests.setSeason(lastSeason);
+      requests.setLastSeason(lastSeason);
+    }
+
+    if (currentSeason) {
+      requests.setCurrentSeason(currentSeason);
     }
 
   }
@@ -66,11 +73,11 @@ class App extends React.Component {
   }
 
   render() {
-    const {isAuthenticated, userData, userLogout, lastSeason} = this.props;
+    const {isAuthenticated, userData, userLogout, lastSeason, currentSeason} = this.props;
 
     return (
       <div>
-        <Header isAuthenticated={isAuthenticated} userData={userData} logout={userLogout} lastSeason={lastSeason}/>
+        <Header isAuthenticated={isAuthenticated} userData={userData} logout={userLogout} currentSeason={currentSeason}/>
         <div className='w-100' style={{marginTop: 100+'px'}}>
           <Switch>
             <Route path="/login" component={LoginForm}/>
@@ -86,8 +93,8 @@ class App extends React.Component {
             <Route path="/players/:page?" component={PlayersListContainer}/>
             <Route path="/update-players-list" component={UpdatePlayersListContainer}/>
             <Route path="/classification/:id/:typeOfGame/:season?" component={ClassificationListContainer}/>
-            <Route path="/tournaments/:season?/:page?" component={TournamentsListContainer} lastSeason={lastSeason}/>
-            <Route path="/tournaments-calendar/:date?/:season?/:category?" component={TournamentsCalendarContainer} lastSeason={lastSeason}/>
+            <Route path="/tournaments/:season?/:page?" component={TournamentsListContainer} lastSeason={lastSeason} currentSeason={currentSeason}/>
+            <Route path="/tournaments-calendar/:date?/:season?/:category?" component={TournamentsCalendarContainer} lastSeason={lastSeason} currentSeason={currentSeason}/>
             <Route path="/tournament-result/:id/:category/:typeOfGame?" component={TournamentResultContainer}/>
             <Route path="/tournament-result-form/:id" component={TournamentResultForm}/>
             <Redirect from="/" to="/players/:page?"/>

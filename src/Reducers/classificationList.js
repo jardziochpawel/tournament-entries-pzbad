@@ -56,7 +56,7 @@ export default(state = {
     case CLASSIFICATION_LIST_SET_SEASON:
       return {
         ...state,
-        currentSeason: action.season
+        thisSeason: action.season
       };
     default:
       return state;

@@ -8,6 +8,7 @@ const responseBody = response => response.body;
 
 let token = null;
 let lastSeason = null;
+let currentSeason = null;
 
 const tokenPlugin = secured => {
   return (request) => {
@@ -35,6 +36,7 @@ export const requests = {
     return superagent.del(`${API_ROOT}${url}`).use(tokenPlugin(secured)).then(responseBody)
   },
   setToken: (newJwtToken) => token = newJwtToken,
-  setSeason: (newLastSeason) => lastSeason = newLastSeason
+  setLastSeason: (newLastSeason) => lastSeason = newLastSeason,
+  setCurrentSeason: (newCurrentSeason) => currentSeason = newCurrentSeason
 
 };

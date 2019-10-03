@@ -75,7 +75,7 @@ class RegisterTournamentForm extends React.Component {
     const accommodation = values.accommodation || null;
     const awards = values.awards || null;
     const tournamentAttachment = images?  this.getUrlToObject(images) : [];
-    const season = lastSeason ?  `/api/seasons/${lastSeason}` : null;
+    const season = values.season ? values.season['@id'] : null;
 
     return this.props.tournamentRegister(...Object.values({
       pzbadId,
@@ -104,7 +104,7 @@ class RegisterTournamentForm extends React.Component {
   }
 
   render() {
-    const {handleSubmit, imageReqInProgress, imageDelete, playerCategories, isFetching, clubs, images, lastSeason} = this.props;
+    const {handleSubmit, imageReqInProgress, imageDelete, playerCategories, isFetching, clubs, images, seasons} = this.props;
 
     if(isFetching){
       return(<Spinner/>)
@@ -114,6 +114,12 @@ class RegisterTournamentForm extends React.Component {
       <div className="card mt-3 mb-6 shadow-sm">
         <div className="card-body">
           <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+            <Field name="season" className="" component={renderChoicesField} options={seasons? seasons : []}
+                   getOptionValue={option => option.id }
+                   getOptionLabel={option => option.name}
+                   isSearchable={true} isMulti={false} closeMenuOnSelect={true}>
+              Sezon:
+            </Field>
             <Field name="pzbadId" label="Nazwa skrócona:" type="text" component={renderField}/>
             <Field name="name" label="Nazwa:" type="text" component={renderField}/>
             <Field name="place" label="Miejsce:" type="text" component={renderField}/>

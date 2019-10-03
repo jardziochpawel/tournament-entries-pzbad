@@ -1,14 +1,15 @@
 import React from 'react';
-import {tournamentsListFetch, tournamentsListSetPage, tournamentsListSetSeason, getSeasonList} from "../Actions/actions";
+import {tournamentsListFetch, tournamentsListSetPage, tournamentsListSetSeason, getSeasonList, getCurrentSeason} from "../Actions/actions";
 import {connect} from "react-redux";
-import {Spinner} from "../Components/Commons/Spinner";
 import {Paginator} from "../Components/Commons/Paginator";
 import TournamentsList from "../Components/Lists/TournamentsList";
 import {Switch} from "../Components/Commons/Switch";
+import {Spinner} from "../Components/Commons/Spinner";
 
 const mapStateToProps = state => ({
   userData: state.auth.userData,
   lastSeason: state.lastSeason,
+  currentSeason: state.currentSeason.currentSeason,
   ...state.tournamentsList,
   ...state.seasonList,
 
@@ -18,8 +19,8 @@ const mapDispatchToProps = {
   tournamentsListFetch: tournamentsListFetch,
   tournamentsListSetPage: tournamentsListSetPage,
   tournamentsListSetSeason: tournamentsListSetSeason,
-  getSeasonList: getSeasonList
-
+  getSeasonList: getSeasonList,
+  getCurrentSeason
 };
 
 class TournamentsListContainer extends React.Component {
@@ -37,31 +38,31 @@ class TournamentsListContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const {currentPage, tournamentsListFetch, tournamentsListSetSeason, currentSeason, tournamentsListSetPage} = this.props;
+    const {currentPage, tournamentsListFetch, tournamentsListSetSeason, thisSeason, tournamentsListSetPage} = this.props;
 
     if (prevProps.match.params.page !== this.getQueryParamPage()) {
       tournamentsListSetPage(this.getQueryParamPage());
     }
 
     if (prevProps.currentPage !== currentPage) {
-      tournamentsListFetch(currentPage, currentSeason);
+      tournamentsListFetch(currentPage, thisSeason);
     }
 
     if (prevProps.match.params.season !== this.getQueryParamSeason()) {
       tournamentsListSetSeason(this.getQueryParamSeason());
     }
 
-    if (prevProps.currentSeason !== currentSeason) {
-      tournamentsListFetch(currentPage, currentSeason);
+    if (prevProps.thisSeason !== thisSeason) {
+      tournamentsListFetch(currentPage, thisSeason);
     }
   }
 
-  checkLastSeason(){
-    if(this.props.lastSeason){
-     return this.props.lastSeason.last_season;
+  checkCurrentSeason(){
+    if(this.props.currentSeason){
+     return this.props.currentSeason;
     }
     else{
-      setTimeout(() => this.checkLastSeason(),500);
+      setTimeout(() => this.checkCurrentSeason(),500);
     }
   }
 
@@ -70,12 +71,12 @@ class TournamentsListContainer extends React.Component {
   }
 
   getQueryParamSeason() {
-    return Number(this.props.match.params.season) || this.checkLastSeason();
+    return Number(this.props.match.params.season) || this.checkCurrentSeason();
   }
 
   changePage(page) {
-    const {history, currentSeason} = this.props;
-    history.push(`/tournaments/${currentSeason}/${page}`);
+    const {history, thisSeason} = this.props;
+    history.push(`/tournaments/${thisSeason}/${page}`);
   }
 
   changeSeason(season) {
@@ -84,12 +85,21 @@ class TournamentsListContainer extends React.Component {
   }
 
   render() {
-    const {tournaments, isFetching, currentPage, pageCount, currentSeason} = this.props;
+    const {tournaments, isFetching, currentPage, pageCount, thisSeason, history} = this.props;
 
+    if(!this.props.match.params.season){
+      if(!thisSeason)
+      {
+        return (<Spinner/>)
+      }
+      else{
+        history.push('/tournaments/'+thisSeason+'/1');
+      }
+    }
 
     return (
         <div>
-          <Switch changeSeason={this.changeSeason.bind(this)} seasons={this.props.seasons} currentSeason={currentSeason}/>
+          <Switch changeSeason={this.changeSeason.bind(this)} seasons={this.props.seasons} thisSeason={thisSeason}/>
           <TournamentsList tournaments={tournaments} userData={this.props.userData} isFetching={isFetching}/>
           <Paginator pageCount={pageCount} currentPage={currentPage} changePage={this.changePage.bind(this)} />
         </div>

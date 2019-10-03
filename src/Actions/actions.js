@@ -73,6 +73,9 @@ import {
   LAST_SEASON_RECEIVED,
   LAST_SEASON_ERROR,
   LAST_SEASON_REQUEST,
+  CURRENT_SEASON_RECEIVED,
+  CURRENT_SEASON_ERROR,
+  CURRENT_SEASON_REQUEST,
   SEASON_LIST_RECEIVED,
   SEASON_LIST_ERROR,
   SEASON_LIST_REQUEST,
@@ -673,7 +676,8 @@ export const tournamentUpdate = (
     alimentation,
     accommodation,
     awards,
-    tournamentAttachment) => {
+    tournamentAttachment,
+    season) => {
   return (dispatch) => {
     return requests.put('/tournaments/'+id, { pzbadId, name, startDate, endDate, place, playerCategory, organizer,
       responsiblePersons,
@@ -685,7 +689,8 @@ export const tournamentUpdate = (
       alimentation,
       accommodation,
       awards,
-      tournamentAttachment}, false)
+      tournamentAttachment,
+      season}, false)
         .then(() => dispatch(tournamentRegisterSuccess()))
         .catch(error => {
           throw new SubmissionError(parseApiErrors(error));
@@ -795,6 +800,30 @@ export const getLastSeason = () => {
     return requests.get('/last_season')
         .then(response => dispatch(lastSeasonReceived(response)))
         .catch(error => dispatch(lastSeasonError(error)));
+  }
+};
+
+
+export const currentSeasonRequest = () => ({
+  type: CURRENT_SEASON_REQUEST,
+});
+
+export const currentSeasonError = (error) => ({
+  type: CURRENT_SEASON_ERROR,
+  error
+});
+
+export const currentSeasonReceived = (data) => ({
+  type: CURRENT_SEASON_RECEIVED,
+  data
+});
+
+export const getCurrentSeason = () => {
+  return (dispatch) => {
+    dispatch(currentSeasonRequest());
+    return requests.get('/current_season')
+        .then(response => dispatch(currentSeasonReceived(response)))
+        .catch(error => dispatch(currentSeasonError(error)));
   }
 };
 

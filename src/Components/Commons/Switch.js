@@ -10,7 +10,7 @@ export class Switch extends React.Component {
     }
 
   render() {
-    const {seasons, isFetching, currentSeason} = this.props;
+    const {seasons, isFetching, thisSeason} = this.props;
 
       if (isFetching) {
           return (<Spinner/>);
@@ -21,7 +21,7 @@ export class Switch extends React.Component {
         <div className="card-body">
           <div className="card-title"><h4>Wybierz Sezon</h4></div>
           <div className="card-text">
-              <select className='form-control' onChange={this.handlePageChange.bind(this)} value={currentSeason}>
+              <select className='form-control' onChange={this.handlePageChange.bind(this)} value={thisSeason}>
                   {seasons.map((s)=>{
                       return(
                           <option key={s.id} value={s.id} >{s.name}</option>

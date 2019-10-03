@@ -3,7 +3,8 @@ import {
   tournamentsFetchCategory,
   tournamentsCalendarSetCategory,
   tournamentsListSetSeason,
-  getSeasonList
+  getSeasonList,
+  getCurrentSeason
 } from "../Actions/actions";
 import {connect} from "react-redux";
 import {Spinner} from "../Components/Commons/Spinner";
@@ -16,6 +17,7 @@ import {Switch} from "../Components/Commons/Switch";
 const mapStateToProps = state => ({
   userData: state.auth.userData,
   lastSeason: state.lastSeason.lastSeason,
+  currentSeason: state.currentSeason.currentSeason,
   ...state.tournamentsList,
   ...state.seasonList
 });
@@ -24,7 +26,8 @@ const mapDispatchToProps = {
   tournamentsFetchCategory: tournamentsFetchCategory,
   tournamentsCalendarSetCategory: tournamentsCalendarSetCategory,
   tournamentsListSetSeason: tournamentsListSetSeason,
-  getSeasonList: getSeasonList
+  getSeasonList: getSeasonList,
+  getCurrentSeason
 };
 
 moment.locale('pl',{
@@ -45,38 +48,38 @@ class TournamentsCalendarContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const {currentCategory, tournamentsFetchCategory, tournamentsCalendarSetCategory, tournamentsListSetSeason, currentSeason} = this.props;
+    const {currentCategory, tournamentsFetchCategory, tournamentsCalendarSetCategory, tournamentsListSetSeason, thisSeason} = this.props;
 
     if (prevProps.match.params.category !== this.getQueryParamCategory()) {
       tournamentsCalendarSetCategory(this.getQueryParamCategory());
     }
 
     if (prevProps.currentCategory !== currentCategory) {
-      tournamentsFetchCategory(currentCategory, currentSeason);
+      tournamentsFetchCategory(currentCategory, thisSeason);
     }
 
     if (prevProps.match.params.season !== this.getQueryParamSeason()) {
       tournamentsListSetSeason(this.getQueryParamSeason());
     }
 
-    if (prevProps.currentSeason !== currentSeason) {
-      tournamentsFetchCategory(currentCategory, currentSeason);
+    if (prevProps.thisSeason !== thisSeason) {
+      tournamentsFetchCategory(currentCategory, thisSeason);
     }
 
   }
 
-  checkLastSeason(){
-    if(this.props.lastSeason){
+  checkCurrentSeason(){
+    if(this.props.currentSeason){
 
-      return this.props.lastSeason;
+      return this.props.currentSeason;
     }
     else{
-      setTimeout(() => this.checkLastSeason(),500);
+      setTimeout(() => this.checkCurrentSeason(),500);
     }
   }
 
   getQueryParamSeason() {
-    return Number(this.props.match.params.season) || this.checkLastSeason();
+    return Number(this.props.match.params.season) || this.checkCurrentSeason();
   }
 
   getQueryParamCategory(){
@@ -89,21 +92,21 @@ class TournamentsCalendarContainer extends React.Component {
   }
 
   changeCategory(e){
-      const {history, match,currentSeason} = this.props;
+      const {history, match,thisSeason} = this.props;
 
       if(0 === e){
-          history.push('/tournaments-calendar/'+match.params.date+'/'+currentSeason+'/');
+          history.push('/tournaments-calendar/'+match.params.date+'/'+thisSeason+'/');
       }
       else{
-          history.push('/tournaments-calendar/'+match.params.date+'/'+currentSeason+'/'+e);
+          history.push('/tournaments-calendar/'+match.params.date+'/'+thisSeason+'/'+e);
       }
   }
 
   changeDate(e){
-    const {history, currentCategory, currentSeason} = this.props;
+    const {history, currentCategory, thisSeason} = this.props;
     const year = moment(e).format('Y');
     const month = moment(e).format('MM');
-    history.push('/tournaments-calendar/'+year+'-'+month+'/'+currentSeason+'/'+currentCategory);
+    history.push('/tournaments-calendar/'+year+'-'+month+'/'+thisSeason+'/'+currentCategory);
   }
 
   changeSeason(season) {
@@ -112,7 +115,7 @@ class TournamentsCalendarContainer extends React.Component {
   }
 
   render() {
-    const {tournaments, isFetching, match,history, currentSeason} = this.props;
+    const {tournaments, isFetching, match,history, thisSeason} = this.props;
     const ButtonView = ({type, className, name, children, onClick}) => {
       return(
           <Button type={type} className={className} name={name} onClick={onClick}>{children}</Button>
@@ -128,7 +131,7 @@ class TournamentsCalendarContainer extends React.Component {
 
     return (
         <div>
-          <Switch changeSeason={this.changeSeason.bind(this)} seasons={this.props.seasons} currentSeason={currentSeason}/>
+          <Switch changeSeason={this.changeSeason.bind(this)} seasons={this.props.seasons} thisSeason={thisSeason}/>
 
             <div className="btn-group btn-group-lg" role="group" aria-label="Basic example" style={{marginBottom: 20+'px'}}>
               <ButtonView type="button" className="btn btn-secondary" name='0' onClick={()=>this.changeCategory(0)}>All</ButtonView>

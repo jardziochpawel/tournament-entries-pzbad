@@ -13,7 +13,7 @@ export default(state = {
   isFetching: false,
   currentPage: 1,
   currentCategory: '',
-  currentSeason: 1,
+  thisSeason: 1,
   pageCount: null
 }, action) => {
   switch (action.type) {
@@ -50,7 +50,7 @@ export default(state = {
     case TOURNAMENTS_LIST_SET_SEASON:
       return {
         ...state,
-        currentSeason: action.season
+        thisSeason: action.season
       };
     default:
       return state;

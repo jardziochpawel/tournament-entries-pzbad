@@ -43,7 +43,7 @@ class EditTournamentForm extends React.Component {
     return a;
   }
   onSubmit(values) {
-    const {reset, history,images, lastSeason} = this.props;
+    const {reset, history,images} = this.props;
     let pc = [];
     let i = 0;
     const pzbadId = values.pzbadId || null;
@@ -72,6 +72,7 @@ class EditTournamentForm extends React.Component {
     const accommodation = values.accommodation || null;
     const awards = values.awards || null;
     const tournamentAttachment = values.tournamentAttachment? this.getUrlToObject(images) : null;
+    const season = values.season ? values.season['@id'] : null;
 
     return this.props.tournamentUpdate(...Object.values({
       id,
@@ -91,16 +92,17 @@ class EditTournamentForm extends React.Component {
       alimentation,
       accommodation,
       awards,
-      tournamentAttachment
+      tournamentAttachment,
+      season
     }))
         .then(() => {
           reset();
-          history.push('/tournaments/'+lastSeason);
+          history.push('/tournaments');
         });
   }
 
   render() {
-    const {handleSubmit, imageReqInProgress, imageDelete, playerCategories, isFetching, clubs, images} = this.props;
+    const {handleSubmit, imageReqInProgress, imageDelete, playerCategories, isFetching, clubs, images, seasons} = this.props;
 
     if(isFetching){
       return(<Spinner/>)
@@ -110,6 +112,12 @@ class EditTournamentForm extends React.Component {
       <div className="card mt-3 mb-6 shadow-sm">
         <div className="card-body">
           <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+            <Field name="season" className="" component={renderChoicesField} options={seasons? seasons : []}
+                   getOptionValue={option => option.id }
+                   getOptionLabel={option => option.name}
+                   isSearchable={true} isMulti={false} closeMenuOnSelect={true}>
+              Sezon:
+            </Field>
             <Field name="pzbadId" label="Nazwa skrócona:" type="text" component={renderField}/>
             <Field name="name" label="Nazwa:" type="text" component={renderField}/>
             <Field name="place" label="Miejsce:" type="text" component={renderField}/>

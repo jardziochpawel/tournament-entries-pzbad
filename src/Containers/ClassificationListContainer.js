@@ -5,7 +5,7 @@ import {
     classificationListSetCategory,
     classificationListClear,
     commonClassificationFetch,
-    commonUnload, classificationListSetSeason, getSeasonList
+    commonUnload, classificationListSetSeason, getSeasonList, getCurrentSeason
 } from "../Actions/actions";
 import {connect} from "react-redux";
 import ClassificationList from "../Components/Lists/ClassificationList";
@@ -15,7 +15,7 @@ import {Switch} from "../Components/Commons/Switch";
 import {Spinner} from "../Components/Commons/Spinner";
 
 const mapStateToProps = state => ({
-    lastSeason: state.lastSeason.lastSeason,
+    currentSeason: state.currentSeason.currentSeason,
   ...state.classificationList,
     ...state.seasonList,
     ...state.commons
@@ -29,7 +29,8 @@ const mapDispatchToProps = {
     commonClassificationFetch: commonClassificationFetch,
     commonUnload:commonUnload,
     getSeasonList: getSeasonList,
-    classificationListSetSeason: classificationListSetSeason
+    classificationListSetSeason: classificationListSetSeason,
+    getCurrentSeason
 };
 
 class ClubContainer extends React.Component {
@@ -39,27 +40,28 @@ class ClubContainer extends React.Component {
     this.props.classificationListSetCategory(this.props.match.params.id);
     this.props.classificationListSetTypeOfGame(this.props.match.params.typeOfGame);
     this.props.getSeasonList();
+    this.props.getCurrentSeason();
 
   }
 
   componentDidUpdate(prevProps) {
-      const {currentCategory, currentTypeOfGame, classificationListFetch, currentSeason, classificationListSetSeason} = this.props;
+      const {currentCategory, currentTypeOfGame, classificationListFetch, thisSeason, classificationListSetSeason} = this.props;
 
       if (prevProps.currentTypeOfGame !== currentTypeOfGame) {
-          classificationListFetch(currentCategory, currentTypeOfGame, currentSeason);
+          classificationListFetch(currentCategory, currentTypeOfGame, thisSeason);
       }
 
       if (prevProps.currentCategory !== currentCategory) {
-          classificationListFetch(currentCategory, currentTypeOfGame, currentSeason);
+          classificationListFetch(currentCategory, currentTypeOfGame, thisSeason);
       }
 
       if (prevProps.match.params.season !== this.getQueryParamSeason()) {
           classificationListSetSeason(this.getQueryParamSeason());
       }
 
-      if (prevProps.currentSeason !== currentSeason) {
+      if (prevProps.thisSeason !== thisSeason) {
           console.log('test');
-          classificationListFetch(currentCategory, currentTypeOfGame, currentSeason);
+          classificationListFetch(currentCategory, currentTypeOfGame, thisSeason);
       }
   }
 
@@ -68,8 +70,8 @@ class ClubContainer extends React.Component {
   }
 
   checkLastSeason(){
-    if(this.props.lastSeason){
-        return this.props.lastSeason;
+    if(this.props.currentSeason){
+        return this.props.currentSeason;
     }
     else{
         setTimeout(() => this.checkLastSeason(),500);
@@ -81,12 +83,12 @@ class ClubContainer extends React.Component {
   }
 
   changeTypeOfGames(typeOfGame){
-      const {history, match, classificationListSetTypeOfGame, classificationListClear, currentSeason} = this.props;
+      const {history, match, classificationListSetTypeOfGame, classificationListClear, thisSeason} = this.props;
       classificationListSetTypeOfGame(typeOfGame);
       if(typeOfGame !== match.params.typeOfGame)
       {
           classificationListClear();
-          history.push('/classification/'+match.params.id+'/'+typeOfGame+'/'+currentSeason);
+          history.push('/classification/'+match.params.id+'/'+typeOfGame+'/'+thisSeason);
       }
   }
 
@@ -96,13 +98,13 @@ class ClubContainer extends React.Component {
    }
 
   changeCategory(id){
-      const {history, match, classificationListSetCategory, classificationListClear, currentSeason} = this.props;
+      const {history, match, classificationListSetCategory, classificationListClear, thisSeason} = this.props;
       classificationListSetCategory(id);
 
       if(id !== Number(match.params.id))
       {
           classificationListClear();
-          history.push('/classification/'+id+'/'+match.params.typeOfGame+'/'+currentSeason);
+          history.push('/classification/'+id+'/'+match.params.typeOfGame+'/'+thisSeason);
       }
   }
 
@@ -116,23 +118,23 @@ class ClubContainer extends React.Component {
   }
 
   render() {
-    const {isFetching, classification, match, common, currentSeason,history} = this.props;
+    const {isFetching, classification, match, common, thisSeason,history} = this.props;
 
 
       if(!match.params.season){
-          if(!currentSeason)
+          if(!thisSeason)
           {
               return (<Spinner/>)
           }
           else{
-              history.push('/classification/'+match.params.id+'/'+match.params.typeOfGame+'/'+currentSeason);
+              history.push('/classification/'+match.params.id+'/'+match.params.typeOfGame+'/'+thisSeason);
           }
       }
 
       return (
       <div className='w-100'>
         <h1 className="text-danger">Ostatnia aktualizacja z {common !== null && moment(common['last_update'].date).format('DD-MM-YYYY')}</h1><br/>
-          <Switch changeSeason={this.changeSeason.bind(this)} seasons={this.props.seasons} currentSeason={currentSeason}/>
+          <Switch changeSeason={this.changeSeason.bind(this)} seasons={this.props.seasons} thisSeason={thisSeason}/>
         <div className="row">
             <div className='col-6'>
                 <div className="btn-group" role="group" aria-label="Basic example" style={{marginBottom: 50+'px'}}>

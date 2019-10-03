@@ -12,7 +12,8 @@ const mapStateToProps = state => ({
     userData: state.auth.userData,
     ...state.playerCategories,
     ...state.lastSeason,
-    ...state.clubsList
+    ...state.clubsList,
+    ...state.seasonList
 });
 
 const mapDispatchToProps = {
@@ -41,11 +42,12 @@ class RegistrationContainer extends React.Component {
   }
 
   render() {
-    const {isFetching, history, tournament, playerCategories, clubs, tournamentRegister, tournamentUpdate, lastSeason} = this.props;
+    const {isFetching, history, tournament, playerCategories, clubs, tournamentRegister, tournamentUpdate, lastSeason, seasons} = this.props;
 
         if (isFetching) {
           return (<Spinner/>);
         }
+      console.log(seasons);
 
     if(tournament === undefined){
       return (<Spinner/>);
@@ -57,7 +59,6 @@ class RegistrationContainer extends React.Component {
       if (!canWriteBlogPost(this.props.userData)) {
           return <Redirect to="/login"/>
       }
-
       const item = {
             'id': tournament? tournament.id : '',
             'pzbadId': tournament? tournament.pzbadId : '',
@@ -82,12 +83,13 @@ class RegistrationContainer extends React.Component {
             'tournamentPlannerCSV':  tournament ? tournament.tournamentPlannerCSV : '',
             'season':  tournament ? tournament.season : ''
     };
+      console.log(item);
 
-    if(tournament && this.props.match.params.id){
-        return <EditTournamentForm history={history} match={this.props.match} initialValues={item} playerCategories={playerCategories} clubs={clubs} tournamentUpdate={tournamentUpdate} lastSeason={lastSeason}/>;
+      if(tournament && this.props.match.params.id){
+        return <EditTournamentForm history={history} match={this.props.match} initialValues={item} playerCategories={playerCategories} clubs={clubs} tournamentUpdate={tournamentUpdate} lastSeason={lastSeason} seasons={seasons}/>;
     }
 
-    return <RegisterTournamentForm history={history} match={this.props.match} playerCategories={playerCategories} clubs={clubs} tournamentRegister={tournamentRegister} lastSeason={lastSeason}/>;
+    return <RegisterTournamentForm history={history} match={this.props.match} playerCategories={playerCategories} clubs={clubs} tournamentRegister={tournamentRegister} lastSeason={lastSeason} seasons={seasons}/>;
   }
 }
 
