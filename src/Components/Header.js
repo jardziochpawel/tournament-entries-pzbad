@@ -25,7 +25,7 @@ export default class Header extends React.Component {
     const month = moment(date).format('MM');
 
     return (
-      <nav className="navbar navbar-expand-lg navbar-dark fixed-top bg-pzbad">
+      <nav className="navbar navbar-expand-lg navbar-dark fixed-top" style={{backgroundColor: '#02327a'}}>
         <a href="http://pzbad.pl" className="navbar-brand" >
             <img src={Logo} alt="PZBAD"/>
         </a>
