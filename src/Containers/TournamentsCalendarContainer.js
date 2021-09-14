@@ -140,6 +140,7 @@ class TournamentsCalendarContainer extends React.Component {
               <ButtonView type="button" className="btn btn-secondary" name='5' onClick={()=>this.changeCategory(5)}>JM</ButtonView>
               <ButtonView type="button" className="btn btn-secondary" name='7' onClick={()=>this.changeCategory(7)}>M</ButtonView>
               <ButtonView type="button" className="btn btn-secondary" name='10' onClick={()=>this.changeCategory(10)}>MM</ButtonView>
+              <ButtonView type="button" className="btn btn-secondary" name='30' onClick={()=>this.changeCategory(30)}>ML</ButtonView>
             </div>
           {isFetching && <Spinner/>}
           {!isFetching &&
