@@ -141,6 +141,9 @@ class ClubContainer extends React.Component {
                     <button type="button" className={1 === Number(match.params.id) ? "btn btn-secondary active disabled" : "btn btn-secondary"}
                             onClick={()=>this.changeCategory(1)}
                     >E</button>
+                    <button type="button" className={30 === Number(match.params.id) ? "btn btn-secondary active disabled" : "btn btn-secondary" }
+                            onClick={()=>this.changeCategory(30)}
+                    >ML</button>
                     <button type="button" className={2 === Number(match.params.id) ? "btn btn-secondary active disabled" : "btn btn-secondary" }
                             onClick={()=>this.changeCategory(2)}
                     >J</button>
@@ -153,9 +156,6 @@ class ClubContainer extends React.Component {
                     <button type="button" className={10 === Number(match.params.id) ? "btn btn-secondary active disabled" : "btn btn-secondary" }
                             onClick={()=>this.changeCategory(10)}
                     >MM</button>
-                    <button type="button" className={30 === Number(match.params.id) ? "btn btn-secondary active disabled" : "btn btn-secondary" }
-                            onClick={()=>this.changeCategory(30)}
-                    >ML</button>
                 </div>
             </div>
             <div className='col-6 '>
